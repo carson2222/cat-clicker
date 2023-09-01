@@ -1,0 +1,49 @@
+@use "../abstracts/index" as *;
+
+.header {
+  background-color: $main-white;
+  max-height: 10rem;
+  border-bottom: $main-border-black;
+
+  display: flex;
+  justify-content: flex-start;
+  .logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+    &__img {
+      max-height: 5rem;
+    }
+
+    &__text {
+      text-align: center;
+    }
+  }
+  .nav {
+    flex: 1;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 2rem;
+
+    &__item {
+      list-style-type: none;
+      font-weight: 600;
+      font-size: 1.5rem;
+      & a,
+      & a:link,
+      & a:visited {
+        text-decoration: none;
+        color: inherit;
+      }
+    }
+
+    &__item:not(:last-child) {
+      margin-right: 5rem;
+    }
+  }
+}

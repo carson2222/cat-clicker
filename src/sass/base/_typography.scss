@@ -1,0 +1,17 @@
+@use "../abstracts/index";
+
+body {
+  font-family: "Archivo", sans-serif;
+  font-weight: 100;
+}
+
+.header {
+  .logo {
+    &__img {
+    }
+
+    &__text {
+      font-family: "Caprasimo", cursive;
+    }
+  }
+}
