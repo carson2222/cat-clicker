@@ -1,1 +1,39 @@
 @use "../abstracts/index" as *;
+
+.content {
+  display: flex;
+
+  .starter {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+
+    margin: 0rem 20rem;
+    &__header {
+    }
+    &__paragraf {
+    }
+
+    &__btn {
+    }
+  }
+
+  .showcase {
+    width: 50%;
+
+    &__item {
+      &--1 {
+      }
+      &--2 {
+      }
+      &--3 {
+      }
+    }
+    &__lvl {
+    }
+    &__image {
+    }
+  }
+}

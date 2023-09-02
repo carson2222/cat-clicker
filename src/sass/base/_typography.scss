@@ -37,3 +37,33 @@ body {
     }
   }
 }
+.content {
+  .starter {
+    &__header {
+      font-family: "Caprasimo", cursive;
+      font-size: 4rem;
+      font-weight: inherit;
+    }
+    &__paragraf {
+      font-size: 1.2rem;
+    }
+
+    &__btn {
+    }
+  }
+}
+
+.showcase {
+  &__item {
+    &--1 {
+    }
+    &--2 {
+    }
+    &--3 {
+    }
+  }
+  &__lvl {
+  }
+  &__image {
+  }
+}
