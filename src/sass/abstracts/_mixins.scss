@@ -1,0 +1,16 @@
+@use "colors" as *;
+
+@mixin underline-hover-black {
+  &:hover {
+    text-decoration: underline solid $main-black;
+  }
+}
+@mixin border-active-black {
+  border: solid 0.2rem rgba(0, 0, 0, 0);
+
+  &:active {
+    text-decoration: none;
+    border: none;
+    border: $active-border-black;
+  }
+}

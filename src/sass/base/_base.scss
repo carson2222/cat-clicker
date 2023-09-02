@@ -10,3 +10,12 @@
 body {
   background-color: $main-beige;
 }
+
+.header {
+  max-height: 10rem;
+  background-color: $main-white;
+  border-bottom: $main-border-black;
+
+  display: flex;
+  justify-content: flex-start;
+}
