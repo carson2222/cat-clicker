@@ -45,10 +45,13 @@ body {
       font-weight: inherit;
     }
     &__paragraf {
-      font-size: 1.2rem;
+      font-size: 1.5rem;
+      line-height: 160%;
     }
 
     &__btn {
+      font-size: 1.1rem;
+      font-weight: 500;
     }
   }
 }

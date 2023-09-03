@@ -9,16 +9,39 @@
 
 body {
   background-color: $main-beige;
+  width: 100vw;
+  height: 100vh;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+// Test, to remove soon
+img {
+  width: 50px;
+  height: auto;
 }
 
-.header {
-  max-height: 10rem;
+.header,
+.footer {
+  flex: 0 0 5%;
+
   background-color: $main-white;
+}
+.header {
   border-bottom: $main-border-black;
 
   display: flex;
   justify-content: flex-start;
 }
-.content{
-  
+.content {
+  height: auto;
+  flex: 1;
+}
+.footer {
+  border-top: $main-border-black;
+
+  display: flex;
 }
