@@ -1,5 +1,5 @@
 @use "../abstracts/index" as *;
-
+@import "./btn-2d";
 .content {
   display: flex;
 
@@ -17,37 +17,31 @@
     &__paragraf {
       margin: 2rem 3rem 2rem 0;
     }
-
-    &__btn {
-      margin-left: 6rem;
-      color: rgba($color: $main-black, $alpha: 0.7);
-      width: 8rem;
-      height: 2.5rem;
-      @include border-active-black;
-      border: solid 0.15rem $main-black;
-      background-color: $main-white;
-
-      transition: box-shadow 0.2s;
-      &:hover {
-        box-shadow: inset 0 0 0.5rem $main-grey;
-      }
-    }
   }
 
   .showcase {
     width: 50%;
+    position: relative;
 
     &__item {
+      position: absolute;
       &--1 {
+        top: 10%;
       }
       &--2 {
+        top: 25%;
+        left: 20%;
       }
       &--3 {
+        top: 40%;
+        left: 40%;
       }
     }
     &__lvl {
     }
     &__image {
+      max-width: 400px;
+      height: auto;
     }
   }
 }
