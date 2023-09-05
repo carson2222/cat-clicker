@@ -6,7 +6,17 @@
   margin: 0;
   box-sizing: border-box;
 }
-
+html {
+  @media only screen and (max-width: 1500px) {
+    font-size: 90%;
+  }
+  @media only screen and (max-width: 1100px) {
+    font-size: 80%;
+  }
+  @media only screen and (max-width: 800px) {
+    font-size: 70%;
+  }
+}
 body {
   background-color: $main-beige;
   width: 100vw;
@@ -27,9 +37,19 @@ body {
 }
 .header {
   border-bottom: $main-border-black;
+  width: 100%;
 
   display: flex;
   justify-content: flex-start;
+
+  @media only screen and (max-width: 1000px) {
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    & > * {
+      width: 100%;
+    }
+  }
 }
 .content {
   height: auto;

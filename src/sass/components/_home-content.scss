@@ -2,46 +2,70 @@
 @import "./btn-2d";
 .content {
   display: flex;
-
+  flex-wrap: wrap;
   .starter {
-    width: 50%;
+    flex: 1 1 40%;
 
     display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
-    padding: 7% 10%;
-    padding-right: 15%;
+
     &__header {
     }
     &__paragraf {
-      margin: 2rem 3rem 2rem 0;
+      padding: 5% 20% 0 20%;
+    }
+    @media only screen and (max-width: 1000px) {
+      &__paragraf {
+        padding: 5% 30% 0 30%;
+        text-align: center;
+      }
     }
   }
 
   .showcase {
-    width: 50%;
     position: relative;
+    display: flex;
+    width: 60%;
+    height: auto;
 
     &__item {
       position: absolute;
+      width: calc(15rem + 10%);
+      border: $thin-border-black;
       &--1 {
         top: 10%;
+        left: 10%;
       }
       &--2 {
         top: 25%;
-        left: 20%;
+        left: 30%;
       }
       &--3 {
         top: 40%;
-        left: 40%;
+        left: 50%;
       }
     }
     &__lvl {
     }
     &__image {
-      max-width: 400px;
+      width: 100%;
       height: auto;
+    }
+    @media only screen and (max-width: 1000px) {
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      gap: 5%;
+      &__item {
+        position: static;
+        width: 25%;
+      }
+      &__image {
+        width: 100%;
+        height: auto;
+      }
     }
   }
 }
