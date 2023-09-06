@@ -1,8 +1,6 @@
 @use "../abstracts/index" as *;
 @import "./btn-2d";
 .content {
-  display: flex;
-  flex-wrap: wrap;
   .starter {
     flex: 1 1 40%;
 
@@ -18,7 +16,7 @@
     }
     @media only screen and (max-width: 1000px) {
       &__paragraf {
-        padding: 5% 30% 0 30%;
+        padding: 1% 30% 0 30%;
         text-align: center;
       }
     }
@@ -37,17 +35,46 @@
       &--1 {
         top: 10%;
         left: 10%;
+        & p {
+          background-color: $pastel-green;
+        }
       }
       &--2 {
         top: 25%;
         left: 30%;
+        & p {
+          background-color: $pastel-yellow;
+        }
       }
       &--3 {
         top: 40%;
         left: 50%;
+        & p {
+          background-color: $pastel-orange;
+        }
       }
     }
     &__lvl {
+      position: absolute;
+      width: 7rem;
+      height: 2.25rem;
+      top: -7%;
+      left: calc(30% + 10vw);
+      border: $thinest-border-black;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      // @media only screen and (max-width: 900px) {
+      //   left: 70%;
+      //   width: 6rem;
+      //   height: 2rem;
+      // }
+      @media only screen and (max-width: 600px) {
+        left: calc(10% + 10vw);
+        width: 5rem;
+        height: 1.75rem;
+      }
     }
     &__image {
       width: 100%;
@@ -59,8 +86,10 @@
       justify-content: center;
       gap: 5%;
       &__item {
-        position: static;
+        position: relative;
         width: 25%;
+        top: 0;
+        left: 0;
       }
       &__image {
         width: 100%;

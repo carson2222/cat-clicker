@@ -28,7 +28,7 @@ body {
 
     &__item {
       font-weight: 600;
-      font-size: 2rem;
+      font-size: calc(0.5rem + 1vw + 1vh);
 
       & a,
       & a:link,
@@ -53,6 +53,12 @@ body {
         font-size: 1.75rem;
         line-height: 130%;
       }
+    }
+  }
+  .showcase {
+    &__lvl {
+      font-weight: 600;
+      font-size: 1.25rem;
     }
   }
 }

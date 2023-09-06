@@ -54,6 +54,9 @@ body {
 .content {
   height: auto;
   flex: 1;
+
+  display: flex;
+  flex-wrap: wrap;
 }
 .footer {
   border-top: $main-border-black;

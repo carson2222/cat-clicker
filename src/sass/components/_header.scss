@@ -46,10 +46,10 @@
     &__item:not(:last-child) {
       margin-right: 5rem;
     }
+
     @media only screen and (max-width: 1000px) {
-      padding: 0 6rem;
       justify-content: space-around;
-      & > * {
+      &__item:not(:last-child) {
         margin-right: 0;
       }
     }

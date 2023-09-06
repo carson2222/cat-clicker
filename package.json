@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "parcel src/index.html",
+    "dev:home": "parcel src/home.html",
+    "dev:game": "parcel src/game.html",
     "build": "parcel build src/index.html"
   },
   "author": "",

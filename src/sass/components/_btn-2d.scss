@@ -1,3 +1,5 @@
+@use "../base/animations" as *;
+@use "../abstracts/index" as *;
 .btn-2d {
   background-color: $main-white;
 
@@ -10,6 +12,7 @@
   border: solid 0.15rem $main-black;
 
   overflow: hidden;
+  cursor: pointer;
   & > * {
     display: inline-block;
     height: 100%;
@@ -22,12 +25,8 @@
     left: 0;
     top: -100%;
   }
-  &:hover {
-    background-image: linear-gradient(
-      to left,
-      var(--color-primary-light),
-      var(--color-primary-dark)
-    );
+  &:active {
+    animation: 0.2s buttonClick;
   }
   &:hover &__visible {
     transform: translateY(100%);
