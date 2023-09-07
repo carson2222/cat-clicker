@@ -6,7 +6,8 @@
   "scripts": {
     "dev:home": "parcel src/home.html",
     "dev:game": "parcel src/game.html",
-    "build": "parcel build src/index.html"
+    "build:home": "parcel build src/home.html",
+    "build:game": "parcel build src/game.html"
   },
   "author": "",
   "license": "ISC",
