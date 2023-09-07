@@ -16,7 +16,8 @@
     }
     @media only screen and (max-width: 1000px) {
       &__paragraf {
-        padding: 1% 30% 0 30%;
+        // padding: 1% 30% 0 30%;
+        padding: 1% clamp(1rem, -10rem + 40vw, 100rem);
         text-align: center;
       }
     }

@@ -28,8 +28,8 @@
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
-    margin-right: 2rem;
-
+    gap: clamp(0.5rem, 1rem + 3vw, 6rem);
+    margin-right: 1rem;
     &__item {
       list-style-type: none;
       @include underline-hover-black;
@@ -44,14 +44,11 @@
     }
 
     &__item:not(:last-child) {
-      margin-right: 5rem;
     }
 
     @media only screen and (max-width: 1000px) {
-      justify-content: space-around;
-      &__item:not(:last-child) {
-        margin-right: 0;
-      }
+      justify-content: center;
+      margin: 0;
     }
   }
 }
