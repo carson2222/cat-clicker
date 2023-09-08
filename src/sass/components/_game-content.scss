@@ -1,0 +1,47 @@
+@use "../abstracts/index" as *;
+@import "./color-smallbox";
+.content {
+  .clicker {
+    &__cat-img {
+    }
+  }
+  .lvl {
+    &__current {
+    }
+    &__bar {
+    }
+  }
+  .shop {
+    &__header {
+    }
+    &__main {
+    }
+    &__item {
+      &--upgrade {
+      }
+      &--shop {
+      }
+      &--quest {
+      }
+    }
+  }
+
+  .pagination {
+    &__left {
+    }
+    &__right {
+    }
+    &--un-active {
+    }
+  }
+}
+.color-smallbox {
+  // position: absolute;
+  // top: -7%;
+  // left: calc(30% + 10vw);
+  @media only screen and (max-width: 600px) {
+    left: calc(10% + 10vw);
+    width: 5rem;
+    height: 1.75rem;
+  }
+}

@@ -48,10 +48,6 @@ body {
     }
   }
   .showcase {
-    &__lvl {
-      font-weight: 600;
-      font-size: 1.25rem;
-    }
   }
 }
 .btn-2d {
@@ -59,17 +55,7 @@ body {
   font-size: 1.3rem;
   font-weight: 500;
 }
-.showcase {
-  &__item {
-    &--1 {
-    }
-    &--2 {
-    }
-    &--3 {
-    }
-  }
-  &__lvl {
-  }
-  &__image {
-  }
+.color-smallbox {
+  font-weight: 600;
+  font-size: 1.25rem;
 }
