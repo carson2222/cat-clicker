@@ -1,8 +1,26 @@
 @use "../abstracts/index" as *;
 @import "./color-smallbox";
 .content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+
   .clicker {
+    background-color: $main-white;
+    height: 80%;
+    width: 40%;
+    border: $thin-border-black;
+
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+
     &__cat-img {
+      margin: 0 auto;
+      width: 25rem;
+      height: auto;
     }
   }
   .lvl {
@@ -12,7 +30,25 @@
     }
   }
   .shop {
+    background-color: $main-white;
+    height: 80%;
+    width: 20%;
+    border: $thin-border-black;
+
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
     &__header {
+      display: flex;
+      justify-content: center;
+      gap: 5%;
+
+      position: relative;
+      top: -3%;
+      left: -8%;
+      width: 120%;
     }
     &__main {
     }
@@ -27,11 +63,26 @@
   }
 
   .pagination {
-    &__left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+
+    margin-top: auto;
+    height: 6rem;
+    color: $main-black;
+    & > * {
+      cursor: pointer;
+      transition: all 0.2s;
     }
-    &__right {
+    & > *:hover:not(&--inactive) {
+      filter: drop-shadow(0 0 5px $main-grey);
+      font-size: 3rem;
     }
-    &--un-active {
+
+    &--inactive {
+      color: rgba($main-black, 0.2);
+      cursor: default;
     }
   }
 }
@@ -39,9 +90,28 @@
   // position: absolute;
   // top: -7%;
   // left: calc(30% + 10vw);
+  box-sizing: border-box;
+  width: 9rem;
+  cursor: pointer;
+  transition: opacity 1s $easeOutCubic, box-shadow 0.2s 0.2s $easeOutCubic;
   @media only screen and (max-width: 600px) {
     left: calc(10% + 10vw);
     width: 5rem;
     height: 1.75rem;
+  }
+  &--upgrades {
+  }
+  &--items {
+  }
+  &--quests {
+  }
+  &:hover {
+    box-shadow: 0 0 0.8rem rgba($main-black, 0.5);
+  }
+  &--inactive {
+    opacity: 0.3;
+    &:hover {
+      opacity: 0.8;
+    }
   }
 }

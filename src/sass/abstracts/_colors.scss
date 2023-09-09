@@ -12,3 +12,5 @@ $thin-border-black: solid 0.2rem $main-black;
 $thinest-border-black: solid 0.15rem $main-black;
 $active-border-black: dotted 0.2rem $main-black;
 $transparent-border: solid 0.2rem rgba(0, 0, 0, 0);
+
+$easeOutCubic: cubic-bezier(0.33, 1, 0.68, 1);
