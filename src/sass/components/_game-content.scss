@@ -51,14 +51,45 @@
       width: 120%;
     }
     &__main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: clamp(1rem, 2vh, 3rem);
+      height: 100%;
     }
     &__item {
+      width: 80%;
+      flex: 0 0 15%;
+      border: $thinest-border-black;
+
+      display: flex;
+      align-items: center;
       &--upgrade {
       }
       &--shop {
       }
       &--quest {
       }
+    }
+    &__img {
+      aspect-ratio: 1 / 1;
+      max-width: 6rem;
+      max-height: 6rem;
+      margin: 0.2rem;
+    }
+    &__text-box {
+    }
+    &__header {
+    }
+    &__description {
+    }
+    &__buy-box {
+      display: flex;
+      flex-direction: column;
+    }
+    &__price {
+    }
+    &__buy-btn {
     }
   }
 
@@ -87,23 +118,14 @@
   }
 }
 .color-smallbox {
-  // position: absolute;
-  // top: -7%;
-  // left: calc(30% + 10vw);
   box-sizing: border-box;
   width: 9rem;
   cursor: pointer;
-  transition: opacity 1s $easeOutCubic, box-shadow 0.2s 0.2s $easeOutCubic;
+  transition: opacity 0.2s $easeOutCubic, box-shadow 0.6s 0.2s $easeOutCubic;
   @media only screen and (max-width: 600px) {
     left: calc(10% + 10vw);
     width: 5rem;
     height: 1.75rem;
-  }
-  &--upgrades {
-  }
-  &--items {
-  }
-  &--quests {
   }
   &:hover {
     box-shadow: 0 0 0.8rem rgba($main-black, 0.5);
