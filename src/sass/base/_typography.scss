@@ -72,3 +72,24 @@ body {
   font-weight: 600;
   font-size: 1.25rem;
 }
+
+////////////////////////////////
+/// MARK: shop item
+.shop {
+  &__item {
+  }
+  &__text-box {
+  }
+  &__h3 {
+  }
+  &__p {
+    font-size: clamp(0.5rem, 0.2rem + 1vw, 1rem);
+  }
+  &__buy-box {
+    font-weight: 700;
+  }
+  &__price {
+  }
+  &__buy-btn {
+  }
+}

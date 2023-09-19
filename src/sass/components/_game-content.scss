@@ -10,7 +10,7 @@
     background-color: $main-white;
     height: 80%;
     width: 40%;
-    border: $thin-border-black;
+    border: $medium-border-black;
 
     display: flex;
     text-align: center;
@@ -33,7 +33,7 @@
     background-color: $main-white;
     height: 80%;
     width: 20%;
-    border: $thin-border-black;
+    border: $medium-border-black;
 
     position: relative;
 
@@ -58,9 +58,9 @@
       height: 100%;
     }
     &__item {
-      width: 80%;
-      flex: 0 0 15%;
-      border: $thinest-border-black;
+      width: 90%;
+      flex: 0 0 18%;
+      border: $thin-border-black;
 
       display: flex;
       align-items: center;
@@ -73,23 +73,36 @@
     }
     &__img {
       aspect-ratio: 1 / 1;
-      max-width: 6rem;
-      max-height: 6rem;
+      max-width: 4rem;
+      max-height: 4rem;
       margin: 0.2rem;
     }
     &__text-box {
+      flex: 1 0 40%;
     }
-    &__header {
+    &__h3 {
     }
-    &__description {
+    &__p {
     }
     &__buy-box {
       display: flex;
       flex-direction: column;
+      align-items: center;
+      flex: 1;
+      padding-right: 0.5rem;
     }
     &__price {
     }
     &__buy-btn {
+      padding: 0.4rem 2rem;
+      margin-top: 1rem;
+
+      background-color: $pastel-yellow;
+      border-radius: 1rem;
+      border: $thin-border-black;
+
+      cursor: pointer;
+      @include button-hover;
     }
   }
 
@@ -121,19 +134,11 @@
   box-sizing: border-box;
   width: 9rem;
   cursor: pointer;
-  transition: opacity 0.2s $easeOutCubic, box-shadow 0.6s 0.2s $easeOutCubic;
+
   @media only screen and (max-width: 600px) {
     left: calc(10% + 10vw);
     width: 5rem;
     height: 1.75rem;
   }
-  &:hover {
-    box-shadow: 0 0 0.8rem rgba($main-black, 0.5);
-  }
-  &--inactive {
-    opacity: 0.3;
-    &:hover {
-      opacity: 0.8;
-    }
-  }
+  @include button-hover;
 }
