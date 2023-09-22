@@ -59,7 +59,7 @@
     }
     &__item {
       width: 90%;
-      flex: 0 0 18%;
+      flex: 0 0 22%;
       border: $thin-border-black;
 
       display: flex;
@@ -70,15 +70,22 @@
       }
       &--quest {
       }
+
+      padding: 1rem;
     }
     &__img {
       aspect-ratio: 1 / 1;
       max-width: 4rem;
       max-height: 4rem;
       margin: 0.2rem;
+
+      @media only screen and (max-width: 1500px) {
+        display: none;
+      }
     }
     &__text-box {
       flex: 1 0 40%;
+      margin: 0.2rem;
     }
     &__h3 {
     }
@@ -89,20 +96,28 @@
       flex-direction: column;
       align-items: center;
       flex: 1;
-      padding-right: 0.5rem;
     }
     &__price {
     }
     &__buy-btn {
-      padding: 0.4rem 2rem;
+      padding: 0.3rem min(1.75rem, 1vw);
       margin-top: 1rem;
 
       background-color: $pastel-yellow;
       border-radius: 1rem;
       border: $thin-border-black;
 
+      font-size: clamp(0.5rem, 3px + 0.75vw, 20rem);
+
+      &__paragraf {
+        // padding: 1% 30% 0 30%;
+        padding: 1% clamp(1rem, -10rem + 40vw, 100rem);
+        text-align: center;
+      }
+
       cursor: pointer;
       @include button-hover;
+      @include button-click;
     }
   }
 
@@ -123,7 +138,11 @@
       filter: drop-shadow(0 0 5px $main-grey);
       font-size: 3rem;
     }
+    & > *:active:not(&--inactive) {
+      filter: drop-shadow(0 0 5px rgba($main-grey, 0.5));
 
+      font-size: 2.75rem;
+    }
     &--inactive {
       color: rgba($main-black, 0.2);
       cursor: default;
@@ -141,4 +160,5 @@
     height: 1.75rem;
   }
   @include button-hover;
+  @include button-click;
 }
