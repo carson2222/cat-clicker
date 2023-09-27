@@ -21,4 +21,18 @@
   &--orange {
     background-color: $pastel-orange;
   }
+
+  &--btn {
+    box-sizing: border-box;
+    width: 9rem;
+    cursor: pointer;
+
+    @media only screen and (max-width: 600px) {
+      left: calc(10% + 10vw);
+      width: 5rem;
+      height: 1.75rem;
+    }
+    @include button-hover;
+    @include button-click;
+  }
 }

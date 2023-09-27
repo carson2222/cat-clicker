@@ -1,4 +1,4 @@
-@use "colors" as *;
+@use "variables" as *;
 
 @mixin underline-hover-black {
   &:hover {

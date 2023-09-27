@@ -1,0 +1,63 @@
+.item-shop {
+  width: 90%;
+  flex: 0 0 22%;
+  border: $thin-border-black;
+
+  display: flex;
+  align-items: center;
+  &--upgrade {
+  }
+  &--shop {
+  }
+  &--quest {
+  }
+
+  padding: 1rem;
+
+  &__img {
+    aspect-ratio: 1 / 1;
+    max-width: 4rem;
+    max-height: 4rem;
+    margin: 0.2rem;
+
+    @media only screen and (max-width: 1500px) {
+      display: none;
+    }
+  }
+  &__text-box {
+    flex: 1 0 40%;
+    margin: 0.2rem;
+  }
+  &__h3 {
+  }
+  &__p {
+  }
+  &__buy-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+  }
+  &__price {
+  }
+  &__buy-btn {
+    padding: 0.3rem min(1.75rem, 1vw);
+    margin-top: 1rem;
+
+    background-color: $pastel-yellow;
+    border-radius: 1rem;
+    border: $thin-border-black;
+
+    font-size: clamp(0.5rem, 3px + 0.75vw, 20rem);
+
+    &__paragraf {
+      // padding: 1% 30% 0 30%;
+      padding: 1% clamp(1rem, -10rem + 40vw, 100rem);
+      text-align: center;
+    }
+
+    cursor: pointer;
+    @include button-hover;
+    @include button-click;
+  }
+}
