@@ -1,18 +1,39 @@
 .item-shop {
   width: 90%;
   flex: 0 0 22%;
-  border: $thin-border-black;
-
+  // border: $thin-border-black;
+  font-weight: 400;
   display: flex;
   align-items: center;
-  &--upgrade {
-  }
-  &--shop {
-  }
-  &--quest {
-  }
-
   padding: 1rem;
+  position: relative;
+  &:after {
+    // transform: scale(1.02);
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: $green-gradient;
+    background-size: 300% 300%;
+    // clip-path: polygon(
+    //   0% 100%,
+    //   3px 100%,
+    //   3px 3px,
+    //   calc(100% - 3px) 3px,
+    //   calc(100% - 3px) calc(100% - 3px),
+    //   3px calc(100% - 3px),
+    //   3px 100%,
+    //   100% 100%,
+    //   100% 0%,
+    //   0% 0%
+    // );
+  }
+  &:after {
+    animation: frame-enter 1s forwards ease-in-out reverse,
+      gradient-animation 4s ease-in-out infinite;
+  }
 
   &__img {
     aspect-ratio: 1 / 1;
@@ -29,6 +50,8 @@
     margin: 0.2rem;
   }
   &__h3 {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
   }
   &__p {
   }
@@ -41,10 +64,11 @@
   &__price {
   }
   &__buy-btn {
+    font-weight: 500;
+
     padding: 0.3rem min(1.75rem, 1vw);
     margin-top: 1rem;
 
-    background-color: $pastel-yellow;
     border-radius: 1rem;
     border: $thin-border-black;
 
@@ -57,7 +81,102 @@
     }
 
     cursor: pointer;
-    @include button-hover;
+    @include button-hover-up;
     @include button-click;
+  }
+
+  &--upgrade &__buy-btn {
+    background-color: $pastel-yellow;
+  }
+  &--shop &__buy-btn {
+    background-color: $pastel-yellow;
+  }
+  &--quest &__buy-btn {
+    background-color: $pastel-yellow;
+  }
+}
+/* motion */
+@keyframes gradient-animation {
+  0% {
+    background-position: 00% 0%;
+  }
+  50% {
+    background-position: 150% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+@keyframes frame-enter {
+  0% {
+    clip-path: polygon(
+      0% 100%,
+      3px 100%,
+      3px 3px,
+      calc(100% - 3px) 3px,
+      calc(100% - 3px) calc(100% - 3px),
+      3px calc(100% - 3px),
+      3px 100%,
+      100% 100%,
+      100% 0%,
+      0% 0%
+    );
+  }
+  25% {
+    clip-path: polygon(
+      0% 100%,
+      3px 100%,
+      3px 3px,
+      calc(100% - 3px) 3px,
+      calc(100% - 3px) calc(100% - 3px),
+      calc(100% - 3px) calc(100% - 3px),
+      calc(100% - 3px) 100%,
+      100% 100%,
+      100% 0%,
+      0% 0%
+    );
+  }
+  50% {
+    clip-path: polygon(
+      0% 100%,
+      3px 100%,
+      3px 3px,
+      calc(100% - 3px) 3px,
+      calc(100% - 3px) 3px,
+      calc(100% - 3px) 3px,
+      calc(100% - 3px) 3px,
+      calc(100% - 3px) 3px,
+      100% 0%,
+      0% 0%
+    );
+  }
+  75% {
+    -webkit-clip-path: polygon(
+      0% 100%,
+      3px 100%,
+      3px 3px,
+      3px 3px,
+      3px 3px,
+      3px 3px,
+      3px 3px,
+      3px 3px,
+      3px 0%,
+      0% 0%
+    );
+  }
+  100% {
+    -webkit-clip-path: polygon(
+      0% 100%,
+      3px 100%,
+      3px 100%,
+      3px 100%,
+      3px 100%,
+      3px 100%,
+      3px 100%,
+      3px 100%,
+      3px 100%,
+      0% 100%
+    );
   }
 }

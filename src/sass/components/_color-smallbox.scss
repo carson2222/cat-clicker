@@ -32,7 +32,8 @@
       width: 5rem;
       height: 1.75rem;
     }
-    @include button-hover;
+    @include button-hover-up;
     @include button-click;
   }
+  @include button-hover-opacity;
 }

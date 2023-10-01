@@ -14,13 +14,15 @@
     border: $active-border-black;
   }
 }
-@mixin button-hover {
-  transition: opacity 0.2s $easeOutCubic, box-shadow 0.6s $easeOutCubic,
+@mixin button-hover-up {
+  transition: opacity 0.2s $easeOutCubic, box-shadow 0.3s $easeOutCubic,
     transform 0.2s $easeOutCubic;
   &:hover {
     transform: translateY(-3px);
     box-shadow: 0 0.5rem 0.8rem rgba($main-black, 0.3);
   }
+}
+@mixin button-hover-opacity {
   &--inactive {
     opacity: 0.3;
     &:hover {
