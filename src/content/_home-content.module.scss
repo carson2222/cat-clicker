@@ -1,6 +1,6 @@
-@use "../abstracts/index" as *;
+@use "../sass/abstracts/index" as *;
 @import "../components/buttons";
-@import "../components/color-smallbox";
+
 .content {
   .starter {
     flex: 1 1 40%;
@@ -30,24 +30,23 @@
     width: 60%;
     height: auto;
 
-    &__item {
+    & .item {
       position: absolute;
       width: calc(15rem + 10%);
-      border: $medium-border-black;
-      &--1 {
-        top: 10%;
-        left: 10%;
-      }
-      &--2 {
-        top: 25%;
-        left: 30%;
-      }
-      &--3 {
-        top: 40%;
-        left: 50%;
-      }
+      // border: $medium-border-black;
     }
-
+    & .item--1 {
+      top: 10%;
+      left: 10%;
+    }
+    & .item--2 {
+      top: 25%;
+      left: 30%;
+    }
+    & .item--3 {
+      top: 40%;
+      left: 50%;
+    }
     &__image {
       width: 100%;
       height: auto;
@@ -68,15 +67,5 @@
         height: auto;
       }
     }
-  }
-}
-.color-smallbox {
-  position: absolute;
-  top: -7%;
-  left: calc(30% + 10vw);
-  @media only screen and (max-width: 600px) {
-    left: calc(10% + 10vw);
-    width: 5rem;
-    height: 1.75rem;
   }
 }

@@ -11,7 +11,16 @@
   //   width: 6rem;
   //   height: 2rem;
   // }
-
+  &--home {
+    position: absolute;
+    top: -7%;
+    left: calc(30% + 10vw);
+    @media only screen and (max-width: 600px) {
+      left: calc(10% + 10vw);
+      width: 5rem;
+      height: 1.75rem;
+    }
+  }
   &--green {
     background-color: $pastel-green;
   }
