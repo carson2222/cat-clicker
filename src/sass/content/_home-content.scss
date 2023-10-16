@@ -1,6 +1,6 @@
 @use "../abstracts/index" as *;
-@import "./buttons";
-@import "./color-smallbox";
+@import "../components/buttons";
+@import "../components/color-smallbox";
 .content {
   .starter {
     flex: 1 1 40%;

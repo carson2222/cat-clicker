@@ -1,7 +1,9 @@
 import React from "react";
-import discordIcon from "./images/discord_icon.png";
-import githubIcon from "./images/github_icon.png";
-import linkedinIcon from "./images/linkedin_icon.png";
+import discordIcon from "../../images/discord_icon.png";
+import githubIcon from "../../images/github_icon.png";
+import linkedinIcon from "../../images/linkedin_icon.png";
+import "./_footer.scss";
+
 export function Footer({}) {
   return (
     <footer className="footer">
