@@ -2,6 +2,12 @@
 @import "../components/buttons";
 
 .content {
+  height: auto;
+  flex: 1;
+
+  display: flex;
+  flex-wrap: wrap;
+
   .starter {
     flex: 1 1 40%;
 

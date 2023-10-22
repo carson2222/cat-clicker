@@ -4,6 +4,9 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  flex: 0 0 5%;
+  border-top: $main-border-black;
+  background-color: $main-white;
   &__text {
   }
   &__icons-box {
