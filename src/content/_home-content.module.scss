@@ -17,60 +17,22 @@
     flex-direction: column;
 
     &__header {
+      font-family: "Caprasimo", cursive;
+      font-size: 4rem;
+      font-weight: inherit;
     }
     &__paragraf {
       padding: 5% 20% 0 20%;
+      font-size: 1.5rem;
+      line-height: 160%;
     }
     @media only screen and (max-width: 1000px) {
       &__paragraf {
         // padding: 1% 30% 0 30%;
         padding: 1% clamp(1rem, -10rem + 40vw, 100rem);
         text-align: center;
-      }
-    }
-  }
-
-  .showcase {
-    position: relative;
-    display: flex;
-    width: 60%;
-    height: auto;
-
-    & .item {
-      position: absolute;
-      width: calc(15rem + 10%);
-      // border: $medium-border-black;
-    }
-    & .item--1 {
-      top: 10%;
-      left: 10%;
-    }
-    & .item--2 {
-      top: 25%;
-      left: 30%;
-    }
-    & .item--3 {
-      top: 40%;
-      left: 50%;
-    }
-    &__image {
-      width: 100%;
-      height: auto;
-    }
-    @media only screen and (max-width: 1000px) {
-      width: 100%;
-      align-items: center;
-      justify-content: center;
-      gap: 5%;
-      &__item {
-        position: relative;
-        width: 25%;
-        top: 0;
-        left: 0;
-      }
-      &__image {
-        width: 100%;
-        height: auto;
+        font-size: 1.75rem;
+        line-height: 130%;
       }
     }
   }

@@ -7,51 +7,8 @@ body {
   font-weight: 100;
 }
 
-.header {
-  .logo {
-    &__img {
-    }
-
-    &__text {
-      font-family: "Caprasimo", cursive;
-      font-size: clamp(1rem, 2rem + 2vw, 3rem);
-      font-weight: inherit;
-    }
-  }
-
-  .nav {
-    &__item {
-      font-weight: 600;
-      font-size: clamp(0.5rem, 0.5rem + 3vw, 2rem);
-      & a,
-      & a:link,
-      & a:visited {
-        text-align: center;
-      }
-    }
-  }
-}
 ////////////////////////////////
 /// MARK: Homepage content
-.content {
-  .starter {
-    &__header {
-      font-family: "Caprasimo", cursive;
-      font-size: 4rem;
-      font-weight: inherit;
-    }
-    &__paragraf {
-      font-size: 1.5rem;
-      line-height: 160%;
-    }
-    @media only screen and (max-width: 1000px) {
-      &__paragraf {
-        font-size: 1.75rem;
-        line-height: 130%;
-      }
-    }
-  }
-}
 
 ////////////////////////////////
 /// MARK: Game Page content
@@ -61,27 +18,13 @@ body {
 
 ////////////////////////////////
 /// MARK: button 2d animated
-.btn-2d {
-  color: rgba($main-black, 0.7);
-  font-size: 1.3rem;
-  font-weight: 500;
-}
+
 ////////////////////////////////
 /// MARK: color smallbox
-.color-smallbox {
-  font-weight: 600;
-  font-size: 1.25rem;
-}
 
 ////////////////////////////////
 /// MARK: shop item
 .shop {
-  &__item {
-  }
-  &__text-box {
-  }
-  &__h3 {
-  }
   &__p {
     font-size: clamp(0.5rem, 0.2rem + 1vw, 1rem);
   }

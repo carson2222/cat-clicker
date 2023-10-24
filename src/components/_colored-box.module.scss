@@ -1,0 +1,54 @@
+@import "../sass/base/animations";
+@import "../sass/abstracts";
+
+.colorBox {
+  width: 7rem;
+  height: 2.25rem;
+  border: $thin-border-black;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 600;
+  font-size: 1.25rem;
+  @include button-hover-opacity;
+  // @media only screen and (max-width: 900px) {
+  //   left: 70%;
+  //   width: 6rem;
+  //   height: 2rem;
+  // }
+  &_home {
+    position: absolute;
+    top: -7%;
+    left: calc(30% + 10vw);
+    @media only screen and (max-width: 600px) {
+      left: calc(10% + 10vw);
+      width: 5rem;
+      height: 1.75rem;
+    }
+  }
+  &_green {
+    background-color: $pastel-green;
+  }
+  &_yellow {
+    background-color: $pastel-yellow;
+  }
+  &_orange {
+    background-color: $pastel-orange;
+  }
+
+  &_btn {
+    box-sizing: border-box;
+    width: 9rem;
+    cursor: pointer;
+
+    @media only screen and (max-width: 600px) {
+      left: calc(10% + 10vw);
+      width: 5rem;
+      height: 1.75rem;
+    }
+    @include button-hover-up;
+    @include button-click;
+  }
+}

@@ -33,6 +33,10 @@
 
       @include underline-hover-black;
       @include border-active-black;
+
+      font-family: "Caprasimo", cursive;
+      font-size: clamp(1rem, 2rem + 2vw, 3rem);
+      font-weight: inherit;
     }
   }
   .nav {
@@ -48,16 +52,15 @@
       list-style-type: none;
       @include underline-hover-black;
       @include border-active-black;
-
+      font-weight: 600;
+      font-size: clamp(0.5rem, 0.5rem + 3vw, 2rem);
       & a,
       & a:link,
       & a:visited {
         text-decoration: none;
         color: inherit;
+        text-align: center;
       }
-    }
-
-    &__item:not(:last-child) {
     }
 
     @media only screen and (max-width: 1000px) {
