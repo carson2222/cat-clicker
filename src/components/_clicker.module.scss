@@ -1,0 +1,25 @@
+@use "../sass/abstracts" as *;
+
+.clicker {
+  background-color: $main-white;
+  height: 80%;
+  width: 40%;
+  border: $medium-border-black;
+
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  flex-direction: column;
+
+  &_catImg {
+    margin: 0 auto;
+    width: 25rem;
+    height: auto;
+  }
+}
+.lvl {
+  &_current {
+  }
+  &_bar {
+  }
+}

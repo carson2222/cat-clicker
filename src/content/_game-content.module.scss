@@ -1,34 +1,10 @@
-@use "../abstracts/index" as *;
-@import "./color-smallbox";
-@import "./shop";
+@use "../sass/abstracts" as *;
 
 .content {
+  height: auto;
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 3rem;
-
-  .clicker {
-    background-color: $main-white;
-    height: 80%;
-    width: 40%;
-    border: $medium-border-black;
-
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    flex-direction: column;
-
-    &__cat-img {
-      margin: 0 auto;
-      width: 25rem;
-      height: auto;
-    }
-  }
-  .lvl {
-    &__current {
-    }
-    &__bar {
-    }
-  }
 }

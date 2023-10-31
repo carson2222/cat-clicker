@@ -1,9 +1,11 @@
 import React from "react";
+import classes from "./_buttons.module.scss";
+console.log(classes);
 export function Btn2d({ content1, content2 }) {
   return (
-    <button className="btn-2d">
-      <span className="btn-2d__visible">{content1}</span>
-      <span className="btn-2d__invisible">{content2}</span>
+    <button className={classes.btn2d}>
+      <span className={classes.btn2d_visible}>{content1}</span>
+      <span className={classes.btn2d_invisible}>{content2}</span>
     </button>
   );
 }

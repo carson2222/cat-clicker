@@ -1,4 +1,4 @@
-.item-shop {
+.shopItem {
   width: 90%;
   flex: 0 0 22%;
   // border: $thin-border-black;
@@ -31,11 +31,10 @@
     // );
   }
   &:after {
-    animation: frame-enter 1s forwards ease-in-out reverse,
-      gradient-animation 4s ease-in-out infinite;
+    animation: frame-enter 1s forwards ease-in-out reverse, gradient-animation 4s ease-in-out infinite;
   }
 
-  &__img {
+  &_img {
     aspect-ratio: 1 / 1;
     max-width: 4rem;
     max-height: 4rem;
@@ -45,25 +44,25 @@
       display: none;
     }
   }
-  &__text-box {
+  &_textBox {
     flex: 1 0 40%;
     margin: 0.2rem;
   }
-  &__h3 {
+  &_h3 {
     margin-bottom: 0.5rem;
     font-weight: 600;
   }
-  &__p {
+  &_p {
   }
-  &__buy-box {
+  &_infoBox {
     display: flex;
     flex-direction: column;
     align-items: center;
     flex: 1;
   }
-  &__price {
+  &_price {
   }
-  &__buy-btn {
+  &_buyBtn {
     font-weight: 500;
 
     padding: 0.3rem min(1.75rem, 1vw);
@@ -74,7 +73,7 @@
 
     font-size: clamp(0.5rem, 3px + 0.75vw, 20rem);
 
-    &__paragraf {
+    &_paragraf {
       // padding: 1% 30% 0 30%;
       padding: 1% clamp(1rem, -10rem + 40vw, 100rem);
       text-align: center;
@@ -85,13 +84,13 @@
     @include button-click;
   }
 
-  &--upgrade &__buy-btn {
+  &_upgrade &_buyBtn {
     background-color: $pastel-yellow;
   }
-  &--shop &__buy-btn {
+  &_shop &_buyBtn {
     background-color: $pastel-yellow;
   }
-  &--quest &__buy-btn {
+  &_quest &_buyBtn {
     background-color: $pastel-yellow;
   }
 }

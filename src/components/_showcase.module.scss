@@ -31,13 +31,13 @@
     align-items: center;
     justify-content: center;
     gap: 5%;
-    &__item {
+    & .item {
       position: relative;
       width: 25%;
       top: 0;
       left: 0;
     }
-    &__image {
+    & .image {
       width: 100%;
       height: auto;
     }

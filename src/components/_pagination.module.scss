@@ -1,0 +1,30 @@
+@use "../sass/abstracts" as *;
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  font-size: 2.5rem;
+
+  margin-top: auto;
+  height: 6rem;
+  color: $main-black;
+  & > * {
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  & > *:hover:not(&_inactive) {
+    filter: drop-shadow(0 0 5px $main-grey);
+    font-size: 3rem;
+  }
+  & > *:active:not(&_inactive) {
+    filter: drop-shadow(0 0 5px rgba($main-grey, 0.5));
+
+    font-size: 2.75rem;
+  }
+  &_inactive {
+    color: rgba($main-black, 0.2);
+    cursor: default;
+  }
+}
