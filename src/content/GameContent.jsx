@@ -3,7 +3,7 @@ import Shop from "../components/Shop";
 import classes from "./_game-content.module.scss";
 function GameContent() {
   return (
-    <main class={classes.content}>
+    <main className={classes.content}>
       <Clicker />
       <Shop />
     </main>

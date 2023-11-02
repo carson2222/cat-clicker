@@ -1,37 +1,44 @@
+@use "../sass/abstracts" as *;
+
 .shopItem {
   width: 90%;
   flex: 0 0 22%;
-  // border: $thin-border-black;
+  border: $thin-border-black;
   font-weight: 400;
   display: flex;
   align-items: center;
   padding: 1rem;
   position: relative;
-  &:after {
-    // transform: scale(1.02);
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: $green-gradient;
-    background-size: 300% 300%;
-    // clip-path: polygon(
-    //   0% 100%,
-    //   3px 100%,
-    //   3px 3px,
-    //   calc(100% - 3px) 3px,
-    //   calc(100% - 3px) calc(100% - 3px),
-    //   3px calc(100% - 3px),
-    //   3px 100%,
-    //   100% 100%,
-    //   100% 0%,
-    //   0% 0%
-    // );
-  }
-  &:after {
-    animation: frame-enter 1s forwards ease-in-out reverse, gradient-animation 4s ease-in-out infinite;
+
+  &_finished {
+    border: none  ;
+
+    &:after {
+      // transform: scale(1.02);
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: $green-gradient;
+      background-size: 300% 300%;
+      // clip-path: polygon(
+      //   0% 100%,
+      //   3px 100%,
+      //   3px 3px,
+      //   calc(100% - 3px) 3px,
+      //   calc(100% - 3px) calc(100% - 3px),
+      //   3px calc(100% - 3px),
+      //   3px 100%,
+      //   100% 100%,
+      //   100% 0%,
+      //   0% 0%
+      // );
+    }
+    &:after {
+      animation: frame-enter 1s forwards ease-in-out reverse, gradient-animation 4s ease-in-out infinite;
+    }
   }
 
   &_img {
@@ -85,13 +92,13 @@
   }
 
   &_upgrade &_buyBtn {
-    background-color: $pastel-yellow;
+    background-color: $pastel-orange;
   }
   &_shop &_buyBtn {
     background-color: $pastel-yellow;
   }
   &_quest &_buyBtn {
-    background-color: $pastel-yellow;
+    background-color: $pastel-green;
   }
 }
 /* motion */

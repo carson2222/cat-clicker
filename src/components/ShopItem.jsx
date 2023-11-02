@@ -1,15 +1,15 @@
 import classes from "./_shop-item.module.scss";
 
-function ShopItem() {
+function ShopItem({ type = "quest", title = "test", content = "coś tam coś tam", price, finished = false }) {
   return (
-    <div class={`${classes.shopItem} ${classes.shopItem_upgrade}`}>
-      <div class={classes.shopItem_textBox}>
-        <h3 class={classes.shopItem_h3}>Tytuł</h3>
-        <p class="shopItem_p">Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit dolorem vero</p>
+    <div className={`${classes.shopItem} ${classes[`shopItem_${type}`]} ${finished && classes.shopItem_finished}`}>
+      <div className={classes.shopItem_textBox}>
+        <h3 className={classes.shopItem_h3}>{title}</h3>
+        <p className={classes.shopItem_p}>{content}</p>
       </div>
-      <div class="shopItem_infoBox">
-        <p class="shopItem_price">50 🐟</p>
-        <btn class="shopItem_buyBtn">Buy</btn>
+      <div className={classes.shopItem_infoBox}>
+        <p className={classes.shopItem_price}>{`${price} 🐟`}</p>
+        <button className={classes.shopItem_buyBtn}>{type === "quest" ? "0/5" : "Buy"}</button>
       </div>
     </div>
   );

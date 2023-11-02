@@ -1,17 +1,20 @@
 import { Pagination } from "./Pagination";
-import ColoredBox from "./ColoredBox";
 import classes from "./_shop.module.scss";
-
+import ShopItem from "./ShopItem";
+import ShopNav from "./ShopNav";
 function Shop() {
   return (
-    <div class={classes.shop}>
-      <div class={classes.shop_header}>
-        <ColoredBox color="orange" type="btn" textContent="Upgrades" />
-        <ColoredBox color="yellow" type="btn" textContent="Items" inactive={true} />
-        <ColoredBox color="green" type="btn" textContent="Quests" inactive={true} />
+    <div className={classes.shop}>
+      <ShopNav />
+      <div className={classes.shop_main}>
+        <ShopItem
+          type="upgrade"
+          title="Movement"
+          content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam maiores culpa assumenda, distinctio "
+          price="15"
+          finished={false}
+        />
       </div>
-      <div class={classes.shop_main}></div>
-
       <Pagination />
     </div>
   );

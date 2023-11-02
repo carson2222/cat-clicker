@@ -1,6 +1,5 @@
 import React from "react";
 import classes from "./_buttons.module.scss";
-console.log(classes);
 export function Btn2d({ content1, content2 }) {
   return (
     <button className={classes.btn2d}>

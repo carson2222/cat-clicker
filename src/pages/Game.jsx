@@ -4,7 +4,7 @@ import { Footer } from "../components/Footer";
 
 function Game() {
   return (
-    <div class="container">
+    <div className="container">
       <Header />
       <GameContent />
       <Footer />
