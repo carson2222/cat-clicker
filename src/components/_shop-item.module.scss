@@ -11,7 +11,7 @@
   position: relative;
 
   &_finished {
-    border: none  ;
+    border: none;
 
     &:after {
       // transform: scale(1.02);
@@ -94,7 +94,7 @@
   &_upgrade &_buyBtn {
     background-color: $pastel-orange;
   }
-  &_shop &_buyBtn {
+  &_item &_buyBtn {
     background-color: $pastel-yellow;
   }
   &_quest &_buyBtn {

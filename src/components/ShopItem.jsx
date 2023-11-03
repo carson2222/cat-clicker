@@ -1,6 +1,6 @@
 import classes from "./_shop-item.module.scss";
 
-function ShopItem({ type = "quest", title = "test", content = "coś tam coś tam", price, finished = false }) {
+function ShopItem({ type, title, content, price, finished = false, btnContent = "Buy" }) {
   return (
     <div className={`${classes.shopItem} ${classes[`shopItem_${type}`]} ${finished && classes.shopItem_finished}`}>
       <div className={classes.shopItem_textBox}>
@@ -9,7 +9,7 @@ function ShopItem({ type = "quest", title = "test", content = "coś tam coś tam
       </div>
       <div className={classes.shopItem_infoBox}>
         <p className={classes.shopItem_price}>{`${price} 🐟`}</p>
-        <button className={classes.shopItem_buyBtn}>{type === "quest" ? "0/5" : "Buy"}</button>
+        <button className={classes.shopItem_buyBtn}>{btnContent}</button>
       </div>
     </div>
   );
