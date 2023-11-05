@@ -1,4 +1,5 @@
 import classes from "./_shop-item.module.scss";
+import { GiFishbone } from "react-icons/gi";
 
 function ShopItem({ type, title, content, price, finished = false, btnContent = "Buy" }) {
   return (
@@ -8,7 +9,9 @@ function ShopItem({ type, title, content, price, finished = false, btnContent = 
         <p className={classes.shopItem_p}>{content}</p>
       </div>
       <div className={classes.shopItem_infoBox}>
-        <p className={classes.shopItem_price}>{`${price} 🐟`}</p>
+        <p className={classes.shopItem_price}>
+          {price} <GiFishbone size={25} />
+        </p>
         <button className={classes.shopItem_buyBtn}>{btnContent}</button>
       </div>
     </div>
