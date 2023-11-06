@@ -9,7 +9,7 @@ import React from "react";
       discord
       linkedin */
     }
-          <img src="./images/github_icon.png" alt="Github icon" className="footer__icon footer__icon--github" />
+                <img src="./images/github_icon.png" alt="Github icon" className="footer__icon footer__icon--github" />
           <img src="./images/discord_icon.png" alt="Discord icon" className="footer__icon footer__icon--discord" />
           <img src="./images/linkedin_icon.png" alt="Linkedin icon" className="footer__icon footer__icon--linkedin" />
         </div>
