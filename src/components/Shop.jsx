@@ -5,14 +5,17 @@ import ShopNav from "./ShopNav";
 import { useSelector } from "react-redux";
 function Shop() {
   const shop = useSelector((state) => state.shop);
-  console.log();
   return (
     <div className={classes.shop}>
       <ShopNav />
 
       <div className={classes.shop_main}>
-        {shop[shop.activePage].map((el) => {
-          if (el.type === "upgrade") {
+        {shop[shop.activeShop].map((el) => {
+          if (
+            el.type === "upgrade" &&
+            el.id <= shop.page * 4 &&
+            el.id > (shop.page - 1) * 4
+          ) {
             return (
               <ShopItem
                 key={el.id}

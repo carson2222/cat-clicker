@@ -2,10 +2,56 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   value: 0,
-  activePage: "upgrades",
+  activeShop: "upgrades",
+  page: 1,
+  maxPages: 1,
   upgrades: [
     {
       id: "1",
+      type: "upgrade",
+      title: "Upgrade 1",
+      description: "upgrade 1 bla bla bla",
+      initPrice: 1,
+      level: 0,
+      bonus: "click multiplayer",
+      price: null,
+      bonus: null,
+    },
+    {
+      id: "2",
+      type: "upgrade",
+      title: "Upgrade 1",
+      description: "upgrade 1 bla bla bla",
+      initPrice: 1,
+      level: 0,
+      bonus: "click multiplayer",
+      price: null,
+      bonus: null,
+    },
+    {
+      id: "3",
+      type: "upgrade",
+      title: "Upgrade 1",
+      description: "upgrade 1 bla bla bla",
+      initPrice: 1,
+      level: 0,
+      bonus: "click multiplayer",
+      price: null,
+      bonus: null,
+    },
+    {
+      id: "4",
+      type: "upgrade",
+      title: "Upgrade 1",
+      description: "upgrade 1 bla bla bla",
+      initPrice: 1,
+      level: 0,
+      bonus: "click multiplayer",
+      price: null,
+      bonus: null,
+    },
+    {
+      id: "5",
       type: "upgrade",
       title: "Upgrade 1",
       description: "upgrade 1 bla bla bla",
@@ -43,8 +89,10 @@ export const shopSlice = createSlice({
   name: "shop",
   initialState,
   reducers: {
-    setActivePage: (state, action) => {
-      state.activePage = action.payload;
+    setActiveShop: (state, action) => {
+      state.activeShop = action.payload;
+      state.maxPages = Math.ceil(state[state.activeShop].length / 4);
+      state.page = 1;
     },
     upgradesCalc: (state) => {
       state.upgrades.map((el) => {
@@ -52,7 +100,15 @@ export const shopSlice = createSlice({
         el.bonus = 1 + el.level * 0.1;
       });
     },
+    updatePage: (state, action) => {
+      if (
+        state.page + action.payload !== 0 &&
+        state.page + action.payload <= state.maxPages
+      ) {
+        state.page += action.payload;
+      }
+    },
   },
 });
-export const { setActivePage, upgradesCalc } = shopSlice.actions;
+export const { setActiveShop, upgradesCalc, updatePage } = shopSlice.actions;
 export default shopSlice.reducer;

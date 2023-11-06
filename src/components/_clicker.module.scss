@@ -57,10 +57,21 @@
     height: 1.75rem;
     border: $thin-border-black;
     overflow: hidden;
+
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
+    & .percentage {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
     & .fill {
       background-color: $pastel-green;
       width: 0%;
       height: 100%;
+      align-self: flex-start;
     }
   }
 }

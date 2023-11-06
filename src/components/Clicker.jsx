@@ -10,10 +10,14 @@ import {
   calcNextLevel,
 } from "../features/profileSlice";
 import { useEffect } from "react";
+import { setActiveShop } from "../features/shopSlice";
 function Clicker() {
   const profile = useSelector((state) => state.profile);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(setActiveShop("upgrades"));
+  }, []);
   useEffect(() => {
     dispatch(checkLevelUp());
   }, [profile.xp]);
@@ -39,7 +43,6 @@ function Clicker() {
           {profile.xpMultiplier.toFixed(2)}
           <GrLineChart size={50} />
         </h1>
-        <h1>{profile.xp.toFixed(2)}</h1>
       </div>
       <img
         src={catTransparent}
@@ -50,6 +53,9 @@ function Clicker() {
       <div className={classes.lvl}>
         <h2 className={classes.lvl_current}>{profile.level}</h2>
         <div className={classes.lvl_bar}>
+          <i className={classes.percentage}>
+            {Math.floor((profile.xp * 100) / profile.toNextLevel)}%
+          </i>
           <div
             className={classes.fill}
             style={{

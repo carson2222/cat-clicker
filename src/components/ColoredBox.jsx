@@ -1,15 +1,22 @@
 import React from "react";
 import classes from "./_colored-box.module.scss";
 
-function ColoredBox({ color, type = "home", textContent, dispatch, activePage, setActivePage }) {
+function ColoredBox({
+  color,
+  type = "home",
+  textContent,
+  dispatch,
+  activeShop,
+  setActiveShop,
+}) {
   if (type === "btn") {
-    const inactive = activePage !== textContent.toLowerCase();
+    const inactive = activeShop !== textContent.toLowerCase();
     return (
       <p
         className={`${classes.colorBox} ${classes[`colorBox_${type}`]} ${
           inactive ? classes.colorBox_inactive : classes.colorBox_active
         }  ${classes[`colorBox_${color}`]}`}
-        onClick={() => dispatch(setActivePage(textContent.toLowerCase()))}
+        onClick={() => dispatch(setActiveShop(textContent.toLowerCase()))}
       >
         {textContent}
       </p>
@@ -18,7 +25,11 @@ function ColoredBox({ color, type = "home", textContent, dispatch, activePage, s
 
   // home
   return (
-    <p className={`${classes.colorBox} ${classes[`colorBox_${type}`]} ${classes[`colorBox_${color}`]}`}>
+    <p
+      className={`${classes.colorBox} ${classes[`colorBox_${type}`]} ${
+        classes[`colorBox_${color}`]
+      }`}
+    >
       {textContent}
     </p>
   );

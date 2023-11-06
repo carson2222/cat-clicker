@@ -1,9 +1,9 @@
 import ColoredBox from "./ColoredBox";
 import classes from "./_shop.module.scss";
 import { useSelector, useDispatch } from "react-redux";
-import { setActivePage } from "../features/shopSlice";
+import { setActiveShop } from "../features/shopSlice";
 function ShopNav() {
-  const activePage = useSelector((state) => state.shop.activePage);
+  const activeShop = useSelector((state) => state.shop.activeShop);
   const dispatch = useDispatch();
 
   return (
@@ -13,24 +13,24 @@ function ShopNav() {
         type="btn"
         textContent="Upgrades"
         dispatch={dispatch}
-        activePage={activePage}
-        setActivePage={setActivePage}
+        activeShop={activeShop}
+        setActiveShop={setActiveShop}
       />
       <ColoredBox
         color="yellow"
         type="btn"
         textContent="Items"
         dispatch={dispatch}
-        activePage={activePage}
-        setActivePage={setActivePage}
+        activeShop={activeShop}
+        setActiveShop={setActiveShop}
       />
       <ColoredBox
         color="green"
         type="btn"
         textContent="Quests"
         dispatch={dispatch}
-        activePage={activePage}
-        setActivePage={setActivePage}
+        activeShop={activeShop}
+        setActiveShop={setActiveShop}
       />
     </div>
   );
