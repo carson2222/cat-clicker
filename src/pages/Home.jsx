@@ -1,16 +1,21 @@
 import { HomeContent } from "../content/HomeContent";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
-// import cat_transparent from "./images/cat_transparent.png";
-// import potatoes from "./images/potatoes.jpg";
+import { useOutlet } from "react-router-dom";
 
 function Home() {
-  return (
-    <div className="container">
-      <Header />
-      <HomeContent />
-      <Footer />
-    </div>
-  );
+  const outlet = useOutlet();
+  if (!outlet) {
+    return (
+      <>
+        <div className="container">
+          <Header />
+          <HomeContent />
+          <Footer />
+        </div>
+      </>
+    );
+  }
+  return outlet;
 }
 export default Home;

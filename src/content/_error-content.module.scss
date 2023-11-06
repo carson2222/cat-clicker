@@ -1,0 +1,31 @@
+@use "../sass/abstracts/index" as *;
+
+.content {
+  height: auto;
+  flex: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  & h1 {
+    font-family: "Caprasimo", cursive;
+    font-size: calc(2vw + 2vh);
+    font-weight: inherit;
+  }
+  & p {
+    font-size: calc(0.5vw + 0.5vh);
+    font-weight: inherit;
+  }
+  & .errorIcon {
+    cursor: pointer;
+    transition: all 0.2s;
+    margin: 1rem;
+    &:hover {
+      transform: scale(1.2);
+    }
+    &:active {
+      transform: scale(1.05);
+    }
+  }
+}
