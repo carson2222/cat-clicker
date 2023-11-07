@@ -4,6 +4,9 @@ import Home from "./pages/Home";
 import Game from "./pages/Game";
 import Error from "./pages/Error";
 import "./sass/main.scss";
+// react tostify
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // redux imp
 import { store } from "./store";
@@ -31,5 +34,18 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     {/* <Home /> 
     <Game />*/}
     <RouterProvider router={router} />
+    <ToastContainer
+      position="bottom-right"
+      autoClose={2500}
+      limit={3}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="colored"
+    />
   </Provider>
 );

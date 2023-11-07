@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { notify } from "../toastify";
 
 const initialState = {
   money: 0,
@@ -129,12 +130,12 @@ export const gameSlice = createSlice({
     buyUpgrade: (state, action) => {
       const activeUpgrade = state.upgrades.find((x) => x.id === action.payload);
       if (state.money < activeUpgrade.price) {
-        console.log("You can not afford it");
+        notify("error", "You can't afford it 😢");
         return;
       }
       state.money -= activeUpgrade.price;
       activeUpgrade.level++;
-      console.log("Item succesfully purchased");
+      notify("success", "Item successfully purchased 😎");
     },
   },
 });
