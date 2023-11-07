@@ -1,47 +1,52 @@
 import classes from "./_clicker.module.scss";
 import catTransparent from "../images/cat_transparent.png";
 import { GiFishbone } from "react-icons/gi";
-import { GrLineChart } from "react-icons/gr";
+import { FaMoneyBillTrendUp } from "react-icons/fa6";
+import { BsStars } from "react-icons/bs";
+
 import { useDispatch, useSelector } from "react-redux";
 import {
   catClick,
-  updateMultipliers,
+  bonusCounters,
   checkLevelUp,
   calcNextLevel,
-} from "../features/profileSlice";
+  setActiveShop,
+  upgradesCalc,
+} from "../features/gameSlice";
 import { useEffect } from "react";
-import { setActiveShop } from "../features/shopSlice";
 function Clicker() {
-  const profile = useSelector((state) => state.profile);
+  const game = useSelector((state) => state.game);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(setActiveShop("upgrades"));
+    dispatch(upgradesCalc());
   }, []);
   useEffect(() => {
     dispatch(checkLevelUp());
-  }, [profile.xp]);
+  }, [game.xp]);
   useEffect(() => {
-    dispatch(updateMultipliers());
+    dispatch(bonusCounters());
     dispatch(calcNextLevel());
-  }, [profile.level]);
-
-  // console.log(Math.floor((profile.xp * 100) / profile.toNextLevel));
+  }, [game.level]);
+  useEffect(() => {
+    dispatch(bonusCounters());
+  }, [game.upgrades, game.items, game.quests]);
 
   return (
     <div className={classes.clicker}>
       <div className={classes.statistics}>
         <h1>
-          {profile.money.toFixed(2)}
+          {game.money.toFixed(2)}
           <GiFishbone size={50} />
         </h1>
         <h1>
-          {profile.moneyMultiplier.toFixed(2)}
-          <GrLineChart size={50} />
+          {game.moneyMultiplier.toFixed(2)}x
+          <FaMoneyBillTrendUp size={50} />
         </h1>
         <h1>
-          {profile.xpMultiplier.toFixed(2)}
-          <GrLineChart size={50} />
+          {game.xpMultiplier.toFixed(2)}x
+          <BsStars size={50} />
         </h1>
       </div>
       <img
@@ -51,15 +56,15 @@ function Clicker() {
         onClick={() => dispatch(catClick())}
       />
       <div className={classes.lvl}>
-        <h2 className={classes.lvl_current}>{profile.level}</h2>
+        <h2 className={classes.lvl_current}>{game.level}</h2>
         <div className={classes.lvl_bar}>
           <i className={classes.percentage}>
-            {Math.floor((profile.xp * 100) / profile.toNextLevel)}%
+            {Math.floor((game.xp * 100) / game.toNextLevel)}%
           </i>
           <div
             className={classes.fill}
             style={{
-              width: `${Math.floor((profile.xp * 100) / profile.toNextLevel)}%`,
+              width: `${Math.floor((game.xp * 100) / game.toNextLevel)}%`,
             }}
           ></div>
         </div>

@@ -1,10 +1,10 @@
 import React from "react";
 import classes from "./_pagination.module.scss";
-import { updatePage } from "../features/shopSlice";
+import { updatePage } from "../features/gameSlice";
 import { useDispatch, useSelector } from "react-redux";
 export function Pagination({ left, right }) {
   const dispatch = useDispatch();
-  const shop = useSelector((state) => state.shop);
+  const shop = useSelector((state) => state.game);
 
   if (shop.maxPages === 1 && shop.page === 1) {
     left = "inactive";
@@ -18,9 +18,9 @@ export function Pagination({ left, right }) {
     left = "active";
     right = "inactive";
   }
-  if (shop.page !== shop.maxPages && shop.maxPages > 1) {
+  if (shop.page > 1 && shop.page < shop.maxPages) {
     left = "active";
-    right = "inactive";
+    right = "active";
   }
   return (
     <div className={classes.pagination}>

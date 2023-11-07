@@ -1,9 +1,9 @@
 import ColoredBox from "./ColoredBox";
 import classes from "./_shop.module.scss";
 import { useSelector, useDispatch } from "react-redux";
-import { setActiveShop } from "../features/shopSlice";
+import { setActiveShop } from "../features/gameSlice";
 function ShopNav() {
-  const activeShop = useSelector((state) => state.shop.activeShop);
+  const activeShop = useSelector((state) => state.game.activeShop);
   const dispatch = useDispatch();
 
   return (

@@ -3,8 +3,9 @@ import classes from "./_shop.module.scss";
 import ShopItem from "./ShopItem";
 import ShopNav from "./ShopNav";
 import { useSelector } from "react-redux";
+import { buyUpgrade } from "../features/gameSlice";
 function Shop() {
-  const shop = useSelector((state) => state.shop);
+  const shop = useSelector((state) => state.game);
   return (
     <div className={classes.shop}>
       <ShopNav />
@@ -19,11 +20,13 @@ function Shop() {
             return (
               <ShopItem
                 key={el.id}
+                id={el.id}
                 type={el.type}
                 title={el.title}
                 content={el.description}
                 price={el.price}
                 btnContent={`Lvl ${el.level}`}
+                buyFun={buyUpgrade}
               />
             );
           }
