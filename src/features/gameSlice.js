@@ -88,6 +88,7 @@ export const gameSlice = createSlice({
       }
       state.level++;
       state.xp = 0;
+      notify("default", "Level UP! 😺");
     },
     setActiveShop: (state, action) => {
       state.activeShop = action.payload;
@@ -130,12 +131,12 @@ export const gameSlice = createSlice({
     buyUpgrade: (state, action) => {
       const activeUpgrade = state.upgrades.find((x) => x.id === action.payload);
       if (state.money < activeUpgrade.price) {
-        notify("error", "You can't afford it 😢");
+        notify("error", "You can't afford it 😢", 1000);
         return;
       }
       state.money -= activeUpgrade.price;
       activeUpgrade.level++;
-      notify("success", "Item successfully purchased 😎");
+      notify("success", "Item successfully purchased 😎", 1000);
     },
   },
 });
