@@ -39,15 +39,15 @@ function Clicker() {
       <div className={classes.statistics}>
         <h1>
           {game.money.toFixed(2)}
-          <GiFishbone size={50} />
+          <GiFishbone size={35} />
         </h1>
         <h1>
           {game.moneyMultiplier.toFixed(2)}x
-          <FaMoneyBillTrendUp size={50} />
+          <FaMoneyBillTrendUp size={35} />
         </h1>
         <h1>
           {game.xpMultiplier.toFixed(2)}x
-          <BsStars size={50} />
+          <BsStars size={35} />
         </h1>
       </div>
       <img
@@ -59,9 +59,7 @@ function Clicker() {
       <div className={classes.lvl}>
         <h2 className={classes.lvl_current}>{game.level}</h2>
         <div className={classes.lvl_bar}>
-          <i className={classes.percentage}>
-            {Math.floor((game.xp * 100) / game.toNextLevel)}%
-          </i>
+          <i className={classes.percentage}>{Math.floor((game.xp * 100) / game.toNextLevel)}%</i>
           <div
             className={classes.fill}
             style={{

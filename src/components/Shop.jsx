@@ -12,11 +12,7 @@ function Shop() {
 
       <div className={classes.shop_main}>
         {shop[shop.activeShop].map((el) => {
-          if (
-            el.type === "upgrade" &&
-            el.id <= shop.page * 4 &&
-            el.id > (shop.page - 1) * 4
-          ) {
+          if (el.type === "upgrade" && el.id <= shop.page * 4 && el.id > (shop.page - 1) * 4) {
             return (
               <ShopItem
                 key={el.id}
@@ -30,7 +26,7 @@ function Shop() {
               />
             );
           }
-          if (el.type === "item") {
+          if (el.type === "item" && el.id <= shop.page * 4 && el.id > (shop.page - 1) * 4) {
             return (
               <ShopItem
                 key={el.id}

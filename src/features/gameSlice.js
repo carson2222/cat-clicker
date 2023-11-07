@@ -16,23 +16,23 @@ const initialState = {
       id: "1",
       type: "upgrade",
       title: "Money boost",
-      description: "Each upgrade gives you + 0.02x FPC",
+      description: "Each upgrade gives you + 0.05x FPC",
       initPrice: 1,
       price: null,
       level: 0,
       bonusType: "clickMultiplier",
-      bonusPerLvl: 0.02,
+      bonusPerLvl: 0.05,
     },
     {
       id: "2",
       type: "upgrade",
       title: "XP boost",
-      description: "Each upgrade gives you + 0.02x XP ",
+      description: "Each upgrade gives you + 0.05x XP ",
       initPrice: 1,
       price: null,
       level: 0,
       bonusType: "xpMultiplier",
-      bonusPerLvl: 0.02,
+      bonusPerLvl: 0.05,
     },
   ],
   items: [
@@ -58,6 +58,18 @@ const initialState = {
   ],
 };
 
+// delete:
+for (let i = 2; i < 10; i++) {
+  initialState.items.push({
+    id: i,
+    type: "item",
+    title: `Item ${i}`,
+    description: `item ${i} bla bla bla`,
+    price: 1,
+    bonus: "click multiplier",
+    purchased: false,
+  });
+}
 export const gameSlice = createSlice({
   name: "profile",
   initialState,
@@ -87,10 +99,7 @@ export const gameSlice = createSlice({
       });
     },
     updatePage: (state, action) => {
-      if (
-        state.page + action.payload !== 0 &&
-        state.page + action.payload <= state.maxPages
-      ) {
+      if (state.page + action.payload !== 0 && state.page + action.payload <= state.maxPages) {
         state.page += action.payload;
       }
     },
