@@ -123,6 +123,9 @@ export const gameSlice = createSlice({
         console.log("You can not afford it");
         return;
       }
+      state.money -= activeUpgrade.price;
+      activeUpgrade.level++;
+      console.log("Item succesfully purchased");
     },
   },
 });

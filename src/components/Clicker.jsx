@@ -31,6 +31,7 @@ function Clicker() {
   }, [game.level]);
   useEffect(() => {
     dispatch(bonusCounters());
+    dispatch(upgradesCalc());
   }, [game.upgrades, game.items, game.quests]);
 
   return (
