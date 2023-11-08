@@ -9,6 +9,7 @@ export function Pagination({ left, right }) {
   if (shop.maxPages === 1 && shop.page === 1) {
     left = "inactive";
     right = "inactive";
+    return <div className={classes.pagination}></div>;
   }
   if (shop.maxPages > 1 && shop.page === 1) {
     left = "inactive";

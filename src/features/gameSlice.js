@@ -5,6 +5,7 @@ const initialState = {
   money: 0,
   level: 1,
   xp: 0,
+  autoClickPerSec: 0.1,
   moneyMultiplier: 1,
   xpMultiplier: 1,
   toNextLevel: 9999,
@@ -71,6 +72,7 @@ for (let i = 2; i < 10; i++) {
     purchased: false,
   });
 }
+// localStorage.localState = { test: "test" };
 export const gameSlice = createSlice({
   name: "profile",
   initialState,
@@ -101,7 +103,10 @@ export const gameSlice = createSlice({
       });
     },
     updatePage: (state, action) => {
-      if (state.page + action.payload !== 0 && state.page + action.payload <= state.maxPages) {
+      if (
+        state.page + action.payload !== 0 &&
+        state.page + action.payload <= state.maxPages
+      ) {
         state.page += action.payload;
       }
     },

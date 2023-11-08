@@ -30,6 +30,7 @@
     width: 100%;
     align-items: center;
     justify-content: center;
+    padding: 1% 0;
     gap: 5%;
     & .item {
       position: relative;
@@ -39,7 +40,7 @@
     }
     & .image {
       width: 100%;
-      height: auto;
+      height: 100%;
     }
   }
 }

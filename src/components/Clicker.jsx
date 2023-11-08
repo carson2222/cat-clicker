@@ -2,7 +2,8 @@ import classes from "./_clicker.module.scss";
 import catTransparent from "../images/cat_transparent.png";
 import { GiFishbone } from "react-icons/gi";
 import { FaMoneyBillTrendUp } from "react-icons/fa6";
-import { BsStars } from "react-icons/bs";
+import { MdOutlineAutoGraph } from "react-icons/md";
+import { MdOutlineAutorenew } from "react-icons/md";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -14,6 +15,8 @@ import {
   upgradesCalc,
 } from "../features/gameSlice";
 import { useEffect } from "react";
+import { delay } from "../dealy";
+
 function Clicker() {
   const game = useSelector((state) => state.game);
   const dispatch = useDispatch();
@@ -21,6 +24,14 @@ function Clicker() {
   useEffect(() => {
     dispatch(setActiveShop("upgrades"));
     dispatch(upgradesCalc());
+
+    const autoClick = setInterval(async () => {
+      const toClick = document.querySelector("#catClick");
+      toClick.click();
+      toClick.classList.toggle(classes.click);
+      await delay(50);
+      toClick.classList.toggle(classes.click);
+    }, 1000 / game.autoClickPerSec);
   }, []);
   useEffect(() => {
     dispatch(checkLevelUp());
@@ -47,7 +58,11 @@ function Clicker() {
         </h1>
         <h1>
           {game.xpMultiplier.toFixed(2)}x
-          <BsStars size={35} />
+          <MdOutlineAutoGraph size={35} />
+        </h1>
+        <h1>
+          {game.autoClickPerSec.toFixed(2)} CPS
+          <MdOutlineAutorenew size={35} />
         </h1>
       </div>
       <img
@@ -55,11 +70,14 @@ function Clicker() {
         alt="Cat image"
         className={classes.clicker_catImg}
         onClick={() => dispatch(catClick())}
+        id="catClick"
       />
       <div className={classes.lvl}>
         <h2 className={classes.lvl_current}>{game.level}</h2>
         <div className={classes.lvl_bar}>
-          <i className={classes.percentage}>{Math.floor((game.xp * 100) / game.toNextLevel)}%</i>
+          <i className={classes.percentage}>
+            {Math.floor((game.xp * 100) / game.toNextLevel)}%
+          </i>
           <div
             className={classes.fill}
             style={{

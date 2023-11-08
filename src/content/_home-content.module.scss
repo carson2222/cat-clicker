@@ -6,7 +6,7 @@
 
   display: flex;
   flex-wrap: wrap;
-
+  background-color: $main-beige;
   .starter {
     flex: 1 1 40%;
 
@@ -17,12 +17,12 @@
 
     &__header {
       font-family: "Caprasimo", cursive;
-      font-size: 4rem;
+      font-size: max(4rem, 2.5vw + 2.5vh);
       font-weight: inherit;
     }
     &__paragraf {
       padding: 5% 20% 0 20%;
-      font-size: 1.5rem;
+      font-size: max(1.5rem, 1vw + 1vh);
       line-height: 160%;
     }
     @media only screen and (max-width: 1000px) {
