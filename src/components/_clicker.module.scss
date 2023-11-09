@@ -11,6 +11,8 @@
   justify-content: space-around;
   flex-direction: column;
   align-items: center;
+
+  position: relative;
   &_catImg {
     margin: 0 auto;
     height: 35vh;
@@ -76,6 +78,25 @@
       width: 0%;
       height: 100%;
       align-self: flex-start;
+    }
+  }
+}
+
+.item_box {
+  // background-color: red;
+
+  position: absolute;
+
+  width: 20%;
+  height: 10%;
+  & img {
+    position: absolute;
+
+    transition: 0.1s all;
+    &:hover {
+      transform: scale(1.05);
+      filter: drop-shadow(0 0 5px black);
+      z-index: 10;
     }
   }
 }

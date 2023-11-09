@@ -1,6 +1,8 @@
 import classes from "./_clicker.module.scss";
 import catTransparent from "../images/cat_transparent.png";
 
+import catBuilder from "../images/cat_builder.png";
+
 import { useDispatch, useSelector } from "react-redux";
 import {
   catClick,
@@ -14,6 +16,7 @@ import { useEffect, useRef, useState } from "react";
 import { delay } from "../dealy";
 import XpBar from "./XpBar";
 import Statistics from "./Statistics";
+import ItemsBox from "./ItemsBox";
 
 function Clicker() {
   const game = useSelector((state) => state.game);
@@ -57,6 +60,27 @@ function Clicker() {
   return (
     <div className={classes.clicker}>
       <Statistics />
+      <ItemsBox />
+      <div className={classes.item_box} style={{ top: "45%", left: "5%" }}>
+        {/*testArr.map((x) => {
+          return (
+            <img
+              src={catBuilder}
+              alt="cat fishing rod"
+              style={{
+                top: `${
+                  Math.round((Math.floor(Math.random() * 100) - 20) / 30) * 30
+                }%`,
+                left: `${
+                  Math.round((Math.floor(Math.random() * 100) - 20) / 30) * 30
+                }%`,
+                width: "auto",
+                height: "5rem",
+              }}
+            />
+          );
+        }) */}
+      </div>
       <img
         src={catTransparent}
         alt="Cat image"
