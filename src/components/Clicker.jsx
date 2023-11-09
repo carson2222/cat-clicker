@@ -1,9 +1,5 @@
 import classes from "./_clicker.module.scss";
 import catTransparent from "../images/cat_transparent.png";
-import { GiFishbone } from "react-icons/gi";
-import { FaMoneyBillTrendUp } from "react-icons/fa6";
-import { MdOutlineAutoGraph } from "react-icons/md";
-import { MdOutlineAutorenew } from "react-icons/md";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -14,31 +10,44 @@ import {
   setActiveShop,
   upgradesCalc,
 } from "../features/gameSlice";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { delay } from "../dealy";
+import XpBar from "./XpBar";
+import Statistics from "./Statistics";
 
 function Clicker() {
   const game = useSelector((state) => state.game);
   const dispatch = useDispatch();
 
+  const catImage = useRef(null);
+  const timerId = useRef();
+  const [timer, setTimer] = useState(0);
   useEffect(() => {
     dispatch(setActiveShop("upgrades"));
     dispatch(upgradesCalc());
 
-    const autoClick = setInterval(async () => {
-      const toClick = document.querySelector("#catClick");
-      toClick.click();
-      toClick.classList.toggle(classes.click);
-      await delay(50);
-      toClick.classList.toggle(classes.click);
-    }, 1000 / game.autoClickPerSec);
+    // // Global timer
+    // timerId.current = window.setInterval(() => {
+    //   setTimer((prev) => prev - 1);
+    // }, 1000);
+
+    // const autoClick = setInterval(async () => {
+    //   dispatch(catClick());
+    //   // Click animation
+    //   catImage.current.classList.toggle(classes.click);
+    //   await delay(50);
+    //   catImage.current.classList.toggle(classes.click);
+    // }, 1000 / game.autoClickPerSec);
+
+    // return () => {
+    //   clearInterval(timerId.current);
+    //   clearInterval(autoClick);
+    // };
   }, []);
+
   useEffect(() => {
-    dispatch(checkLevelUp());
-  }, [game.xp]);
-  useEffect(() => {
-    dispatch(bonusCounters());
     dispatch(calcNextLevel());
+    dispatch(bonusCounters());
   }, [game.level]);
   useEffect(() => {
     dispatch(bonusCounters());
@@ -47,45 +56,16 @@ function Clicker() {
 
   return (
     <div className={classes.clicker}>
-      <div className={classes.statistics}>
-        <h1>
-          {game.money.toFixed(2)}
-          <GiFishbone size={35} />
-        </h1>
-        <h1>
-          {game.moneyMultiplier.toFixed(2)}x
-          <FaMoneyBillTrendUp size={35} />
-        </h1>
-        <h1>
-          {game.xpMultiplier.toFixed(2)}x
-          <MdOutlineAutoGraph size={35} />
-        </h1>
-        <h1>
-          {game.autoClickPerSec.toFixed(2)} CPS
-          <MdOutlineAutorenew size={35} />
-        </h1>
-      </div>
+      <Statistics />
       <img
         src={catTransparent}
         alt="Cat image"
-        className={classes.clicker_catImg}
+        ref={catImage}
+        className={`${classes.clicker_catImg}`}
         onClick={() => dispatch(catClick())}
         id="catClick"
       />
-      <div className={classes.lvl}>
-        <h2 className={classes.lvl_current}>{game.level}</h2>
-        <div className={classes.lvl_bar}>
-          <i className={classes.percentage}>
-            {Math.floor((game.xp * 100) / game.toNextLevel)}%
-          </i>
-          <div
-            className={classes.fill}
-            style={{
-              width: `${Math.floor((game.xp * 100) / game.toNextLevel)}%`,
-            }}
-          ></div>
-        </div>
-      </div>
+      <XpBar />
     </div>
   );
 }

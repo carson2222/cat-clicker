@@ -2,17 +2,30 @@ import { Pagination } from "./Pagination";
 import classes from "./_shop.module.scss";
 import ShopItem from "./ShopItem";
 import ShopNav from "./ShopNav";
-import { useSelector } from "react-redux";
-import { buyUpgrade } from "../features/gameSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { bonusCounters, buyUpgrade, upgradesCalc } from "../features/gameSlice";
+import { useEffect } from "react";
+
 function Shop() {
-  const shop = useSelector((state) => state.game);
+  const game = useSelector((state) => state.game);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(bonusCounters());
+    dispatch(upgradesCalc());
+  }, [game.upgrades, game.items, game.quests]);
+
   return (
     <div className={classes.shop}>
       <ShopNav />
 
       <div className={classes.shop_main}>
-        {shop[shop.activeShop].map((el) => {
-          if (el.type === "upgrade" && el.id <= shop.page * 4 && el.id > (shop.page - 1) * 4) {
+        {game[game.activeShop].map((el) => {
+          if (
+            el.type === "upgrade" &&
+            el.id <= game.page * 4 &&
+            el.id > (game.page - 1) * 4
+          ) {
             return (
               <ShopItem
                 key={el.id}
@@ -26,7 +39,11 @@ function Shop() {
               />
             );
           }
-          if (el.type === "item" && el.id <= shop.page * 4 && el.id > (shop.page - 1) * 4) {
+          if (
+            el.type === "item" &&
+            el.id <= game.page * 4 &&
+            el.id > (game.page - 1) * 4
+          ) {
             return (
               <ShopItem
                 key={el.id}

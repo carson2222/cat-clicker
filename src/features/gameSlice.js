@@ -85,12 +85,11 @@ export const gameSlice = createSlice({
       state.toNextLevel = state.level * (state.level * 0.7) * 20;
     },
     checkLevelUp: (state) => {
-      if (+state.xp < +state.toNextLevel) {
-        return;
+      if (+state.xp >= +state.toNextLevel) {
+        state.level++;
+        state.xp = 0;
+        notify("default", "Level UP! 😺");
       }
-      state.level++;
-      state.xp = 0;
-      notify("default", "Level UP! 😺");
     },
     setActiveShop: (state, action) => {
       state.activeShop = action.payload;
