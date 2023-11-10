@@ -4,22 +4,23 @@ import { updatePage } from "../features/gameSlice";
 import { useDispatch, useSelector } from "react-redux";
 export function Pagination({ left, right }) {
   const dispatch = useDispatch();
-  const shop = useSelector((state) => state.game);
+  const page = useSelector((state) => state.game.page);
+  const maxPages = useSelector((state) => state.game.maxPages);
 
-  if (shop.maxPages === 1 && shop.page === 1) {
+  if (maxPages === 1 && page === 1) {
     left = "inactive";
     right = "inactive";
     return <div className={classes.pagination}></div>;
   }
-  if (shop.maxPages > 1 && shop.page === 1) {
+  if (maxPages > 1 && page === 1) {
     left = "inactive";
     right = "active";
   }
-  if (shop.page === shop.maxPages && shop.maxPages > 1) {
+  if (page === maxPages && maxPages > 1) {
     left = "active";
     right = "inactive";
   }
-  if (shop.page > 1 && shop.page < shop.maxPages) {
+  if (page > 1 && page < maxPages) {
     left = "active";
     right = "active";
   }

@@ -1,26 +1,34 @@
 import React, { useEffect } from "react";
 import classes from "./_clicker.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { checkLevelUp } from "../features/gameSlice";
+import {
+  bonusCounters,
+  calcNextLevel,
+  checkLevelUp,
+} from "../features/gameSlice";
 
 const XpBar = () => {
-  const game = useSelector((state) => state.game);
+  const { xp, level, toNextLevel } = useSelector((state) => state.game);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(checkLevelUp());
-  }, [game.xp]);
+  }, [xp]);
+  useEffect(() => {
+    dispatch(calcNextLevel());
+    dispatch(bonusCounters());
+  }, [level]);
   return (
     <div className={classes.lvl}>
-      <h2 className={classes.lvl_current}>{game.level}</h2>
+      <h2 className={classes.lvl_current}>{level}</h2>
       <div className={classes.lvl_bar}>
         <i className={classes.percentage}>
-          {Math.floor((game.xp * 100) / game.toNextLevel)}%
+          {Math.floor((xp * 100) / toNextLevel)}%
         </i>
         <div
           className={classes.fill}
           style={{
-            width: `${Math.floor((game.xp * 100) / game.toNextLevel)}%`,
+            width: `${Math.floor((xp * 100) / toNextLevel)}%`,
           }}
         ></div>
       </div>
