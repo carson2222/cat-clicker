@@ -47,8 +47,8 @@ function Clicker() {
   return (
     <div className={classes.clicker}>
       <Statistics />
-      <ItemsBox id="0" top="25" left="5" img={catFishingRod} />
-      <ItemsBox id="1" top="45" left="5" img={catBuilder} />
+      <ItemsBox id="0" top="25" left="5" img={catFishingRod} width="5rem" height="auto" />
+      <ItemsBox id="1" top="45" left="5" img={catBuilder} width="auto" height="4rem" />
 
       <img
         src={catTransparent}

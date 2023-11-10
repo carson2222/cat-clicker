@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { notify } from "../toastify";
 
 const initialState = {
-  money: 2222,
+  money: 999999,
   level: 1,
   xp: 0,
   autoClickPerSec: 0.1,
@@ -19,7 +19,7 @@ const initialState = {
       type: "upgrades",
       title: "Money boost",
       description: "Each upgrade gives you + 0.05x FPC",
-      initPrice: 20,
+      initPrice: 1,
       price: null,
       level: 0,
       bonusType: "clickMultiplier",
@@ -102,10 +102,7 @@ export const gameSlice = createSlice({
       });
     },
     updatePage: (state, action) => {
-      if (
-        state.page + action.payload !== 0 &&
-        state.page + action.payload <= state.maxPages
-      ) {
+      if (state.page + action.payload !== 0 && state.page + action.payload <= state.maxPages) {
         state.page += action.payload;
       }
     },
