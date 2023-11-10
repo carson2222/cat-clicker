@@ -1,33 +1,50 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import classes from "./_clicker.module.scss";
 
-import catFishingRod from "../images/cat_fishing-rod.png";
 import { useSelector } from "react-redux";
-const ItemsBox = () => {
-  const game = useSelector((state) => state.game);
+const ItemsBox = ({ id, top, left, img }) => {
+  const game = useSelector((state) => state.game.upgrades[id].level);
+  const items = useRef([]);
 
   return (
-    <div className={classes.item_box} style={{ top: "25%", left: "5%" }}>
-      {Array(game.upgrades[0].level)
+    <div
+      className={classes.item_box}
+      style={{ top: `${top}%`, left: `${left}%` }}
+    >
+      {Array(game)
         .fill(undefined)
         .forEach((x) => {
           console.log("test");
         })}
-      {Array(game.upgrades[0].level).map((id) => {
-        return (
-          <img
-            key={+id}
-            src={catFishingRod}
-            alt="cat fishing rod"
-            style={{
-              top: `${Math.round(Math.floor(Math.random() * 100) / 15) * 15}%`,
-              left: `${Math.round(Math.floor(Math.random() * 100) / 15) * 15}%`,
-              width: "6rem",
-              height: "auto",
-            }}
-          />
-        );
-      })}
+
+      {Array(game)
+        .fill(undefined)
+        .map((_, i) => {
+          if (i < 50) {
+            if (items.current.length < i + 1) {
+              const top = Math.round(Math.floor(Math.random() * 100) / 15) * 15;
+              const left =
+                Math.round(Math.floor(Math.random() * 100) / 15) * 15;
+              items.current[i] = {
+                top,
+                left,
+              };
+            }
+            return (
+              <img
+                key={i}
+                src={img}
+                alt={`Item ${id}`}
+                style={{
+                  top: `${items.current[i].top}%`,
+                  left: `${items.current[i].left}%`,
+                  width: "6rem",
+                  height: "auto",
+                }}
+              />
+            );
+          }
+        })}
     </div>
   );
 };

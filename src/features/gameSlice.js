@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { notify } from "../toastify";
 
 const initialState = {
-  money: 0,
+  money: 2222,
   level: 1,
   xp: 0,
   autoClickPerSec: 0.1,
@@ -16,10 +16,10 @@ const initialState = {
   upgrades: [
     {
       id: "1",
-      type: "upgrade",
+      type: "upgrades",
       title: "Money boost",
       description: "Each upgrade gives you + 0.05x FPC",
-      initPrice: 1,
+      initPrice: 20,
       price: null,
       level: 0,
       bonusType: "clickMultiplier",
@@ -27,10 +27,10 @@ const initialState = {
     },
     {
       id: "2",
-      type: "upgrade",
+      type: "upgrades",
       title: "XP boost",
       description: "Each upgrade gives you + 0.05x XP ",
-      initPrice: 1,
+      initPrice: 100,
       price: null,
       level: 0,
       bonusType: "xpMultiplier",
@@ -40,7 +40,7 @@ const initialState = {
   items: [
     {
       id: "1",
-      type: "item",
+      type: "items",
       title: "Item 1",
       description: "item 1 bla bla bla",
       price: 1,
@@ -74,7 +74,7 @@ for (let i = 2; i < 10; i++) {
 }
 // localStorage.localState = { test: "test" };
 export const gameSlice = createSlice({
-  name: "profile",
+  name: "game",
   initialState,
   reducers: {
     catClick: (state) => {
