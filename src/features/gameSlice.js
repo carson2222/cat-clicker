@@ -5,7 +5,7 @@ const initialState = {
   money: 999999,
   level: 1,
   xp: 0,
-  autoClickPerSec: 0.1,
+  autoClickPerSec: 0,
   moneyMultiplier: 1,
   xpMultiplier: 1,
   toNextLevel: 9999,
@@ -14,27 +14,60 @@ const initialState = {
   page: 1,
   maxPages: 1,
   upgrades: [
+    // {
+    //   id: "1",
+    //   type: "upgrades",
+    //   title: "Money boost",
+    //   description: "Each upgrade gives you + 0.05x FPC",
+    //   initPrice: 1,
+    //   price: null,
+    //   level: 40,
+    //   bonusType: "clickMultiplier",
+    //   bonusPerLvl: 0.05,
+    // },
+    // {
+    //   id: "2",
+    //   type: "upgrades",
+    //   title: "XP boost",
+    //   description: "Each upgrade gives you + 0.05x XP ",
+    //   initPrice: 100,
+    //   price: null,
+    //   level: 40,
+    //   bonusType: "xpMultiplier",
+    //   bonusPerLvl: 0.05,
+    // },
     {
       id: "1",
       type: "upgrades",
-      title: "Money boost",
-      description: "Each upgrade gives you + 0.05x FPC",
-      initPrice: 1,
+      title: "Fishercat",
+      description: "Each upgrade gives you + 0.05x CPS",
+      initPrice: 20,
       price: null,
-      level: 0,
-      bonusType: "clickMultiplier",
+      level: 10,
+      bonusType: "cps",
       bonusPerLvl: 0.05,
     },
     {
       id: "2",
       type: "upgrades",
-      title: "XP boost",
-      description: "Each upgrade gives you + 0.05x XP ",
+      title: "Builders",
+      description: "Each upgrade gives you + 0.1x CPS ",
       initPrice: 100,
       price: null,
-      level: 0,
-      bonusType: "xpMultiplier",
-      bonusPerLvl: 0.05,
+      level: 10,
+      bonusType: "cps",
+      bonusPerLvl: 0.1,
+    },
+    {
+      id: "3",
+      type: "upgrades",
+      title: "Cat house",
+      description: "Each upgrade gives you + 0.25x CPS ",
+      initPrice: 500,
+      price: null,
+      level: 10,
+      bonusType: "cps",
+      bonusPerLvl: 0.25,
     },
   ],
   items: [
@@ -98,7 +131,7 @@ export const gameSlice = createSlice({
     },
     upgradesCalc: (state) => {
       state.upgrades.map((el) => {
-        el.price = el.initPrice * Math.pow(2, el.level);
+        el.price = el.initPrice * Math.pow(el.level, 2);
       });
     },
     updatePage: (state, action) => {
@@ -110,12 +143,13 @@ export const gameSlice = createSlice({
     bonusCounters: (state) => {
       let newMoneyMultiplier = 1;
       let newXpMultiplier = 1;
+      let newCps = 0;
 
       // Levels
       newMoneyMultiplier += (state.level - 1) * 0.05;
       newXpMultiplier += (state.level - 1) * 0.05;
 
-      // Upgrades - money & xp
+      // Upgrades - money & xp & cps
       state.upgrades.map((element) => {
         if (element.bonusType === "clickMultiplier") {
           newMoneyMultiplier += element.bonusPerLvl * element.level;
@@ -123,11 +157,15 @@ export const gameSlice = createSlice({
         if (element.bonusType === "xpMultiplier") {
           newXpMultiplier += element.bonusPerLvl * element.level;
         }
+        if (element.bonusType === "cps") {
+          newCps += element.bonusPerLvl * element.level;
+        }
       }, 0);
 
       // Assign new values
       state.moneyMultiplier = newMoneyMultiplier;
       state.xpMultiplier = newXpMultiplier;
+      state.autoClickPerSec = newCps;
     },
     buyUpgrade: (state, action) => {
       const activeUpgrade = state.upgrades.find((x) => x.id === action.payload);

@@ -37,8 +37,7 @@
       // );
     }
     &:after {
-      animation: frame-enter 1s forwards ease-in-out reverse,
-        gradient-animation 4s ease-in-out infinite;
+      animation: frame-enter 1s forwards ease-in-out reverse, gradient-animation 4s ease-in-out infinite;
     }
   }
 
@@ -77,17 +76,17 @@
   &_buyBtn {
     font-weight: 500;
 
-    padding: 0.3rem min(1.75rem, 1vw);
+    padding: 0.3rem min(1rem, 0.75vw);
     margin-top: 1rem;
 
     border-radius: 1rem;
     border: $thin-border-black;
 
-    font-size: clamp(0.5rem, 3px + 0.75vw, 20rem);
+    font-size: clamp(0.5rem, 2px + 0.75vw, 2rem);
 
     &_paragraf {
       // padding: 1% 30% 0 30%;
-      padding: 1% clamp(1rem, -10rem + 40vw, 100rem);
+      padding: 1% clamp(1rem, -10rem + 40vw, 5rem);
       text-align: center;
     }
 

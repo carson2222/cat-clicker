@@ -3,7 +3,7 @@ import catTransparent from "../images/cat_transparent.png";
 
 import catFishingRod from "../images/cat_fishing-rod.png";
 import catBuilder from "../images/cat_builder.png";
-
+import catHouse from "../images/cat_house.png";
 import { useDispatch, useSelector } from "react-redux";
 import {
   catClick,
@@ -49,6 +49,7 @@ function Clicker() {
       <Statistics />
       <ItemsBox id="0" top="25" left="5" img={catFishingRod} width="5rem" height="auto" />
       <ItemsBox id="1" top="45" left="5" img={catBuilder} width="auto" height="4rem" />
+      <ItemsBox id="2" top="65" left="5" img={catHouse} width="auto" height="4rem" />
 
       <img
         src={catTransparent}

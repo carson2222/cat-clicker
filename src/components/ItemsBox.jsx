@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import classes from "./_clicker.module.scss";
 
 import { useSelector } from "react-redux";
+import random from "random";
 const ItemsBox = ({ id, top, left, img, width, height }) => {
   const game = useSelector((state) => state.game.upgrades[id].level);
   const items = useRef([]);
@@ -17,10 +18,10 @@ const ItemsBox = ({ id, top, left, img, width, height }) => {
       {Array(game)
         .fill(undefined)
         .map((_, i) => {
-          if (i < 50) {
+          if (i < 40) {
             if (items.current.length < i + 1) {
-              const top = Math.round(Math.floor(Math.random() * 100 - 30) / 15) * 15;
-              const left = Math.round(Math.floor(Math.random() * 100 - 15) / 15) * 15;
+              const top = Math.floor(random.int(-30, 60) / 15) * 15;
+              const left = Math.floor(random.int(-15, 90) / 15) * 15;
               items.current[i] = {
                 top,
                 left,
