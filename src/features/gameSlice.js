@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { notify } from "../toastify";
 
 const initialState = {
-  money: 999999,
+  money: 0,
   level: 1,
   xp: 0,
   autoClickPerSec: 0,
@@ -43,7 +43,7 @@ const initialState = {
       description: "Each upgrade gives you + 0.05x CPS",
       initPrice: 20,
       price: null,
-      level: 10,
+      level: 0,
       bonusType: "cps",
       bonusPerLvl: 0.05,
     },
@@ -54,7 +54,7 @@ const initialState = {
       description: "Each upgrade gives you + 0.1x CPS ",
       initPrice: 100,
       price: null,
-      level: 10,
+      level: 0,
       bonusType: "cps",
       bonusPerLvl: 0.1,
     },
@@ -65,9 +65,42 @@ const initialState = {
       description: "Each upgrade gives you + 0.25x CPS ",
       initPrice: 500,
       price: null,
-      level: 10,
+      level: 0,
       bonusType: "cps",
       bonusPerLvl: 0.25,
+    },
+    {
+      id: "4",
+      type: "upgrades",
+      title: "Farmer",
+      description: "Each upgrade gives you + 0.5x CPS ",
+      initPrice: 2500,
+      price: null,
+      level: 0,
+      bonusType: "cps",
+      bonusPerLvl: 0.5,
+    },
+    {
+      id: "5",
+      type: "upgrades",
+      title: "Driver",
+      description: "Each upgrade gives you + 1x CPS ",
+      initPrice: 10000,
+      price: null,
+      level: 0,
+      bonusType: "cps",
+      bonusPerLvl: 1,
+    },
+    {
+      id: "6",
+      type: "upgrades",
+      title: "Warrior",
+      description: "Each upgrade gives you + 2.5x CPS ",
+      initPrice: 50000,
+      price: null,
+      level: 0,
+      bonusType: "cps",
+      bonusPerLvl: 2.5,
     },
   ],
   items: [
@@ -131,7 +164,7 @@ export const gameSlice = createSlice({
     },
     upgradesCalc: (state) => {
       state.upgrades.map((el) => {
-        el.price = el.initPrice * Math.pow(el.level, 2);
+        el.price = el.initPrice * Math.pow(el.level, 2) + el.initPrice;
       });
     },
     updatePage: (state, action) => {
@@ -177,6 +210,10 @@ export const gameSlice = createSlice({
       activeUpgrade.level++;
       notify("success", "Item successfully purchased 😎", 1000);
     },
+    // TO DELETE, just for tests
+    addMoney: (state) => {
+      state.money += 999999;
+    },
   },
 });
 export const {
@@ -188,5 +225,6 @@ export const {
   upgradesCalc,
   updatePage,
   buyUpgrade,
+  addMoney,
 } = gameSlice.actions;
 export default gameSlice.reducer;
