@@ -37,7 +37,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 5px;
+      white-space: nowrap;
+      flex: 1 1 15rem;
+      gap: 1vw;
+      // width: 120%;
       font-size: clamp(1rem, 1vh + 1vw, 3rem);
     }
   }
