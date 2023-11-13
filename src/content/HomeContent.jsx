@@ -1,13 +1,32 @@
 import React from "react";
 import catWhiteBg from "../images/cat_white-bg.png";
-
 import ColoredBox from "../components/ColoredBox";
 import { Btn2d } from "../components/Btn2d";
 import homeClass from "./_home-content.module.scss";
 import showcaseClass from "../components/_showcase.module.scss";
-
 import { Link } from "react-router-dom";
-export function HomeContent({}) {
+import supabase from "../supabaseClient";
+
+export function HomeContent() {
+  async function SingUp(e) {
+    try {
+      e.preventDefault();
+      let { data, error } = await supabase.auth.signUp({
+        email: "someone@email.com",
+        password: "beeyapiLJTvilHFfXoEe",
+      });
+      console.log("singed up");
+    } catch (error) {}
+  }
+
+  async function LogIn() {
+    try {
+      let { data, error } = await supabase.auth.signInWithPassword({
+        email: "someone@email.com",
+        password: "beeyapiLJTvilHFfXoEe",
+      });
+    } catch (error) {}
+  }
   return (
     <main className={homeClass.content}>
       <div className={homeClass.starter}>
@@ -25,6 +44,8 @@ export function HomeContent({}) {
         <Link to={`game`}>
           <Btn2d content1="Let's start!" content2="MEOOOW!" />
         </Link>
+        <button onClick={(e) => SingUp(e)}>Sing Up!</button>
+        <button onClick={(e) => LogIn(e)}>Log In!</button>
       </div>
       <div className={showcaseClass.showcase}>
         <div className={`${showcaseClass.item} ${showcaseClass.item1}`}>

@@ -25,19 +25,19 @@ const Statistics = () => {
     <div className={classes.statistics}>
       <h1>
         {money.toFixed(2)}
-        <GiFishbone size={"2rem"} />
+        <GiFishbone size={35} />
       </h1>
       <h1>
         {moneyMultiplier.toFixed(2)}x
-        <FaMoneyBillTrendUp size={"2rem"} />
+        <FaMoneyBillTrendUp size={35} />
       </h1>
       <h1>
         {xpMultiplier.toFixed(2)}x
-        <MdOutlineAutoGraph size={"2rem"} />
+        <MdOutlineAutoGraph size={35} />
       </h1>
       <h1>
         {`${autoClickPerSec.toFixed(2)} cps`}
-        <MdOutlineAutorenew size={"2rem"} />
+        <MdOutlineAutorenew size={35} />
       </h1>
     </div>
   );
