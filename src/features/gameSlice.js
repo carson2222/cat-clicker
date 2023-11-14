@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { notify } from "../toastify";
 
 const initialState = {
+  session: null,
   money: 0,
   level: 1,
   xp: 0,
@@ -168,7 +169,10 @@ export const gameSlice = createSlice({
       });
     },
     updatePage: (state, action) => {
-      if (state.page + action.payload !== 0 && state.page + action.payload <= state.maxPages) {
+      if (
+        state.page + action.payload !== 0 &&
+        state.page + action.payload <= state.maxPages
+      ) {
         state.page += action.payload;
       }
     },
@@ -210,6 +214,10 @@ export const gameSlice = createSlice({
       activeUpgrade.level++;
       notify("success", "Item successfully purchased 😎", 1000);
     },
+    updateSession: (state, action) => {
+      state.session = action.payload;
+    },
+
     // TO DELETE, just for tests
     addMoney: (state) => {
       state.money += 999999;
@@ -225,6 +233,7 @@ export const {
   upgradesCalc,
   updatePage,
   buyUpgrade,
+  updateSession,
   addMoney,
 } = gameSlice.actions;
 export default gameSlice.reducer;

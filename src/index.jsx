@@ -14,7 +14,6 @@ import { Provider } from "react-redux";
 
 // react router
 import { createBrowserRouter, Route, RouterProvider } from "react-router-dom";
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -28,6 +27,8 @@ const router = createBrowserRouter([
     ],
   },
 ]);
+
+// Supabase authentication
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
