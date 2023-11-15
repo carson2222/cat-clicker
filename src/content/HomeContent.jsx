@@ -5,28 +5,8 @@ import { Btn2d } from "../components/Btn2d";
 import homeClass from "./_home-content.module.scss";
 import showcaseClass from "../components/_showcase.module.scss";
 import { Link } from "react-router-dom";
-import supabase from "../supabaseClient";
-import { notify } from "../toastify";
 
 export function HomeContent() {
-  // const email = "deyapi9609@othao.com";
-  // const password = "fds%#363!GDS";
-  const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState("deyapi9609@othao.com");
-  const [password, setPassword] = useState("fds%#363!GDS");
-  console.log(supabase);
-  async function HandleSingup(e) {
-    try {
-      e.preventDefault();
-      let { error } = await supabase.auth.signUp({ email, password });
-
-      if (error) throw new Error(error);
-      else notify("success", "Account created");
-    } catch (error) {
-      console.error(error.message + "💥💥💥💥");
-    }
-  }
-
   return (
     <main className={homeClass.content}>
       <div className={homeClass.starter}>
@@ -44,30 +24,6 @@ export function HomeContent() {
         <Link to={`game`}>
           <Btn2d content1="Let's start!" content2="MEOOOW!" />
         </Link>
-
-        <form onSubmit={HandleSingup}>
-          <div>
-            <input
-              type="email"
-              placeholder="Your email"
-              value={email}
-              required={true}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <input
-              type="password"
-              placeholder="Your password"
-              value={password}
-              required={true}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <div>
-            <button className={"button block"} disabled={loading}>
-              {loading ? <span>Loading</span> : <span>Sing up!</span>}
-            </button>
-          </div>
-        </form>
       </div>
       <div className={showcaseClass.showcase}>
         <div className={`${showcaseClass.item} ${showcaseClass.item1}`}>
