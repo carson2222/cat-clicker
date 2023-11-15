@@ -3,6 +3,7 @@ import logo from "../images/logo.png";
 import classes from "./_header.module.scss";
 import { addMoney } from "../features/gameSlice";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 export function Header({}) {
   const dispatch = useDispatch();
 
@@ -15,7 +16,9 @@ export function Header({}) {
           className={classes.logo__img}
           onClick={() => dispatch(addMoney())}
         />
-        <h1 className={classes.logo__text}>Cat Clicker</h1>
+        <Link to={`/`} style={{ textDecoration: "none" }}>
+          <h1 className={classes.logo__text}>Cat Clicker</h1>
+        </Link>
       </div>
       <ul className={classes.nav}>
         <li className={classes.nav__item}>

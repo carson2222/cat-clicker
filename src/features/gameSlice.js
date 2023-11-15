@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { notify } from "../toastify";
 
 const initialState = {
-  session: null,
+  email: "null",
   money: 0,
   level: 1,
   xp: 0,
@@ -127,19 +127,6 @@ const initialState = {
   ],
 };
 
-// delete:
-for (let i = 2; i < 10; i++) {
-  initialState.items.push({
-    id: i,
-    type: "item",
-    title: `Item ${i}`,
-    description: `item ${i} bla bla bla`,
-    price: 1,
-    bonus: "click multiplier",
-    purchased: false,
-  });
-}
-// localStorage.localState = { test: "test" };
 export const gameSlice = createSlice({
   name: "game",
   initialState,
@@ -169,10 +156,7 @@ export const gameSlice = createSlice({
       });
     },
     updatePage: (state, action) => {
-      if (
-        state.page + action.payload !== 0 &&
-        state.page + action.payload <= state.maxPages
-      ) {
+      if (state.page + action.payload !== 0 && state.page + action.payload <= state.maxPages) {
         state.page += action.payload;
       }
     },
@@ -214,8 +198,8 @@ export const gameSlice = createSlice({
       activeUpgrade.level++;
       notify("success", "Item successfully purchased 😎", 1000);
     },
-    updateSession: (state, action) => {
-      state.session = action.payload;
+    updateEmail: (state, action) => {
+      state.email = action.payload;
     },
 
     // TO DELETE, just for tests
@@ -233,7 +217,7 @@ export const {
   upgradesCalc,
   updatePage,
   buyUpgrade,
-  updateSession,
+  updateEmail,
   addMoney,
 } = gameSlice.actions;
 export default gameSlice.reducer;

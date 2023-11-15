@@ -15,43 +15,31 @@ export function HomeContent() {
           Cat Clicker.
         </h1>
         <p className={homeClass.starter__paragraf}>
-          Click, Collect, Upgrade, and Embark on a Whisker-twitching Adventure
-          to Become the Ultimate Cat Clicking Maestro! <br />
+          Click, Collect, Upgrade, and Embark on a Whisker-twitching Adventure to Become the Ultimate Cat Clicking
+          Maestro! <br />
           <br />
           <br />
           Are you up for the adventure?
         </p>
-        <Link to={`game`}>
+        <Link to={`auth`}>
           <Btn2d content1="Let's start!" content2="MEOOOW!" />
         </Link>
       </div>
       <div className={showcaseClass.showcase}>
         <div className={`${showcaseClass.item} ${showcaseClass.item1}`}>
           <ColoredBox color="green" textContent="Level 1" />
-          <img
-            className={showcaseClass.image}
-            src={catWhiteBg}
-            alt="Cat lvl 1"
-          />
+          <img className={showcaseClass.image} src={catWhiteBg} alt="Cat lvl 1" />
         </div>
 
         <div className={`${showcaseClass.item} ${showcaseClass.item2}`}>
           <ColoredBox color="yellow" textContent="Level 2" />
-          <img
-            className={showcaseClass.image}
-            src={catWhiteBg}
-            alt="Cat lvl 2"
-          />
+          <img className={showcaseClass.image} src={catWhiteBg} alt="Cat lvl 2" />
         </div>
 
         <div className={`${showcaseClass.item} ${showcaseClass.item3}`}>
           <ColoredBox color="orange" textContent="Level 3" />
 
-          <img
-            className={showcaseClass.image}
-            src={catWhiteBg}
-            alt="Cat lvl 3"
-          />
+          <img className={showcaseClass.image} src={catWhiteBg} alt="Cat lvl 3" />
         </div>
       </div>
     </main>

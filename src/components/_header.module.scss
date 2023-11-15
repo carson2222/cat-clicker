@@ -31,12 +31,13 @@
       text-align: center;
       box-sizing: border-box;
 
-      @include underline-hover-black;
-      @include border-active-black;
-
       font-family: "Caprasimo", cursive;
       font-size: clamp(1rem, 2rem + 2vw, 3rem);
       font-weight: inherit;
+      color: $main-black;
+
+      @include underline-hover-black;
+      @include border-active-black;
     }
   }
   .nav {

@@ -1,37 +1,57 @@
 import React from "react";
-import classes from "./_auth-form.module.scss";
+import classes from "./_auth-content.module.scss";
 import { GiFishbone } from "react-icons/gi";
 import supabase from "../supabaseClient";
 import { notify } from "../toastify";
 import { useState } from "react";
-const AuthForm = () => {
-  const [loading, setLoading] = useState(false);
+import { useDispatch } from "react-redux";
+import { updateEmail } from "../features/gameSlice";
+import { useNavigate } from "react-router-dom";
+
+const AuthContent = () => {
   const [email, setEmail] = useState("deyapi9609@othao.com");
   const [password, setPassword] = useState("fds%#363!GDS");
-  //   console.log(supabase);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   async function HandleSingup(e) {
     try {
       e.preventDefault();
+      if (checkEmpty()) throw new Error("Data is missing");
+
       const { error } = await supabase.auth.signUp({ email, password });
-      //   console.log(data);
+
       if (error) throw new Error(error);
-      else notify("success", "Account created");
+      else {
+        notify("success", "Account created");
+        dispatch(updateEmail(email));
+        navigate("/game");
+
+        // Tworzenie nowy wiersz w tabelach dla gracza, id jako email
+      }
     } catch (error) {
       notify("error", error.message + "💥");
       console.error(error.message + "💥");
     }
   }
-  async function HandleSingin(e) {
+  async function HandleLogin(e) {
     try {
       e.preventDefault();
+      if (checkEmpty()) throw new Error("Data is missing");
+
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
-      console.log(data);
+
       if (error) throw new Error(error);
-      else notify("success", "Logged in");
+      else {
+        // fetchowanie emaila
+        notify("success", "Logged in");
+        dispatch(updateEmail(email));
+        navigate("/game");
+      }
     } catch (error) {
+      notify("error", error.message + "💥");
       console.error(error.message + "💥");
     }
   }
@@ -41,8 +61,11 @@ const AuthForm = () => {
     setPassword("");
     notify("info", "Data cleared", 500);
   }
+  function checkEmpty() {
+    return !email || !password;
+  }
   return (
-    <>
+    <div className={classes.content}>
       <form className={classes.authForm}>
         <h2>
           <GiFishbone size={30} />
@@ -73,7 +96,7 @@ const AuthForm = () => {
           </label>
         </div>
         <div className={classes.button_group}>
-          <button className={classes.green} onClick={HandleSingin}>
+          <button className={classes.green} onClick={HandleLogin}>
             Log in
           </button>
           <button className={classes.yellow} onClick={HandleSingup}>
@@ -84,31 +107,8 @@ const AuthForm = () => {
           </button>
         </div>
       </form>
-      {/*       <form onSubmit={HandleSingup} className={classes.authForm}>
-        <div>
-          <input
-            type="email"
-            placeholder="Your email"
-            value={email}
-            required={true}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="Your password"
-            value={password}
-            required={true}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <div>
-          <button className={"button block"} disabled={loading}>
-            {loading ? <span>Loading</span> : <span>Sing up!</span>}
-          </button>
-        </div>
-      </form>*/}
-    </>
+    </div>
   );
 };
 
-export default AuthForm;
+export default AuthContent;
