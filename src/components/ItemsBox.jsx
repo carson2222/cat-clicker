@@ -8,13 +8,10 @@ const ItemsBox = ({ id, top, left, img, width, height }) => {
   const items = useRef([]);
 
   return (
-    <div className={classes.item_box} style={{ top: `${top}%`, left: `${left}%` }}>
-      {Array(game)
-        .fill(undefined)
-        .forEach((x) => {
-          console.log("test");
-        })}
-
+    <div
+      className={classes.item_box}
+      style={{ top: `${top}%`, left: `${left}%` }}
+    >
       {Array(game)
         .fill(undefined)
         .map((_, i) => {

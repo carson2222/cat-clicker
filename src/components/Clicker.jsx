@@ -9,15 +9,8 @@ import catWarrior from "../images/cat_warrior.png";
 import catDriver from "../images/cat_driver.png";
 
 import { useDispatch, useSelector } from "react-redux";
-import {
-  catClick,
-  bonusCounters,
-  checkLevelUp,
-  calcNextLevel,
-  setActiveShop,
-  upgradesCalc,
-} from "../features/gameSlice";
-import { useEffect, useRef, useState } from "react";
+import { catClick } from "../features/gameSlice";
+import { useEffect, useRef } from "react";
 import { delay } from "../dealy";
 import XpBar from "./XpBar";
 import Statistics from "./Statistics";
@@ -51,12 +44,54 @@ function Clicker() {
   return (
     <div className={classes.clicker}>
       <Statistics />
-      <ItemsBox id="0" top="25" left="5" img={catFishingRod} width="5rem" height="auto" />
-      <ItemsBox id="1" top="45" left="5" img={catBuilder} width="auto" height="4rem" />
-      <ItemsBox id="2" top="65" left="5" img={catHouse} width="auto" height="4rem" />
-      <ItemsBox id="3" top="25" left="75" img={catFarmer} width="auto" height="4rem" />
-      <ItemsBox id="4" top="45" left="75" img={catDriver} width="auto" height="4rem" />
-      <ItemsBox id="5" top="65" left="75" img={catWarrior} width="auto" height="4rem" />
+      <ItemsBox
+        id="0"
+        top="25"
+        left="5"
+        img={catFishingRod}
+        width="5rem"
+        height="auto"
+      />
+      <ItemsBox
+        id="1"
+        top="45"
+        left="5"
+        img={catBuilder}
+        width="auto"
+        height="4rem"
+      />
+      <ItemsBox
+        id="2"
+        top="65"
+        left="5"
+        img={catHouse}
+        width="auto"
+        height="4rem"
+      />
+      <ItemsBox
+        id="3"
+        top="25"
+        left="75"
+        img={catFarmer}
+        width="auto"
+        height="4rem"
+      />
+      <ItemsBox
+        id="4"
+        top="45"
+        left="75"
+        img={catDriver}
+        width="auto"
+        height="4rem"
+      />
+      <ItemsBox
+        id="5"
+        top="65"
+        left="75"
+        img={catWarrior}
+        width="auto"
+        height="4rem"
+      />
       <img
         src={catTransparent}
         alt="Cat image"

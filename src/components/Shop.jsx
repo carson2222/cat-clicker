@@ -6,27 +6,29 @@ import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import {
   bonusCounters,
   buyUpgrade,
-  setActiveShop,
+  updateActiveShop,
   upgradesCalc,
 } from "../features/gameSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function Shop() {
   const upgrades = useSelector((state) => state.game.upgrades, shallowEqual);
   const items = useSelector((state) => state.game.items, shallowEqual);
   const quests = useSelector((state) => state.game.quests, shallowEqual);
   const page = useSelector((state) => state.game.page, shallowEqual);
-  const activeShop = useSelector(
-    (state) => state.game.activeShop,
-    shallowEqual
-  );
+
+  const [activeShop, setActiveShop] = useState("upgrades");
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setActiveShop("upgrades"));
+    setActiveShop("upgrades");
     dispatch(upgradesCalc());
   }, []);
+  useEffect(() => {
+    console.log("page changed");
+    dispatch(updateActiveShop(activeShop));
+  }, [activeShop]);
   useEffect(() => {
     dispatch(bonusCounters());
     dispatch(upgradesCalc());
@@ -34,7 +36,7 @@ function Shop() {
 
   return (
     <div className={classes.shop}>
-      <ShopNav />
+      <ShopNav activeShop={activeShop} setActiveShop={setActiveShop} />
 
       <div className={classes.shop_main}>
         {upgrades

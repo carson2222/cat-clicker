@@ -5,7 +5,7 @@ import supabase from "../supabaseClient";
 import { notify } from "../toastify";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { updateEmail } from "../features/gameSlice";
+import { loadData, updateEmail } from "../features/gameSlice";
 import { useNavigate } from "react-router-dom";
 
 const AuthContent = () => {
@@ -24,9 +24,15 @@ const AuthContent = () => {
       else {
         notify("success", "Account created");
         dispatch(updateEmail(email));
-        navigate("/game");
 
-        // Tworzenie nowy wiersz w tabelach dla gracza, id jako email
+        const { data, error } = await supabase
+          .from("profiles")
+          .insert([{ email }])
+          .select();
+        if (error) throw new Error(error);
+        console.log(data[0]);
+        dispatch(loadData(data[0]));
+        navigate("/game");
       }
     } catch (error) {
       notify("error", error.message + "💥");

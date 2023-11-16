@@ -16,7 +16,7 @@ function ColoredBox({
         className={`${classes.colorBox} ${classes[`colorBox_${type}`]} ${
           inactive ? classes.colorBox_inactive : classes.colorBox_active
         }  ${classes[`colorBox_${color}`]}`}
-        onClick={() => dispatch(setActiveShop(textContent.toLowerCase()))}
+        onClick={() => setActiveShop(textContent.toLowerCase())}
       >
         {textContent}
       </p>

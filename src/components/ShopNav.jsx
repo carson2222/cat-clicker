@@ -1,18 +1,12 @@
 import ColoredBox from "./ColoredBox";
 import classes from "./_shop.module.scss";
-import { useSelector, useDispatch } from "react-redux";
-import { setActiveShop } from "../features/gameSlice";
-function ShopNav() {
-  const activeShop = useSelector((state) => state.game.activeShop);
-  const dispatch = useDispatch();
-
+function ShopNav({ activeShop, setActiveShop }) {
   return (
     <div className={classes.shop_header}>
       <ColoredBox
         color="orange"
         type="btn"
         textContent="Upgrades"
-        dispatch={dispatch}
         activeShop={activeShop}
         setActiveShop={setActiveShop}
       />
@@ -20,7 +14,6 @@ function ShopNav() {
         color="yellow"
         type="btn"
         textContent="Items"
-        dispatch={dispatch}
         activeShop={activeShop}
         setActiveShop={setActiveShop}
       />
@@ -28,7 +21,6 @@ function ShopNav() {
         color="green"
         type="btn"
         textContent="Quests"
-        dispatch={dispatch}
         activeShop={activeShop}
         setActiveShop={setActiveShop}
       />
