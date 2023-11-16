@@ -22,7 +22,7 @@ function Clicker() {
 
   const catImage = useRef(null);
   const timerId = useRef();
-  // const [timer, setTimer] = useState(0);
+
   useEffect(() => {
     // Global timer
     if (autoClickPerSec) {
@@ -39,11 +39,10 @@ function Clicker() {
       };
     }
   }, [autoClickPerSec]);
-
-  console.log("render");
   return (
     <div className={classes.clicker}>
       <Statistics />
+
       <ItemsBox
         id="0"
         top="25"

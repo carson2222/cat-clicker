@@ -1,75 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { notify } from "../toastify";
 
-const upgrades = [
-  {
-    id: "1",
-    type: "upgrades",
-    title: "Fishercat",
-    description: "Each upgrade gives you + 0.05x CPS",
-    initPrice: 20,
-    price: null,
-    level: 0,
-    bonusType: "cps",
-    bonusPerLvl: 0.05,
-  },
-  {
-    id: "2",
-    type: "upgrades",
-    title: "Builders",
-    description: "Each upgrade gives you + 0.1x CPS ",
-    initPrice: 100,
-    price: null,
-    level: 0,
-    bonusType: "cps",
-    bonusPerLvl: 0.1,
-  },
-  {
-    id: "3",
-    type: "upgrades",
-    title: "Cat house",
-    description: "Each upgrade gives you + 0.25x CPS ",
-    initPrice: 500,
-    price: null,
-    level: 0,
-    bonusType: "cps",
-    bonusPerLvl: 0.25,
-  },
-  {
-    id: "4",
-    type: "upgrades",
-    title: "Farmer",
-    description: "Each upgrade gives you + 0.5x CPS ",
-    initPrice: 2500,
-    price: null,
-    level: 0,
-    bonusType: "cps",
-    bonusPerLvl: 0.5,
-  },
-  {
-    id: "5",
-    type: "upgrades",
-    title: "Driver",
-    description: "Each upgrade gives you + 1x CPS ",
-    initPrice: 10000,
-    price: null,
-    level: 0,
-    bonusType: "cps",
-    bonusPerLvl: 1,
-  },
-  {
-    id: "6",
-    type: "upgrades",
-    title: "Warrior",
-    description: "Each upgrade gives you + 2.5x CPS ",
-    initPrice: 50000,
-    price: null,
-    level: 0,
-    bonusType: "cps",
-    bonusPerLvl: 2.5,
-  },
-];
-
 const initialState = {
   email: "null",
   money: 0,
@@ -110,7 +41,8 @@ export const gameSlice = createSlice({
   initialState,
   reducers: {
     loadData: (state, action) => {
-      const newData = action.payload;
+      const { newData, upgradesData } = action.payload;
+
       state.email = newData.email;
       state.money = newData.money;
       state.level = newData.level;
@@ -118,11 +50,10 @@ export const gameSlice = createSlice({
       state.autoClickPerSec = newData.autoClickPerSec;
       state.moneyMultiplier = newData.moneyMultiplier;
       state.xpMultiplier = newData.xpMultiplier;
-      const test = upgrades.map((el) => {
-        // el.level = newData[`l${el.id}`];
-        console.log(el);
+      state.upgrades = upgradesData.map((el) => {
+        return { ...el, level: newData.upgrades[`l${el.id}`] };
       });
-      console.log(test);
+      // add quests, items
     },
     catClick: (state) => {
       state.money += 1 * state.moneyMultiplier;

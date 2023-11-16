@@ -7,12 +7,13 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loadData, updateEmail } from "../features/gameSlice";
 import { useNavigate } from "react-router-dom";
-
+import { upgradesData } from "../shopData";
 const AuthContent = () => {
   const [email, setEmail] = useState("deyapi9609@othao.com");
   const [password, setPassword] = useState("fds%#363!GDS");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   async function HandleSingup(e) {
     try {
       e.preventDefault();
@@ -30,8 +31,7 @@ const AuthContent = () => {
           .insert([{ email }])
           .select();
         if (error) throw new Error(error);
-        console.log(data[0]);
-        dispatch(loadData(data[0]));
+        dispatch(loadData({ newData: data[0], upgradesData }));
         navigate("/game");
       }
     } catch (error) {
@@ -39,21 +39,29 @@ const AuthContent = () => {
       console.error(error.message + "💥");
     }
   }
+
   async function HandleLogin(e) {
     try {
       e.preventDefault();
       if (checkEmpty()) throw new Error("Data is missing");
 
-      const { data, error } = await supabase.auth.signInWithPassword({
+      const { error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
       if (error) throw new Error(error);
       else {
-        // fetchowanie emaila
         notify("success", "Logged in");
         dispatch(updateEmail(email));
+        const { data, error } = await supabase
+          .from("profiles")
+          .select()
+          .eq("email", email);
+
+        dispatch(loadData({ newData: data[0], upgradesData }));
+
+        console.log(data[0]);
         navigate("/game");
       }
     } catch (error) {

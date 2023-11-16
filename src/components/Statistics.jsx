@@ -6,6 +6,7 @@ import { GiFishbone } from "react-icons/gi";
 import { FaMoneyBillTrendUp } from "react-icons/fa6";
 import { MdOutlineAutoGraph } from "react-icons/md";
 import { MdOutlineAutorenew } from "react-icons/md";
+import SaveButton from "./SaveButton";
 const Statistics = () => {
   const money = useSelector((state) => state.game.money, shallowEqual);
   const moneyMultiplier = useSelector(
@@ -39,6 +40,7 @@ const Statistics = () => {
         {`${autoClickPerSec.toFixed(2)} cps`}
         <MdOutlineAutorenew size={35} />
       </h1>
+      <SaveButton />
     </div>
   );
 };

@@ -26,7 +26,6 @@ function Shop() {
     dispatch(upgradesCalc());
   }, []);
   useEffect(() => {
-    console.log("page changed");
     dispatch(updateActiveShop(activeShop));
   }, [activeShop]);
   useEffect(() => {

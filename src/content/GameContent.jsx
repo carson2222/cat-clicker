@@ -1,7 +1,8 @@
 import Clicker from "../components/Clicker";
 import Shop from "../components/Shop";
 import classes from "./_game-content.module.scss";
-import AuthForm from "./AuthContent";
+
+import SaveButton from "../components/SaveButton";
 function GameContent() {
   return (
     <main className={classes.content}>
