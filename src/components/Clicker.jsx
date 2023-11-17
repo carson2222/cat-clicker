@@ -1,6 +1,4 @@
 import classes from "./_clicker.module.scss";
-import catTransparent from "../images/cat_transparent.png";
-
 import catFishingRod from "../images/cat_fishing-rod.png";
 import catBuilder from "../images/cat_builder.png";
 import catHouse from "../images/cat_house.png";
@@ -9,7 +7,7 @@ import catWarrior from "../images/cat_warrior.png";
 import catDriver from "../images/cat_driver.png";
 
 import { useDispatch, useSelector } from "react-redux";
-import { catClick } from "../features/gameSlice";
+import { catClick, setActiveSkin } from "../features/gameSlice";
 import { useEffect, useRef } from "react";
 import { delay } from "../dealy";
 import XpBar from "./XpBar";
@@ -18,11 +16,17 @@ import ItemsBox from "./ItemsBox";
 
 function Clicker() {
   const autoClickPerSec = useSelector((state) => state.game.autoClickPerSec);
+  const activeSkin = useSelector((state) => state.game.activeSkin);
   const dispatch = useDispatch();
 
   const catImage = useRef(null);
   const timerId = useRef();
-
+  useEffect(async () => {
+    catImage.current.style.opacity = 0;
+    await delay(200);
+    catImage.current.src = activeSkin;
+    catImage.current.style.opacity = 1;
+  }, [activeSkin]);
   useEffect(() => {
     // Global timer
     if (autoClickPerSec) {
@@ -92,7 +96,7 @@ function Clicker() {
         height="4rem"
       />
       <img
-        src={catTransparent}
+        // src={activeSkin}
         alt="Cat image"
         ref={catImage}
         className={`${classes.clicker_catImg}`}

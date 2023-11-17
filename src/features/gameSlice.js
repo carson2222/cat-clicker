@@ -1,11 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { notify } from "../toastify";
+import { actionTypes } from "redux-localstorage";
+import skinsData from "../skinsData";
 
 const initialState = {
   email: "null",
   money: 0,
   level: 0,
   xp: 0,
+  activeSkin: null,
   autoClickPerSec: 0,
   moneyMultiplier: 1,
   xpMultiplier: 1,
@@ -50,9 +53,11 @@ export const gameSlice = createSlice({
       state.autoClickPerSec = newData.autoClickPerSec;
       state.moneyMultiplier = newData.moneyMultiplier;
       state.xpMultiplier = newData.xpMultiplier;
+      state.activeSkin = newData.activeSkin;
       state.upgrades = upgradesData.map((el) => {
         return { ...el, level: newData.upgrades[`l${el.id}`] };
       });
+      state.skins = skinsData;
       // add quests, items
     },
     catClick: (state) => {
@@ -75,7 +80,12 @@ export const gameSlice = createSlice({
     },
     upgradesCalc: (state) => {
       state.upgrades.map((el) => {
-        el.price = el.initPrice * Math.pow(el.level, 2) + el.initPrice;
+        if (el.level === 0) {
+          el.price = el.initPrice;
+        }
+        if (el.level > 0) {
+          el.price = (el.initPrice * Math.pow(1.25, el.level)).toFixed(0);
+        }
       });
     },
     updatePage: (state, action) => {
@@ -117,17 +127,22 @@ export const gameSlice = createSlice({
     buyUpgrade: (state, action) => {
       const activeUpgrade = state.upgrades.find((x) => x.id === action.payload);
       if (state.money < activeUpgrade.price) {
-        notify("error", "You can't afford it 😢", 1000);
+        notify("error", "You can't afford it 😢", 100);
         return;
       }
       state.money -= activeUpgrade.price;
       activeUpgrade.level++;
-      notify("success", "Item successfully purchased 😎", 1000);
+      notify("success", "Item successfully purchased 😎", 100);
     },
     updateEmail: (state, action) => {
       state.email = action.payload;
     },
-
+    setActiveSkin: (state, action) => {
+      const { type, skinsData } = action.payload;
+      const skinObj = skinsData.find((el) => el.name === type);
+      console.log(skinObj);
+      state.activeSkin = skinObj.path;
+    },
     // TO DELETE, just for tests
     addMoney: (state) => {
       state.money += 999999;
@@ -146,5 +161,6 @@ export const {
   updateEmail,
   addMoney,
   loadData,
+  setActiveSkin,
 } = gameSlice.actions;
 export default gameSlice.reducer;

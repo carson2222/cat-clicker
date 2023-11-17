@@ -19,7 +19,8 @@
     width: auto;
 
     cursor: pointer;
-    transition: transform 0.07s;
+    // transition: transform 0.07s;
+    transition: opacity 0.2s;
 
     &:active {
       transform: scale(1.05);

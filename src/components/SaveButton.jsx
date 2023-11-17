@@ -17,6 +17,8 @@ const SaveButton = () => {
           autoClickPerSec: game.autoClickPerSec,
           moneyMultiplier: game.moneyMultiplier,
           xpMultiplier: game.xpMultiplier,
+          activeSkin: game.activeSkin,
+
           upgrades: Object.fromEntries(
             game.upgrades.map((el) => [`l${+el.id}`, el.level])
           ),
