@@ -9,7 +9,6 @@ import catDriver from "../images/cat_driver.png";
 import { useDispatch, useSelector } from "react-redux";
 import { catClick } from "../features/gameSlice";
 import { useEffect, useRef } from "react";
-import { delay } from "../dealy";
 import XpBar from "./XpBar";
 import Statistics from "./Statistics";
 import ItemsBox from "./ItemsBox";

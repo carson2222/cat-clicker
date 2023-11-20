@@ -10,10 +10,12 @@ import {
   upgradesCalc,
 } from "../features/gameSlice";
 import { useEffect, useState } from "react";
-
+import { itemsData } from "../shopData";
 function Shop() {
   const upgrades = useSelector((state) => state.game.upgrades, shallowEqual);
-  const items = useSelector((state) => state.game.items, shallowEqual);
+  // const items = useSelector((state) => state.game.items, shallowEqual);
+  const items = itemsData;
+
   const quests = useSelector((state) => state.game.quests, shallowEqual);
   const page = useSelector((state) => state.game.page, shallowEqual);
 
@@ -32,53 +34,45 @@ function Shop() {
     dispatch(bonusCounters());
     dispatch(upgradesCalc());
   }, [upgrades, items, quests]);
-
+  console.log(upgrades.concat(items));
   return (
     <div className={classes.shop}>
       <ShopNav activeShop={activeShop} setActiveShop={setActiveShop} />
 
       <div className={classes.shop_main}>
-        {upgrades
-          .concat(items)
-          .concat(quests)
-          .map((el) => {
-            if (
-              el.type === activeShop &&
-              el.type === "upgrades" &&
-              el.id <= page * 4 &&
-              el.id > (page - 1) * 4
-            ) {
-              return (
-                <ShopItem
-                  key={el.id}
-                  id={el.id}
-                  type={el.type}
-                  title={el.title}
-                  content={el.description}
-                  price={el.price}
-                  btnContent={`Lvl ${el.level}`}
-                  buyFun={buyUpgrade}
-                />
-              );
-            }
-            if (
-              el.type === activeShop &&
-              el.type === "items" &&
-              el.id <= page * 4 &&
-              el.id > (page - 1) * 4
-            ) {
-              return (
-                <ShopItem
-                  key={el.id}
-                  type={el.type}
-                  title={el.title}
-                  content={el.description}
-                  price={el.price}
-                  btnContent="Buy"
-                />
-              );
-            }
-          })}
+        {activeShop === "upgrades"
+          ? upgrades.map((el) => {
+              if (el.id <= page * 4 && el.id > (page - 1) * 4) {
+                return (
+                  <ShopItem
+                    key={el.id}
+                    id={el.id}
+                    type={el.type}
+                    title={el.title}
+                    content={el.description}
+                    price={el.price}
+                    btnContent={`Lvl ${el.level}`}
+                    buyFun={buyUpgrade}
+                  />
+                );
+              }
+            })
+          : activeShop === "items"
+          ? items.map((el) => {
+              if (el.id <= page * 4 && el.id > (page - 1) * 4) {
+                return (
+                  <ShopItem
+                    key={el.id}
+                    type={el.type}
+                    title={el.title}
+                    content={el.description}
+                    price={el.price}
+                    btnContent="Buy"
+                  />
+                );
+              }
+            })
+          : null}
       </div>
       <Pagination />
     </div>

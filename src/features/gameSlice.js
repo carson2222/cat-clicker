@@ -44,7 +44,7 @@ export const gameSlice = createSlice({
   initialState,
   reducers: {
     loadData: (state, action) => {
-      const { newData, upgradesData, skinsData } = action.payload;
+      const { newData, upgradesData, skinsData, itemsData } = action.payload;
 
       state.email = newData.email;
       state.money = newData.money;
@@ -62,7 +62,7 @@ export const gameSlice = createSlice({
         console.log(test);
         return { ...el, available: newData.skins[el.name] };
       });
-
+      state.items = itemsData;
       // add quests, items
     },
 

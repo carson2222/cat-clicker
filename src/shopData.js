@@ -66,4 +66,38 @@ const upgradesData = [
     bonusPerLvl: 2.5,
   },
 ];
-export { upgradesData };
+
+const itemsData = [
+  {
+    id: "1",
+    type: "mainCat",
+    title: "Black skin",
+    description: "Upgrade into black cat",
+    price: 1,
+    bonusType: "cm",
+    bonusAmount: 2,
+    purchased: false,
+  },
+  {
+    id: "2",
+    type: "mainCat",
+    title: "Ginger skin",
+    description: "Upgrade into ginger cat",
+    price: 1,
+    bonusType: "cm",
+    bonusAmount: 5,
+    purchased: false,
+  },
+  {
+    id: "3",
+    type: "mainCat",
+    title: "Brown skin",
+    description: "Upgrade into brown cat",
+    price: 1,
+    bonusType: "cm",
+    bonusAmount: 10,
+    purchased: false,
+  },
+];
+
+export { upgradesData, itemsData };

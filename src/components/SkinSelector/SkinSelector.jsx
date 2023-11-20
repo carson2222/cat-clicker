@@ -26,15 +26,6 @@ const SkinSelector = () => {
             ></div>
           );
         })}
-        {/*<div
-          className={classes.skinItem}
-          style={{ backgroundColor: "white" }}
-          onClick={(e) => chandleClick(e, "white")}
-        ></div>
-        <div
-          className={`${classes.skinItem} ${classes.locked}`}
-          style={{ backgroundColor: "orange" }}
-  ></div>*/}
       </div>
     </div>
   );
