@@ -1,4 +1,4 @@
-@use "../sass/abstracts" as *;
+@use "../../sass/abstracts" as *;
 
 .clicker {
   background-color: $main-white;
@@ -20,27 +20,6 @@
 
     cursor: pointer;
     transition: transform 0.07s;
-  }
-
-  & .statistics {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5%;
-    flex-wrap: wrap;
-    width: 70%;
-    & > * {
-      flex: 1 1 5rem;
-      gap: 1vw;
-      margin-top: 1vh;
-    }
-    & h1 {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      white-space: nowrap;
-      font-size: clamp(1rem, 1vh + 1vw, 3rem);
-    }
   }
 }
 .lvl {
@@ -79,25 +58,6 @@
       width: 0%;
       height: 100%;
       align-self: flex-start;
-    }
-  }
-}
-
-.item_box {
-  // background-color: red;
-
-  position: absolute;
-
-  width: 20%;
-  height: 10%;
-  & img {
-    position: absolute;
-
-    transition: 0.1s all;
-    &:hover {
-      transform: scale(1.05);
-      filter: drop-shadow(0 0 5px black);
-      z-index: 10;
     }
   }
 }

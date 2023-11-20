@@ -1,0 +1,40 @@
+@use "../../sass/abstracts" as *;
+.lvl {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  // margin-top: 3rem;
+  position: relative;
+  &_current {
+    background-color: $main-beige;
+    border: $thin-border-black;
+    border-radius: 1rem;
+    padding: 0.75rem 1rem;
+    position: absolute;
+    top: -0.8rem;
+    left: -3rem;
+  }
+  &_bar {
+    width: 20rem;
+    height: 1.75rem;
+    border: $thin-border-black;
+    overflow: hidden;
+
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
+    & .percentage {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    & .fill {
+      background-color: $pastel-green;
+      width: 0%;
+      height: 100%;
+      align-self: flex-start;
+    }
+  }
+}

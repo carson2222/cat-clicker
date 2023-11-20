@@ -1,6 +1,6 @@
 import { HomeContent } from "../content/HomeContent";
-import { Header } from "../components/Header";
-import { Footer } from "../components/Footer";
+import { Header } from "../components/Header/Header";
+import { Footer } from "../components/Footer/Footer";
 import { useOutlet } from "react-router-dom";
 
 function Home() {

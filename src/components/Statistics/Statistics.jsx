@@ -1,26 +1,17 @@
 import React from "react";
-import classes from "./_clicker.module.scss";
+import classes from "./_statistics.module.scss";
 import { useSelector, shallowEqual } from "react-redux";
 
 import { GiFishbone } from "react-icons/gi";
 import { FaMoneyBillTrendUp } from "react-icons/fa6";
 import { MdOutlineAutoGraph } from "react-icons/md";
 import { MdOutlineAutorenew } from "react-icons/md";
-import SaveButton from "./SaveButton";
+import SaveButton from "../SaveButton";
 const Statistics = () => {
   const money = useSelector((state) => state.game.money, shallowEqual);
-  const moneyMultiplier = useSelector(
-    (state) => state.game.moneyMultiplier,
-    shallowEqual
-  );
-  const xpMultiplier = useSelector(
-    (state) => state.game.xpMultiplier,
-    shallowEqual
-  );
-  const autoClickPerSec = useSelector(
-    (state) => state.game.autoClickPerSec,
-    shallowEqual
-  );
+  const moneyMultiplier = useSelector((state) => state.game.moneyMultiplier, shallowEqual);
+  const xpMultiplier = useSelector((state) => state.game.xpMultiplier, shallowEqual);
+  const autoClickPerSec = useSelector((state) => state.game.autoClickPerSec, shallowEqual);
 
   return (
     <div className={classes.statistics}>

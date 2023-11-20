@@ -1,0 +1,21 @@
+@use "../../sass/abstracts" as *;
+.statistics {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5%;
+  flex-wrap: wrap;
+  width: 70%;
+  & > * {
+    flex: 1 1 5rem;
+    gap: 1vw;
+    margin-top: 1vh;
+  }
+  & h1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    font-size: clamp(1rem, 1vh + 1vw, 3rem);
+  }
+}

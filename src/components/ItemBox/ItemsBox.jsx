@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import classes from "./_clicker.module.scss";
+import classes from "./_item-box.module.scss";
 
 import { useSelector } from "react-redux";
 import random from "random";
@@ -8,10 +8,7 @@ const ItemsBox = ({ id, top, left, img, width, height }) => {
   const items = useRef([]);
 
   return (
-    <div
-      className={classes.item_box}
-      style={{ top: `${top}%`, left: `${left}%` }}
-    >
+    <div className={classes.item_box} style={{ top: `${top}%`, left: `${left}%` }}>
       {Array(game)
         .fill(undefined)
         .map((_, i) => {

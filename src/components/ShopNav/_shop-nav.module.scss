@@ -1,0 +1,11 @@
+@use "../../sass/abstracts" as *;
+.shop_header {
+  display: flex;
+  justify-content: center;
+  gap: 5%;
+
+  position: relative;
+  top: -3%;
+  left: -8%;
+  width: 120%;
+}

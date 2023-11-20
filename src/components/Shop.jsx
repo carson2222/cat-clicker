@@ -1,14 +1,9 @@
-import { Pagination } from "./Pagination";
+import { Pagination } from "./Pagination/Pagination";
 import classes from "./_shop.module.scss";
 import ShopItem from "./ShopItem";
-import ShopNav from "./ShopNav";
+import ShopNav from "./ShopNav/ShopNav";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import {
-  bonusCounters,
-  buyUpgrade,
-  updateActiveShop,
-  upgradesCalc,
-} from "../features/gameSlice";
+import { bonusCounters, buyUpgrade, updateActiveShop, upgradesCalc } from "../features/gameSlice";
 import { useEffect, useState } from "react";
 import { itemsData } from "../shopData";
 function Shop() {

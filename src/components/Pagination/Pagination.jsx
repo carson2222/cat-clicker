@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./_pagination.module.scss";
-import { updatePage } from "../features/gameSlice";
+import { updatePage } from "../../features/gameSlice";
 import { useDispatch, useSelector } from "react-redux";
 export function Pagination({ left, right }) {
   const dispatch = useDispatch();
@@ -34,9 +34,7 @@ export function Pagination({ left, right }) {
           &larr;
         </p>
       ) : (
-        <p className={`${classes.pagination} ${classes.pagination_inactive}`}>
-          &larr;
-        </p>
+        <p className={`${classes.pagination} ${classes.pagination_inactive}`}>&larr;</p>
       )}
 
       {right === "active" ? (
@@ -47,9 +45,7 @@ export function Pagination({ left, right }) {
           &rarr;
         </p>
       ) : (
-        <p className={`${classes.pagination} ${classes.pagination_inactive}`}>
-          &rarr;
-        </p>
+        <p className={`${classes.pagination} ${classes.pagination_inactive}`}>&rarr;</p>
       )}
     </div>
   );

@@ -1,4 +1,4 @@
-@use "../sass/abstracts/index" as *;
+@use "../../sass/abstracts/index" as *;
 
 .footer {
   display: flex;
@@ -7,9 +7,9 @@
   flex: 0 0 2%;
   border-top: $main-border-black;
   background-color: $main-white;
-  &__text {
+  & .text {
   }
-  &__icons-box {
+  & .iconsBox {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -17,7 +17,7 @@
     margin-right: 2rem;
   }
 
-  &__icon {
+  & .icon {
     box-sizing: border-box;
     width: 3rem;
     margin: 0.2rem;

@@ -1,7 +1,7 @@
 import React from "react";
-import logo from "../images/logo.png";
+import logo from "../../images/logo.png";
 import classes from "./_header.module.scss";
-import { addMoney } from "../features/gameSlice";
+import { addMoney } from "../../features/gameSlice";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 export function Header({}) {
