@@ -19,16 +19,9 @@
     width: auto;
 
     cursor: pointer;
-    // transition: transform 0.07s;
-    transition: opacity 0.2s;
+    transition: transform 0.07s;
+  }
 
-    &:active {
-      transform: scale(1.05);
-    }
-  }
-  & .click {
-    transform: scale(1.02);
-  }
   & .statistics {
     display: flex;
     align-items: center;

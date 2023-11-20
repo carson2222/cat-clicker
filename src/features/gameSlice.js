@@ -44,7 +44,7 @@ export const gameSlice = createSlice({
   initialState,
   reducers: {
     loadData: (state, action) => {
-      const { newData, upgradesData } = action.payload;
+      const { newData, upgradesData, skinsData } = action.payload;
 
       state.email = newData.email;
       state.money = newData.money;
@@ -57,9 +57,15 @@ export const gameSlice = createSlice({
       state.upgrades = upgradesData.map((el) => {
         return { ...el, level: newData.upgrades[`l${el.id}`] };
       });
-      state.skins = skinsData;
+      state.skins = skinsData.map((el) => {
+        const test = { ...el, available: newData.skins[el.name] };
+        console.log(test);
+        return { ...el, available: newData.skins[el.name] };
+      });
+
       // add quests, items
     },
+
     catClick: (state) => {
       state.money += 1 * state.moneyMultiplier;
       state.xp += 1 * state.xpMultiplier;
@@ -140,7 +146,6 @@ export const gameSlice = createSlice({
     setActiveSkin: (state, action) => {
       const { type, skinsData } = action.payload;
       const skinObj = skinsData.find((el) => el.name === type);
-      console.log(skinObj);
       state.activeSkin = skinObj.path;
     },
     // TO DELETE, just for tests

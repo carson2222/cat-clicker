@@ -18,9 +18,11 @@ const SaveButton = () => {
           moneyMultiplier: game.moneyMultiplier,
           xpMultiplier: game.xpMultiplier,
           activeSkin: game.activeSkin,
-
           upgrades: Object.fromEntries(
             game.upgrades.map((el) => [`l${+el.id}`, el.level])
+          ),
+          skins: Object.fromEntries(
+            game.skins.map((el) => [`${el.name}`, el.available])
           ),
         })
         .eq("email", game.email);

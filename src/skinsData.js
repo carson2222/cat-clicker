@@ -13,8 +13,20 @@ const skinsData = [
   {
     name: "black",
     path: catBlack,
-    available: true,
+    available: false,
     bgColor: "#4d4d4d",
+  },
+  {
+    name: "ginger",
+    path: catGinger,
+    available: false,
+    bgColor: "#fc7f03",
+  },
+  {
+    name: "brown",
+    path: catBrown,
+    available: false,
+    bgColor: "#633200",
   },
 ];
 export default skinsData;

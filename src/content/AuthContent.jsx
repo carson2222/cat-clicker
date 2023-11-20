@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { loadData, updateEmail } from "../features/gameSlice";
 import { useNavigate } from "react-router-dom";
 import { upgradesData } from "../shopData";
+import skinsData from "../skinsData";
 const AuthContent = () => {
   const [email, setEmail] = useState("deyapi9609@othao.com");
   const [password, setPassword] = useState("fds%#363!GDS");
@@ -31,7 +32,7 @@ const AuthContent = () => {
           .insert([{ email }])
           .select();
         if (error) throw new Error(error);
-        dispatch(loadData({ newData: data[0], upgradesData }));
+        dispatch(loadData({ newData: data[0], upgradesData, skinsData }));
         navigate("/game");
       }
     } catch (error) {
@@ -59,7 +60,7 @@ const AuthContent = () => {
           .select()
           .eq("email", email);
 
-        dispatch(loadData({ newData: data[0], upgradesData }));
+        dispatch(loadData({ newData: data[0], upgradesData, skinsData }));
 
         console.log(data[0]);
         navigate("/game");

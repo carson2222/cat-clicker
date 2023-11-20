@@ -1,11 +1,11 @@
 import React from "react";
 import classes from "./_skin-selector.module.scss";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setActiveSkin } from "../../features/gameSlice";
 import skinsData from "../../skinsData";
 const SkinSelector = () => {
+  const skins = useSelector((state) => state.game.skins);
   const dispatch = useDispatch();
-
   function chandleClick(e, type) {
     if (e.target.classList.contains(classes.locked)) return;
     dispatch(setActiveSkin({ type, skinsData }));
@@ -14,7 +14,7 @@ const SkinSelector = () => {
     <div className={classes.skinSelector}>
       <h1>Skins</h1>
       <div className={classes.skinsBox}>
-        {skinsData.map((el) => {
+        {skins.map((el) => {
           return (
             <div
               key={el.name}

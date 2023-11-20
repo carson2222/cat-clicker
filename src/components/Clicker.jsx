@@ -7,12 +7,13 @@ import catWarrior from "../images/cat_warrior.png";
 import catDriver from "../images/cat_driver.png";
 
 import { useDispatch, useSelector } from "react-redux";
-import { catClick, setActiveSkin } from "../features/gameSlice";
+import { catClick } from "../features/gameSlice";
 import { useEffect, useRef } from "react";
 import { delay } from "../dealy";
 import XpBar from "./XpBar";
 import Statistics from "./Statistics";
 import ItemsBox from "./ItemsBox";
+import { useSpring, animated } from "react-spring";
 
 function Clicker() {
   const autoClickPerSec = useSelector((state) => state.game.autoClickPerSec);
@@ -21,21 +22,43 @@ function Clicker() {
 
   const catImage = useRef(null);
   const timerId = useRef();
-  useEffect(async () => {
-    catImage.current.style.opacity = 0;
-    await delay(200);
+  useEffect(() => {
     catImage.current.src = activeSkin;
-    catImage.current.style.opacity = 1;
+    opacityFadeIn();
   }, [activeSkin]);
+
+  const [animation, api] = useSpring(() => ({
+    from: { opacity: 0, scale: "1" },
+    to: { opacity: 1 },
+  }));
+
+  function opacityFadeIn() {
+    api.start({
+      from: { opacity: 0 },
+      to: { opacity: 1 },
+      config: { duration: 600 },
+    });
+  }
+  function clickAnimation() {
+    api.start({
+      from: { scale: "1" },
+      to: { scale: "1.05" },
+      config: { duration: 100 },
+    });
+  }
+  function autoClickAnimation() {
+    api.start({
+      from: { scale: "1" },
+      to: { scale: "1.02" },
+      config: { duration: 30 },
+    });
+  }
   useEffect(() => {
     // Global timer
     if (autoClickPerSec) {
       timerId.current = window.setInterval(async () => {
         dispatch(catClick());
-        // Click animation
-        catImage.current.classList.toggle(classes.click);
-        await delay(50);
-        catImage.current.classList.toggle(classes.click);
+        autoClickAnimation();
       }, 1000 / autoClickPerSec);
 
       return () => {
@@ -95,14 +118,18 @@ function Clicker() {
         width="auto"
         height="4rem"
       />
-      <img
-        // src={activeSkin}
-        alt="Cat image"
-        ref={catImage}
-        className={`${classes.clicker_catImg}`}
-        onClick={() => dispatch(catClick())}
-        id="catClick"
-      />
+      <animated.div style={animation}>
+        <img
+          alt="Cat image"
+          ref={catImage}
+          className={`${classes.clicker_catImg}`}
+          onClick={() => {
+            clickAnimation();
+            dispatch(catClick());
+          }}
+          id="catClick"
+        />
+      </animated.div>
       <XpBar />
     </div>
   );
