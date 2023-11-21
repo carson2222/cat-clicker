@@ -114,15 +114,9 @@ export const gameSlice = createSlice({
 
       // Upgrades - money & xp & cps
       state.upgrades.map((element) => {
-        if (element.bonusType === "clickMultiplier") {
-          newMoneyMultiplier += element.bonusPerLvl * element.level;
-        }
-        if (element.bonusType === "xpMultiplier") {
-          newXpMultiplier += element.bonusPerLvl * element.level;
-        }
-        if (element.bonusType === "cps") {
-          newCps += element.bonusPerLvl * element.level;
-        }
+        newMoneyMultiplier += element.cm * element.level;
+        newXpMultiplier += element.xpm * element.level;
+        newCps += element.cps * element.level;
       }, 0);
 
       // Assign new values

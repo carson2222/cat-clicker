@@ -65,8 +65,6 @@ const AuthContent = () => {
         dispatch(
           loadData({ newData: data[0], upgradesData, skinsData, itemsData })
         );
-
-        console.log(data[0]);
         navigate("/game");
       }
     } catch (error) {
