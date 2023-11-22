@@ -4,12 +4,16 @@ import classes from "./_item-box.module.scss";
 import { useSelector } from "react-redux";
 import random from "random";
 const ItemsBox = ({ id, top, left, img, width, height }) => {
-  const game = useSelector((state) => state.game.upgrades[id].level);
+  const upgrade = useSelector((state) => state.game.upgrades[`${+id + 1}`]);
+
   const items = useRef([]);
 
   return (
-    <div className={classes.item_box} style={{ top: `${top}%`, left: `${left}%` }}>
-      {Array(game)
+    <div
+      className={classes.item_box}
+      style={{ top: `${top}%`, left: `${left}%` }}
+    >
+      {Array(upgrade.amount)
         .fill(undefined)
         .map((_, i) => {
           if (i < 40) {

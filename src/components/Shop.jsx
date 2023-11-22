@@ -3,23 +3,25 @@ import classes from "./_shop.module.scss";
 import ShopItem from "./ShopItem/ShopItem";
 import ShopNav from "./ShopNav/ShopNav";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import {
-  bonusCounters,
-  buyUpgrade,
-  updateActiveShop,
-  upgradesCalc,
-} from "../features/gameSlice";
+import { buyUpgrade, updatePages } from "../features/gameSlice";
 import { useEffect, useState } from "react";
-import { itemsData } from "../shopData";
+import { itemsData, upgradesData } from "../shopData";
+import useGame from "../hooks/useGame";
+
 function Shop() {
-  const upgrades = useSelector((state) => state.game.upgrades, shallowEqual);
+  const dispatch = useDispatch();
+  const upgradesStatus = useSelector(
+    (state) => state.game.upgrades,
+    shallowEqual
+  );
   // const items = useSelector((state) => state.game.items, shallowEqual);
   const items = itemsData;
   const quests = useSelector((state) => state.game.quests, shallowEqual);
   const page = useSelector((state) => state.game.page, shallowEqual);
+
   const [activeShop, setActiveShop] = useState("upgrades");
-  const dispatch = useDispatch();
   const [activeItems, setActiveItems] = useState({});
+  const { calcBonuses, calcUpgradesPrice } = useGame();
 
   function updateActiveItems() {
     let newActiveItems = { ...activeItems };
@@ -32,16 +34,16 @@ function Shop() {
 
   useEffect(() => {
     setActiveShop("upgrades");
-    dispatch(upgradesCalc());
+    calcUpgradesPrice();
     updateActiveItems();
   }, []);
   useEffect(() => {
-    dispatch(updateActiveShop(activeShop));
+    dispatch(updatePages(activeShop));
   }, [activeShop]);
   useEffect(() => {
-    dispatch(bonusCounters());
-    dispatch(upgradesCalc());
-  }, [upgrades, items, quests]);
+    calcBonuses();
+    calcUpgradesPrice();
+  }, [upgradesStatus, items, quests]);
 
   return (
     <div className={classes.shop}>
@@ -49,8 +51,9 @@ function Shop() {
 
       <div className={classes.shop_main}>
         {activeShop === "upgrades" &&
-          upgrades.map((el) => {
+          upgradesData.map((el) => {
             if (el.id <= page * 4 && el.id > (page - 1) * 4) {
+              const thisUpgradeStatus = upgradesStatus[el.id];
               return (
                 <ShopItem
                   key={el.id}
@@ -58,8 +61,8 @@ function Shop() {
                   type={el.type}
                   title={el.title}
                   content={el.description}
-                  price={el.price}
-                  btnContent={`Lvl ${el.level}`}
+                  price={thisUpgradeStatus.price}
+                  btnContent={`Lvl ${thisUpgradeStatus.level}`}
                   buyFun={buyUpgrade}
                 />
               );

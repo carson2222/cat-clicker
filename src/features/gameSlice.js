@@ -1,7 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { notify } from "../toastify";
-import { actionTypes } from "redux-localstorage";
-import skinsData from "../skinsData";
 
 const initialState = {
   email: "null",
@@ -15,7 +13,44 @@ const initialState = {
   toNextLevel: 9999,
   page: 1,
   maxPages: 1,
-
+  upgrades: {
+    1: {
+      level: 0,
+      amount: 0,
+      price: null,
+    },
+    2: {
+      level: 0,
+      amount: 0,
+      price: null,
+    },
+    3: {
+      level: 0,
+      amount: 0,
+      price: null,
+    },
+    4: {
+      level: 0,
+      amount: 0,
+      price: null,
+    },
+    5: {
+      level: 0,
+      amount: 0,
+      price: null,
+    },
+    6: {
+      level: 0,
+      amount: 0,
+      price: null,
+    },
+  },
+  skins: {
+    1: true,
+    2: false,
+    3: false,
+    4: false,
+  },
   items: [
     {
       id: "1",
@@ -43,8 +78,8 @@ export const gameSlice = createSlice({
   name: "game",
   initialState,
   reducers: {
-    loadData: (state, action) => {
-      const { newData, upgradesData, skinsData, itemsData } = action.payload;
+    loadNewData: (state, action) => {
+      const newData = action.payload;
 
       state.email = newData.email;
       state.money = newData.money;
@@ -54,46 +89,46 @@ export const gameSlice = createSlice({
       state.moneyMultiplier = newData.moneyMultiplier;
       state.xpMultiplier = newData.xpMultiplier;
       state.activeSkin = newData.activeSkin;
-      state.upgrades = upgradesData.map((el) => {
-        return { ...el, level: newData.upgrades[`l${el.id}`] };
-      });
-      state.skins = skinsData.map((el) => {
-        const test = { ...el, available: newData.skins[el.name] };
-        console.log(test);
-        return { ...el, available: newData.skins[el.name] };
-      });
-      state.items = itemsData;
-      // add quests, items
+      state.upgrades = newData.upgrades;
+      state.skins = newData.skins;
+      // state.items = newData.items;
+      // state.upgrades = upgradesData.map((el) => {
+      //   return { ...el, level: newData.upgrades[`l${el.id}`] };
+      // });
+      // state.skins = skinsData.map((el) => {
+      //   const test = { ...el, available: newData.skins[el.name] };
+      //   console.log(test);
+      //   return { ...el, available: newData.skins[el.name] };
+      // });
+      // state.items = itemsData;
     },
-
+    setBonuses: (state, action) => {
+      state.moneyMultiplier = action.payload.newMoneyMultiplier;
+      state.xpMultiplier = action.payload.newXpMultiplier;
+      state.autoClickPerSec = action.payload.newCps;
+    },
     catClick: (state) => {
       state.money += 1 * state.moneyMultiplier;
       state.xp += 1 * state.xpMultiplier;
     },
-    calcNextLevel: (state) => {
-      state.toNextLevel = state.level * (state.level * 0.7) * 20;
+    setToNextLevel: (state, action) => {
+      state.toNextLevel = action.payload;
     },
-    checkLevelUp: (state) => {
-      if (+state.xp >= +state.toNextLevel) {
-        state.level++;
-        state.xp = 0;
-        notify("default", "Level UP! 😺");
-      }
+    addLevel: (state) => {
+      state.level += 1;
     },
-    updateActiveShop: (state, action) => {
+    resetXp: (state) => {
+      state.xp = 0;
+    },
+    updatePages: (state, action) => {
       state.maxPages = Math.ceil(state[action.payload].length / 4);
       state.page = 1;
     },
-    upgradesCalc: (state) => {
-      state.upgrades.map((el) => {
-        if (el.level === 0) {
-          el.price = el.initPrice;
-        }
-        if (el.level > 0) {
-          el.price = (el.initPrice * Math.pow(1.25, el.level)).toFixed(0);
-        }
-      });
+    setItemPrice: (state, action) => {
+      const { upgradeId, newPrice } = action.payload;
+      state.upgrades[upgradeId].price = newPrice;
     },
+
     updatePage: (state, action) => {
       if (
         state.page + action.payload !== 0 &&
@@ -103,27 +138,6 @@ export const gameSlice = createSlice({
       }
     },
 
-    bonusCounters: (state) => {
-      let newMoneyMultiplier = 1;
-      let newXpMultiplier = 1;
-      let newCps = 0;
-
-      // Levels
-      newMoneyMultiplier += (state.level - 1) * 0.05;
-      newXpMultiplier += (state.level - 1) * 0.05;
-
-      // Upgrades - money & xp & cps
-      state.upgrades.map((element) => {
-        newMoneyMultiplier += element.cm * element.level;
-        newXpMultiplier += element.xpm * element.level;
-        newCps += element.cps * element.level;
-      }, 0);
-
-      // Assign new values
-      state.moneyMultiplier = newMoneyMultiplier;
-      state.xpMultiplier = newXpMultiplier;
-      state.autoClickPerSec = newCps;
-    },
     buyUpgrade: (state, action) => {
       const activeUpgrade = state.upgrades.find((x) => x.id === action.payload);
       if (state.money < activeUpgrade.price) {
@@ -150,16 +164,19 @@ export const gameSlice = createSlice({
 });
 export const {
   catClick,
-  bonusCounters,
   checkLevelUp,
   calcNextLevel,
-  updateActiveShop,
-  upgradesCalc,
+  updatePages,
   updatePage,
   buyUpgrade,
   updateEmail,
   addMoney,
-  loadData,
+  loadNewData,
   setActiveSkin,
+  addLevel,
+  resetXp,
+  setToNextLevel,
+  setBonuses,
+  setItemPrice,
 } = gameSlice.actions;
 export default gameSlice.reducer;
