@@ -6,14 +6,15 @@ import {
   resetXp,
   setActiveSkin,
   setBonuses,
-  setItemPrice,
+  setUpgradePrice,
   setMaxPages,
   setPage,
   setToNextLevel,
   updateEmail,
   updateMoney,
-  addItemAmount,
+  addUpgradeAmount,
   updateXp,
+  setUpgradeLevel,
 } from "../features/gameSlice";
 import { notify } from "../toastify";
 import { upgradesData, itemsData } from "../shopData";
@@ -38,17 +39,17 @@ function useGame() {
     dispatch(setToNextLevel(newToNextLevel));
   }
 
-  function calcItemLevels() {
-    // Diff checker
-
+  function calcUpgradesLevel() {
     for (const [upgradeId, itemsStatus] of Object.entries(game.items)) {
       let newLevel = 0;
-      console.log(upgradeId, itemsStatus);
-      for (const [_, purchaseStatus] of Object.entries(game.items)) {
+      // Add a mainCat upgrade counter
+      if (upgradeId === "mainCat") return;
+      for (const [_, purchaseStatus] of Object.entries(itemsStatus)) {
         if (purchaseStatus) newLevel++;
       }
 
-      if (newLevel !== game.upgrades) {
+      if (newLevel !== game.upgrades[upgradeId].level) {
+        dispatch(setUpgradeLevel({ upgradeId, newLevel }));
       }
     }
   }
@@ -64,7 +65,6 @@ function useGame() {
     // Upgrades - money & xp & cps
     upgradesData.forEach((element) => {
       const upgradeStatus = game.upgrades[element.upgradeId];
-      console.log(game.upgrades);
       newMoneyMultiplier +=
         element.cm[upgradeStatus.level] * upgradeStatus.amount;
       newXpMultiplier +=
@@ -158,11 +158,14 @@ function useGame() {
   function calcUpgradesPrice() {
     upgradesData.forEach((el) => {
       let newPrice = el.initPrice;
-      if (el.amount > 0) {
-        newPrice = (el.initPrice * Math.pow(1.25, el.amount)).toFixed(0);
+      const upgradeStatus = game.upgrades[el.upgradeId];
+      if (upgradeStatus.amount > 0) {
+        newPrice = (
+          el.initPrice * Math.pow(1.25, upgradeStatus.amount)
+        ).toFixed(0);
       }
-      if (game.upgrades[el.upgradeId].price === newPrice) return;
-      dispatch(setItemPrice({ upgradeId: el.id, newPrice }));
+      if (upgradeStatus.price === newPrice) return;
+      dispatch(setUpgradePrice({ upgradeId: el.upgradeId, newPrice }));
     });
   }
 
@@ -187,7 +190,7 @@ function useGame() {
       notify("error", "You can't afford it 😢", 100);
     } else {
       dispatch(updateMoney(-thisUpgradeStatus.price));
-      dispatch(addItemAmount());
+      dispatch(addUpgradeAmount(upgradeId));
       notify("success", "Item successfully purchased 😎", 100);
     }
   }
@@ -215,7 +218,7 @@ function useGame() {
     changePage,
     buyUpgrade,
     catClick,
-    calcItemLevels,
+    calcUpgradesLevel,
   };
 }
 export default useGame;

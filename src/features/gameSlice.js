@@ -111,13 +111,18 @@ export const gameSlice = createSlice({
     setPage: (state, action) => {
       state.page = action.payload;
     },
-    setItemPrice: (state, action) => {
+    setUpgradePrice: (state, action) => {
       const { upgradeId, newPrice } = action.payload;
       state.upgrades[upgradeId].price = newPrice;
     },
-    addItemAmount: (state, action) => {
-      const itemId = action.payload;
-      state.upgrades[itemId].amount++;
+    addUpgradeAmount: (state, action) => {
+      const upgradeId = action.payload;
+      state.upgrades[upgradeId].amount++;
+    },
+    setUpgradeLevel: (state, action) => {
+      const { upgradeId, newLevel } = action.payload;
+      console.log(upgradeId, newLevel);
+      state.upgrades[upgradeId].level = newLevel;
     },
     setActiveSkin: (state, action) => {
       state.activeSkin = action.payload;
@@ -138,11 +143,12 @@ export const {
   resetXp,
   setToNextLevel,
   setBonuses,
-  setItemPrice,
   setMaxPages,
   setPage,
   updateMoney,
   updateXp,
-  addItemAmount,
+  setUpgradePrice,
+  addUpgradeAmount,
+  setUpgradeLevel,
 } = gameSlice.actions;
 export default gameSlice.reducer;

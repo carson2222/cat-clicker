@@ -24,7 +24,7 @@ function Shop() {
     calcUpgradesPrice,
     resetPages,
     buyUpgrade,
-    calcItemLevels,
+    calcUpgradesLevel,
   } = useGame();
 
   function updateActiveItems() {
@@ -40,7 +40,7 @@ function Shop() {
     setActiveShop("upgrades");
     calcUpgradesPrice();
     updateActiveItems();
-    calcItemLevels();
+    calcUpgradesLevel();
   }, []);
   useEffect(() => {
     resetPages(activeShop);
@@ -48,7 +48,11 @@ function Shop() {
   useEffect(() => {
     calcBonuses();
     calcUpgradesPrice();
+    calcUpgradesLevel();
   }, [upgradesStatus, items, quests]);
+  useEffect(() => {
+    calcUpgradesLevel();
+  }, [items]);
 
   return (
     <div className={classes.shop}>
@@ -67,7 +71,7 @@ function Shop() {
                   title={el.title}
                   content={el.description}
                   price={thisUpgradeStatus.price}
-                  btnContent={`Lvl ${thisUpgradeStatus.level}`}
+                  btnContent={thisUpgradeStatus.amount}
                   buyFun={buyUpgrade}
                 />
               );
