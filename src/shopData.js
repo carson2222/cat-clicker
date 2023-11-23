@@ -1,3 +1,10 @@
+import catFishingRod from "./images/cat_fishing-rod.png";
+import catBuilder from "./images/cat_builder.png";
+import catHouse from "./images/cat_house.png";
+import catFarmer from "./images/cat_farmer.png";
+import catWarrior from "./images/cat_warrior.png";
+import catDriver from "./images/cat_driver.png";
+
 const upgradesData = [
   {
     id: "1",
@@ -8,9 +15,10 @@ const upgradesData = [
     initPrice: 20,
     price: null,
     level: 0,
-    cm: 0,
-    xpm: 0,
-    cps: 0.05,
+    cm: [0, 0, 0],
+    xpm: [0, 0, 0],
+    cps: [0.05, 0.1, 0.15],
+    img: catFishingRod,
   },
   {
     id: "2",
@@ -21,9 +29,10 @@ const upgradesData = [
     initPrice: 100,
     price: null,
     level: 0,
-    cm: 0,
-    xpm: 0,
-    cps: 0.1,
+    cm: [0, 0, 0],
+    xpm: [0, 0, 0],
+    cps: [0.1, 0.2, 0.3],
+    img: catBuilder,
   },
   {
     id: "3",
@@ -34,9 +43,10 @@ const upgradesData = [
     initPrice: 500,
     price: null,
     level: 0,
-    cm: 0,
-    xpm: 0,
-    cps: 0.25,
+    cm: [0, 0, 0],
+    xpm: [0, 0, 0],
+    cps: [0.25, 0.4, 0.6],
+    img: catHouse,
   },
   {
     id: "4",
@@ -47,9 +57,10 @@ const upgradesData = [
     initPrice: 2500,
     price: null,
     level: 0,
-    cm: 0,
-    xpm: 0,
-    cps: 0.5,
+    cm: [0, 0, 0],
+    xpm: [0, 0, 0],
+    cps: [0.5, 0.75, 1],
+    img: catFarmer,
   },
   {
     id: "5",
@@ -60,9 +71,10 @@ const upgradesData = [
     initPrice: 10000,
     price: null,
     level: 0,
-    cm: 0,
-    xpm: 0,
-    cps: 1,
+    cm: [0, 0, 0],
+    xpm: [0, 0, 0],
+    cps: [1, 1.5, 2],
+    img: catWarrior,
   },
   {
     id: "6",
@@ -73,13 +85,51 @@ const upgradesData = [
     initPrice: 50000,
     price: null,
     level: 0,
-    cm: 0,
-    xpm: 0,
-    cps: 2.5,
+    cm: [0, 0, 0],
+    xpm: [0, 0, 0],
+    cps: [2.5, 5, 7.5],
+    img: catDriver,
   },
 ];
 
 const itemsData = {
+  // {
+  //   "mainCat": {
+  //     "1": false,
+  //     "2": false,
+  //     "3": false
+  //   },
+  //   "fisherCat": {
+  //     "1": false,
+  //     "2": false,
+  //     "3": false
+  //   },
+  //   "builder": {
+  //     "1": false,
+  //     "2": false,
+  //     "3": false
+  //   },
+  //   "catHouse": {
+  //     "1": false,
+  //     "2": false,
+  //     "3": false
+  //   },
+  //   "farmer": {
+  //     "1": false,
+  //     "2": false,
+  //     "3": false
+  //   },
+  //   "driver": {
+  //     "1": false,
+  //     "2": false,
+  //     "3": false
+  //   },
+  //   "warrior": {
+  //     "1": false,
+  //     "2": false,
+  //     "3": false
+  //   }
+  // }
   mainCat: [
     {
       id: "1",
@@ -87,9 +137,6 @@ const itemsData = {
       title: "Black skin",
       description: "Upgrade into black cat",
       price: 1,
-      cm: 2,
-      xpm: 0,
-      cps: 0,
       purchased: false,
     },
     {
@@ -98,9 +145,6 @@ const itemsData = {
       title: "Ginger skin",
       description: "Upgrade into ginger cat",
       price: 1,
-      cm: 5,
-      xpm: 0,
-      cps: 0,
       purchased: false,
     },
     {
@@ -109,9 +153,6 @@ const itemsData = {
       title: "Brown skin",
       description: "Upgrade into brown cat",
       price: 1,
-      cm: 10,
-      xpm: 0,
-      cps: 0,
       purchased: false,
     },
   ],
@@ -122,9 +163,6 @@ const itemsData = {
       title: "fisher cat test1",
       description: "Test",
       price: 1,
-      cm: 0,
-      xpm: 0,
-      cps: 0,
       purchased: false,
     },
     {
@@ -133,8 +171,6 @@ const itemsData = {
       title: "fisher cat test2",
       description: "Test",
       price: 1,
-      bonusType: "cm",
-      bonusAmount: 5,
       purchased: false,
     },
     {
@@ -143,8 +179,6 @@ const itemsData = {
       title: "fisher cat test3",
       description: "Test",
       price: 1,
-      bonusType: "cm",
-      bonusAmount: 10,
       purchased: false,
     },
   ],

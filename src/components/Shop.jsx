@@ -2,14 +2,12 @@ import { Pagination } from "./Pagination/Pagination";
 import classes from "./_shop.module.scss";
 import ShopItem from "./ShopItem/ShopItem";
 import ShopNav from "./ShopNav/ShopNav";
-import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import { buyUpgrade, updatePages } from "../features/gameSlice";
+import { useSelector, shallowEqual } from "react-redux";
 import { useEffect, useState } from "react";
 import { itemsData, upgradesData } from "../shopData";
 import useGame from "../hooks/useGame";
 
 function Shop() {
-  const dispatch = useDispatch();
   const upgradesStatus = useSelector(
     (state) => state.game.upgrades,
     shallowEqual
@@ -21,7 +19,13 @@ function Shop() {
 
   const [activeShop, setActiveShop] = useState("upgrades");
   const [activeItems, setActiveItems] = useState({});
-  const { calcBonuses, calcUpgradesPrice } = useGame();
+  const {
+    calcBonuses,
+    calcUpgradesPrice,
+    resetPages,
+    buyUpgrade,
+    calcItemLevels,
+  } = useGame();
 
   function updateActiveItems() {
     let newActiveItems = { ...activeItems };
@@ -36,9 +40,10 @@ function Shop() {
     setActiveShop("upgrades");
     calcUpgradesPrice();
     updateActiveItems();
+    calcItemLevels();
   }, []);
   useEffect(() => {
-    dispatch(updatePages(activeShop));
+    resetPages(activeShop);
   }, [activeShop]);
   useEffect(() => {
     calcBonuses();
@@ -53,11 +58,11 @@ function Shop() {
         {activeShop === "upgrades" &&
           upgradesData.map((el) => {
             if (el.id <= page * 4 && el.id > (page - 1) * 4) {
-              const thisUpgradeStatus = upgradesStatus[el.id];
+              const thisUpgradeStatus = upgradesStatus[el.upgradeId];
               return (
                 <ShopItem
                   key={el.id}
-                  id={el.id}
+                  upgradeId={el.upgradeId}
                   type={el.type}
                   title={el.title}
                   content={el.description}

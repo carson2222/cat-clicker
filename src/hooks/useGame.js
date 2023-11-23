@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import { diff } from "just-diff";
 import {
   addLevel,
   loadNewData,
@@ -6,8 +7,13 @@ import {
   setActiveSkin,
   setBonuses,
   setItemPrice,
+  setMaxPages,
+  setPage,
   setToNextLevel,
   updateEmail,
+  updateMoney,
+  addItemAmount,
+  updateXp,
 } from "../features/gameSlice";
 import { notify } from "../toastify";
 import { upgradesData, itemsData } from "../shopData";
@@ -32,6 +38,20 @@ function useGame() {
     dispatch(setToNextLevel(newToNextLevel));
   }
 
+  function calcItemLevels() {
+    // Diff checker
+
+    for (const [upgradeId, itemsStatus] of Object.entries(game.items)) {
+      let newLevel = 0;
+      console.log(upgradeId, itemsStatus);
+      for (const [_, purchaseStatus] of Object.entries(game.items)) {
+        if (purchaseStatus) newLevel++;
+      }
+
+      if (newLevel !== game.upgrades) {
+      }
+    }
+  }
   function calcBonuses() {
     let newMoneyMultiplier = 1;
     let newXpMultiplier = 1;
@@ -43,12 +63,13 @@ function useGame() {
 
     // Upgrades - money & xp & cps
     upgradesData.forEach((element) => {
-      const upgradeStatus = game.upgrades[+element.id];
+      const upgradeStatus = game.upgrades[element.upgradeId];
+      console.log(game.upgrades);
       newMoneyMultiplier +=
-        element.cm * upgradeStatus.level * upgradeStatus.amount;
+        element.cm[upgradeStatus.level] * upgradeStatus.amount;
       newXpMultiplier +=
-        element.xpm * upgradeStatus.level * upgradeStatus.amount;
-      newCps += element.cps * upgradeStatus.level * upgradeStatus.amount;
+        element.xpm[upgradeStatus.level] * upgradeStatus.amount;
+      newCps += element.cps[upgradeStatus.level] * upgradeStatus.amount;
     });
 
     // Set new data
@@ -122,6 +143,7 @@ function useGame() {
           activeSkin: game.activeSkin,
           upgrades: game.upgrades,
           skins: game.skins,
+          items: game.items,
         })
         .eq("email", game.email);
 
@@ -133,22 +155,53 @@ function useGame() {
     }
   }
 
-  function changeSkin(e, type) {
-    // TODO: change from class security to normal
-    if (e.target.classList.contains(classes.locked)) return;
-    dispatch(setActiveSkin({ type, skinsData }));
-  }
-
   function calcUpgradesPrice() {
     upgradesData.forEach((el) => {
       let newPrice = el.initPrice;
       if (el.amount > 0) {
         newPrice = (el.initPrice * Math.pow(1.25, el.amount)).toFixed(0);
       }
+      if (game.upgrades[el.upgradeId].price === newPrice) return;
       dispatch(setItemPrice({ upgradeId: el.id, newPrice }));
     });
   }
 
+  function resetPages(type) {
+    let newMaxPages;
+    if (type === "upgrades") newMaxPages = Math.ceil(upgradesData.length / 4);
+    if (type === "items") newMaxPages = Math.ceil(itemsData.length / 4);
+
+    dispatch(setMaxPages(newMaxPages));
+    dispatch(setPage(1));
+  }
+  function changePage(amount) {
+    let newPage = +game.page + amount;
+    if (newPage !== 0 && newPage <= game.maxPages) {
+      dispatch(setPage(newPage));
+    }
+  }
+
+  function buyUpgrade(upgradeId) {
+    const thisUpgradeStatus = game.upgrades[upgradeId];
+    if (game.money < thisUpgradeStatus.price) {
+      notify("error", "You can't afford it 😢", 100);
+    } else {
+      dispatch(updateMoney(-thisUpgradeStatus.price));
+      dispatch(addItemAmount());
+      notify("success", "Item successfully purchased 😎", 100);
+    }
+  }
+
+  function changeSkin(type) {
+    const newActiveSkin = skinsData.find((el) => el.name === type);
+    if (game.skins[newActiveSkin.id] && newActiveSkin.path !== game.activeSkin)
+      dispatch(setActiveSkin(newActiveSkin.path));
+  }
+
+  function catClick() {
+    dispatch(updateMoney(1 * game.moneyMultiplier));
+    dispatch(updateXp(1 * game.xpMultiplier));
+  }
   return {
     levelUp,
     calcToNextLevel,
@@ -158,6 +211,11 @@ function useGame() {
     logIn,
     changeSkin,
     calcUpgradesPrice,
+    resetPages,
+    changePage,
+    buyUpgrade,
+    catClick,
+    calcItemLevels,
   };
 }
 export default useGame;

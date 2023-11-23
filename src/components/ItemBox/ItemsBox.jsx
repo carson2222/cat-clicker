@@ -3,8 +3,10 @@ import classes from "./_item-box.module.scss";
 
 import { useSelector } from "react-redux";
 import random from "random";
-const ItemsBox = ({ id, top, left, img, width, height }) => {
-  const upgrade = useSelector((state) => state.game.upgrades[`${+id + 1}`]);
+const ItemsBox = ({ upgradeObject, top, left, width, height }) => {
+  const upgrade = useSelector(
+    (state) => state.game.upgrades[upgradeObject.upgradeId]
+  );
 
   const items = useRef([]);
 
@@ -28,8 +30,8 @@ const ItemsBox = ({ id, top, left, img, width, height }) => {
             return (
               <img
                 key={i}
-                src={img}
-                alt={`Item ${id}`}
+                src={upgradeObject.img}
+                alt={`Item ${upgradeObject.upgradeId}`}
                 style={{
                   top: `${items.current[i].top}%`,
                   left: `${items.current[i].left}%`,

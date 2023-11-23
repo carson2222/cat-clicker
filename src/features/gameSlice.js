@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { notify } from "../toastify";
 
 const initialState = {
   email: "null",
@@ -51,17 +50,6 @@ const initialState = {
     3: false,
     4: false,
   },
-  items: [
-    {
-      id: "1",
-      type: "items",
-      title: "Item 1",
-      description: "item 1 bla bla bla",
-      price: 1,
-      bonus: "click multiplier",
-      purchased: false,
-    },
-  ],
   quests: [
     {
       id: "1",
@@ -78,6 +66,9 @@ export const gameSlice = createSlice({
   name: "game",
   initialState,
   reducers: {
+    updateEmail: (state, action) => {
+      state.email = action.payload;
+    },
     loadNewData: (state, action) => {
       const newData = action.payload;
 
@@ -91,25 +82,21 @@ export const gameSlice = createSlice({
       state.activeSkin = newData.activeSkin;
       state.upgrades = newData.upgrades;
       state.skins = newData.skins;
-      // state.items = newData.items;
-      // state.upgrades = upgradesData.map((el) => {
-      //   return { ...el, level: newData.upgrades[`l${el.id}`] };
-      // });
-      // state.skins = skinsData.map((el) => {
-      //   const test = { ...el, available: newData.skins[el.name] };
-      //   console.log(test);
-      //   return { ...el, available: newData.skins[el.name] };
-      // });
-      // state.items = itemsData;
+      state.items = newData.items;
     },
     setBonuses: (state, action) => {
       state.moneyMultiplier = action.payload.newMoneyMultiplier;
       state.xpMultiplier = action.payload.newXpMultiplier;
       state.autoClickPerSec = action.payload.newCps;
     },
-    catClick: (state) => {
-      state.money += 1 * state.moneyMultiplier;
-      state.xp += 1 * state.xpMultiplier;
+    updateMoney: (state, action) => {
+      state.money += action.payload;
+    },
+    updateXp: (state, action) => {
+      state.xp += action.payload;
+    },
+    resetXp: (state) => {
+      state.xp = 0;
     },
     setToNextLevel: (state, action) => {
       state.toNextLevel = action.payload;
@@ -117,45 +104,25 @@ export const gameSlice = createSlice({
     addLevel: (state) => {
       state.level += 1;
     },
-    resetXp: (state) => {
-      state.xp = 0;
+
+    setMaxPages: (state, action) => {
+      state.maxPages = action.payload;
     },
-    updatePages: (state, action) => {
-      state.maxPages = Math.ceil(state[action.payload].length / 4);
-      state.page = 1;
+    setPage: (state, action) => {
+      state.page = action.payload;
     },
     setItemPrice: (state, action) => {
       const { upgradeId, newPrice } = action.payload;
       state.upgrades[upgradeId].price = newPrice;
     },
-
-    updatePage: (state, action) => {
-      if (
-        state.page + action.payload !== 0 &&
-        state.page + action.payload <= state.maxPages
-      ) {
-        state.page += action.payload;
-      }
-    },
-
-    buyUpgrade: (state, action) => {
-      const activeUpgrade = state.upgrades.find((x) => x.id === action.payload);
-      if (state.money < activeUpgrade.price) {
-        notify("error", "You can't afford it 😢", 100);
-        return;
-      }
-      state.money -= activeUpgrade.price;
-      activeUpgrade.level++;
-      notify("success", "Item successfully purchased 😎", 100);
-    },
-    updateEmail: (state, action) => {
-      state.email = action.payload;
+    addItemAmount: (state, action) => {
+      const itemId = action.payload;
+      state.upgrades[itemId].amount++;
     },
     setActiveSkin: (state, action) => {
-      const { type, skinsData } = action.payload;
-      const skinObj = skinsData.find((el) => el.name === type);
-      state.activeSkin = skinObj.path;
+      state.activeSkin = action.payload;
     },
+
     // TO DELETE, just for tests
     addMoney: (state) => {
       state.money += 999999;
@@ -163,12 +130,6 @@ export const gameSlice = createSlice({
   },
 });
 export const {
-  catClick,
-  checkLevelUp,
-  calcNextLevel,
-  updatePages,
-  updatePage,
-  buyUpgrade,
   updateEmail,
   addMoney,
   loadNewData,
@@ -178,5 +139,10 @@ export const {
   setToNextLevel,
   setBonuses,
   setItemPrice,
+  setMaxPages,
+  setPage,
+  updateMoney,
+  updateXp,
+  addItemAmount,
 } = gameSlice.actions;
 export default gameSlice.reducer;
