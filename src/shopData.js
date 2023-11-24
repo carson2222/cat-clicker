@@ -7,6 +7,16 @@ import catDriver from "./images/cat_driver.png";
 
 const upgradesData = [
   {
+    id: "0",
+    type: "upgrades",
+    upgradeId: "mainCat",
+    level: 0,
+    amount: 1,
+    cm: [0, 1, 2, 3],
+    xpm: [0, 1, 2, 3],
+    cps: [0, 1, 2, 3],
+  },
+  {
     id: "1",
     type: "upgrades",
     upgradeId: "fisherCat",
@@ -15,9 +25,9 @@ const upgradesData = [
     initPrice: 20,
     price: null,
     level: 0,
-    cm: [0, 0, 0],
-    xpm: [0, 0, 0],
-    cps: [0.05, 0.1, 0.15],
+    cm: [0, 0, 0, 0],
+    xpm: [0, 0, 0, 0],
+    cps: [0, 0.05, 0.1, 0.15],
     img: catFishingRod,
   },
   {
@@ -29,9 +39,9 @@ const upgradesData = [
     initPrice: 100,
     price: null,
     level: 0,
-    cm: [0, 0, 0],
-    xpm: [0, 0, 0],
-    cps: [0.1, 0.2, 0.3],
+    cm: [0, 0, 0, 0],
+    xpm: [0, 0, 0, 0],
+    cps: [0, 0.1, 0.2, 0.3],
     img: catBuilder,
   },
   {
@@ -43,9 +53,9 @@ const upgradesData = [
     initPrice: 500,
     price: null,
     level: 0,
-    cm: [0, 0, 0],
-    xpm: [0, 0, 0],
-    cps: [0.25, 0.4, 0.6],
+    cm: [0, 0, 0, 0],
+    xpm: [0, 0, 0, 0],
+    cps: [0, 0.25, 0.4, 0.6],
     img: catHouse,
   },
   {
@@ -57,9 +67,9 @@ const upgradesData = [
     initPrice: 2500,
     price: null,
     level: 0,
-    cm: [0, 0, 0],
-    xpm: [0, 0, 0],
-    cps: [0.5, 0.75, 1],
+    cm: [0, 0, 0, 0],
+    xpm: [0, 0, 0, 0],
+    cps: [0, 0.5, 0.75, 1],
     img: catFarmer,
   },
   {
@@ -71,9 +81,9 @@ const upgradesData = [
     initPrice: 10000,
     price: null,
     level: 0,
-    cm: [0, 0, 0],
-    xpm: [0, 0, 0],
-    cps: [1, 1.5, 2],
+    cm: [0, 0, 0, 0],
+    xpm: [0, 0, 0, 0],
+    cps: [0, 1, 1.5, 2],
     img: catWarrior,
   },
   {
@@ -85,51 +95,14 @@ const upgradesData = [
     initPrice: 50000,
     price: null,
     level: 0,
-    cm: [0, 0, 0],
-    xpm: [0, 0, 0],
-    cps: [2.5, 5, 7.5],
+    cm: [0, 0, 0, 0],
+    xpm: [0, 0, 0, 0],
+    cps: [0, 2.5, 5, 7.5],
     img: catDriver,
   },
 ];
 
 const itemsData = {
-  // {
-  //   "mainCat": {
-  //     "1": false,
-  //     "2": false,
-  //     "3": false
-  //   },
-  //   "fisherCat": {
-  //     "1": false,
-  //     "2": false,
-  //     "3": false
-  //   },
-  //   "builder": {
-  //     "1": false,
-  //     "2": false,
-  //     "3": false
-  //   },
-  //   "catHouse": {
-  //     "1": false,
-  //     "2": false,
-  //     "3": false
-  //   },
-  //   "farmer": {
-  //     "1": false,
-  //     "2": false,
-  //     "3": false
-  //   },
-  //   "driver": {
-  //     "1": false,
-  //     "2": false,
-  //     "3": false
-  //   },
-  //   "warrior": {
-  //     "1": false,
-  //     "2": false,
-  //     "3": false
-  //   }
-  // }
   mainCat: [
     {
       id: "1",
@@ -163,7 +136,7 @@ const itemsData = {
       title: "fisher cat test1",
       description: "Test",
       price: 1,
-      purchased: false,
+      purchased: true,
     },
     {
       id: "2",
@@ -177,6 +150,136 @@ const itemsData = {
       id: "3",
       type: "items",
       title: "fisher cat test3",
+      description: "Test",
+      price: 1,
+      purchased: false,
+    },
+  ],
+  catHouse: [
+    {
+      id: "1",
+      type: "items",
+      title: "TEEST1",
+      description: "Test",
+      price: 1,
+      purchased: false,
+    },
+    {
+      id: "2",
+      type: "items",
+      title: "TEEEST  2",
+      description: "Test",
+      price: 1,
+      purchased: false,
+    },
+    {
+      id: "3",
+      type: "items",
+      title: "TEEEST  3",
+      description: "Test",
+      price: 1,
+      purchased: false,
+    },
+  ],
+  warrior: [
+    {
+      id: "1",
+      type: "items",
+      title: "TEEST 1",
+      description: "Test",
+      price: 1,
+      purchased: false,
+    },
+    {
+      id: "2",
+      type: "items",
+      title: "TEEEST  2",
+      description: "Test",
+      price: 1,
+      purchased: false,
+    },
+    {
+      id: "3",
+      type: "items",
+      title: "TEEEST  3",
+      description: "Test",
+      price: 1,
+      purchased: false,
+    },
+  ],
+  builder: [
+    {
+      id: "1",
+      type: "items",
+      title: "TEEST1",
+      description: "Test",
+      price: 1,
+      purchased: false,
+    },
+    {
+      id: "2",
+      type: "items",
+      title: "TEEEST  2",
+      description: "Test",
+      price: 1,
+      purchased: false,
+    },
+    {
+      id: "3",
+      type: "items",
+      title: "TEEEST  3",
+      description: "Test",
+      price: 1,
+      purchased: false,
+    },
+  ],
+  farmer: [
+    {
+      id: "1",
+      type: "items",
+      title: "TEEST",
+      description: "Test",
+      price: 1,
+      purchased: false,
+    },
+    {
+      id: "2",
+      type: "items",
+      title: "TEEEST  2",
+      description: "Test",
+      price: 1,
+      purchased: false,
+    },
+    {
+      id: "3",
+      type: "items",
+      title: "TEEEST  3",
+      description: "Test",
+      price: 1,
+      purchased: false,
+    },
+  ],
+  driver: [
+    {
+      id: "1",
+      type: "items",
+      title: "TEEST",
+      description: "Test",
+      price: 1,
+      purchased: false,
+    },
+    {
+      id: "2",
+      type: "items",
+      title: "TEEEST  2",
+      description: "Test",
+      price: 1,
+      purchased: false,
+    },
+    {
+      id: "3",
+      type: "items",
+      title: "TEEEST  3",
       description: "Test",
       price: 1,
       purchased: false,

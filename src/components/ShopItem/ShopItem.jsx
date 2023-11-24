@@ -26,10 +26,7 @@ function ShopItem({
           {price}
           <GiFishbone size={25} />
         </p>
-        <button
-          className={classes.shopItem_buyBtn}
-          onClick={() => buyFun(upgradeId)}
-        >
+        <button className={classes.shopItem_buyBtn} onClick={buyFun}>
           {btnContent}
         </button>
       </div>

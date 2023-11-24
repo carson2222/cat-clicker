@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-import { diff } from "just-diff";
 import {
   addLevel,
   loadNewData,
@@ -15,6 +14,8 @@ import {
   addUpgradeAmount,
   updateXp,
   setUpgradeLevel,
+  setItemPurchased,
+  activeSkin,
 } from "../features/gameSlice";
 import { notify } from "../toastify";
 import { upgradesData, itemsData } from "../shopData";
@@ -27,55 +28,7 @@ function useGame() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  function levelUp() {
-    if (+game.xp >= +game.toNextLevel) {
-      dispatch(addLevel());
-      dispatch(resetXp());
-      notify("default", "Level UP! 😺");
-    }
-  }
-  function calcToNextLevel() {
-    const newToNextLevel = game.level * (game.level * 0.7) * 20;
-    dispatch(setToNextLevel(newToNextLevel));
-  }
-
-  function calcUpgradesLevel() {
-    for (const [upgradeId, itemsStatus] of Object.entries(game.items)) {
-      let newLevel = 0;
-      // Add a mainCat upgrade counter
-      if (upgradeId === "mainCat") return;
-      for (const [_, purchaseStatus] of Object.entries(itemsStatus)) {
-        if (purchaseStatus) newLevel++;
-      }
-
-      if (newLevel !== game.upgrades[upgradeId].level) {
-        dispatch(setUpgradeLevel({ upgradeId, newLevel }));
-      }
-    }
-  }
-  function calcBonuses() {
-    let newMoneyMultiplier = 1;
-    let newXpMultiplier = 1;
-    let newCps = 0;
-
-    // Levels
-    newMoneyMultiplier += (game.level - 1) * 0.05;
-    newXpMultiplier += (game.level - 1) * 0.05;
-
-    // Upgrades - money & xp & cps
-    upgradesData.forEach((element) => {
-      const upgradeStatus = game.upgrades[element.upgradeId];
-      newMoneyMultiplier +=
-        element.cm[upgradeStatus.level] * upgradeStatus.amount;
-      newXpMultiplier +=
-        element.xpm[upgradeStatus.level] * upgradeStatus.amount;
-      newCps += element.cps[upgradeStatus.level] * upgradeStatus.amount;
-    });
-
-    // Set new data
-    dispatch(setBonuses({ newMoneyMultiplier, newXpMultiplier, newCps }));
-  }
-
+  // Auth
   async function singUp(e, email, password) {
     try {
       e.preventDefault();
@@ -154,7 +107,65 @@ function useGame() {
       notify("error", error.message + "💥");
     }
   }
+  // Main Clicker
+  function catClick() {
+    dispatch(updateMoney(1 * game.moneyMultiplier));
+    dispatch(updateXp(1 * game.xpMultiplier));
+  }
 
+  function changeSkin(type) {
+    const newActiveSkin = skinsData.find((el) => el.name === type);
+    if (game.skins[newActiveSkin.id] && newActiveSkin.path !== game.activeSkin)
+      dispatch(setActiveSkin(newActiveSkin.path));
+  }
+  function newSkin() {
+    const newSkinId = +game.upgrades.mainCat.level + 1;
+    dispatch(activeSkin(newSkinId));
+  }
+  function calcBonuses() {
+    let newMoneyMultiplier = 1;
+    let newXpMultiplier = 1;
+    let newCps = 0;
+
+    newMoneyMultiplier += (game.level - 1) * 0.05;
+    newXpMultiplier += (game.level - 1) * 0.05;
+
+    upgradesData.forEach((element) => {
+      const upgradeStatus = game.upgrades[element.upgradeId];
+      newMoneyMultiplier +=
+        element.cm[upgradeStatus.level] * upgradeStatus.amount;
+      newXpMultiplier +=
+        element.xpm[upgradeStatus.level] * upgradeStatus.amount;
+      newCps += element.cps[upgradeStatus.level] * upgradeStatus.amount;
+    });
+    dispatch(setBonuses({ newMoneyMultiplier, newXpMultiplier, newCps }));
+  }
+  function levelUp() {
+    if (+game.xp >= +game.toNextLevel) {
+      dispatch(addLevel());
+      dispatch(resetXp());
+      notify("default", "Level UP! 😺");
+    }
+  }
+  function calcToNextLevel() {
+    const newToNextLevel = game.level * (game.level * 0.7) * 20;
+    dispatch(setToNextLevel(newToNextLevel));
+  }
+
+  // Shop
+  function calcUpgradesLevel() {
+    for (const [upgradeId, itemsStatus] of Object.entries(game.items)) {
+      let newLevel = 0;
+      // TODO: Add a mainCat upgrade counter
+      for (const [_, purchaseStatus] of Object.entries(itemsStatus)) {
+        if (purchaseStatus) newLevel++;
+      }
+
+      if (newLevel !== game.upgrades[upgradeId].level) {
+        dispatch(setUpgradeLevel({ upgradeId, newLevel }));
+      }
+    }
+  }
   function calcUpgradesPrice() {
     upgradesData.forEach((el) => {
       let newPrice = el.initPrice;
@@ -172,7 +183,8 @@ function useGame() {
   function resetPages(type) {
     let newMaxPages;
     if (type === "upgrades") newMaxPages = Math.ceil(upgradesData.length / 4);
-    if (type === "items") newMaxPages = Math.ceil(itemsData.length / 4);
+    if (type === "items")
+      newMaxPages = Math.ceil(Object.keys(itemsData).length / 4);
 
     dispatch(setMaxPages(newMaxPages));
     dispatch(setPage(1));
@@ -194,17 +206,17 @@ function useGame() {
       notify("success", "Item successfully purchased 😎", 100);
     }
   }
-
-  function changeSkin(type) {
-    const newActiveSkin = skinsData.find((el) => el.name === type);
-    if (game.skins[newActiveSkin.id] && newActiveSkin.path !== game.activeSkin)
-      dispatch(setActiveSkin(newActiveSkin.path));
+  function buyItem(upgradeId, itemId) {
+    const thisItemData = itemsData[upgradeId][+itemId - 1];
+    if (game.money < thisItemData.price) {
+      notify("error", "You can't afford it 😢", 100);
+    } else {
+      dispatch(updateMoney(-thisItemData.price));
+      dispatch(setItemPurchased({ upgradeId, itemId }));
+      notify("success", "Item successfully purchased 😎", 100);
+    }
   }
 
-  function catClick() {
-    dispatch(updateMoney(1 * game.moneyMultiplier));
-    dispatch(updateXp(1 * game.xpMultiplier));
-  }
   return {
     levelUp,
     calcToNextLevel,
@@ -219,6 +231,8 @@ function useGame() {
     buyUpgrade,
     catClick,
     calcUpgradesLevel,
+    buyItem,
+    newSkin,
   };
 }
 export default useGame;

@@ -3,7 +3,7 @@ import classes from "./_shop.module.scss";
 import ShopItem from "./ShopItem/ShopItem";
 import ShopNav from "./ShopNav/ShopNav";
 import { useSelector, shallowEqual } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { itemsData, upgradesData } from "../shopData";
 import useGame from "../hooks/useGame";
 
@@ -13,33 +13,37 @@ function Shop() {
     shallowEqual
   );
   // const items = useSelector((state) => state.game.items, shallowEqual);
-  const items = itemsData;
+  const itemsStatus = useSelector((state) => state.game.items, shallowEqual);
   const quests = useSelector((state) => state.game.quests, shallowEqual);
   const page = useSelector((state) => state.game.page, shallowEqual);
 
   const [activeShop, setActiveShop] = useState("upgrades");
-  const [activeItems, setActiveItems] = useState({});
+  const inactiveItemsCounter = useRef(0);
+
   const {
     calcBonuses,
     calcUpgradesPrice,
     resetPages,
     buyUpgrade,
     calcUpgradesLevel,
+    buyItem,
+    newSkin,
   } = useGame();
 
-  function updateActiveItems() {
-    let newActiveItems = { ...activeItems };
-    for (const [key, value] of Object.entries(items)) {
-      let itemsToBuy = value.filter((el) => el.purchased === false);
-      newActiveItems[key] = itemsToBuy[0];
-    }
-    setActiveItems({ ...newActiveItems });
-  }
+  // function updateActiveItems() {
+  //   let newActiveItems = { ...activeItems };
+  //   for (const [key, value] of Object.entries(itemsStatus)) {
+  //     console.log(value);
+  //     let itemsToBuy = Object.values(value).filter((el) => el === false);
+  //     newActiveItems[key] = itemsToBuy[0];
+  //   }
+  //   setActiveItems({ ...newActiveItems });
+  // }
 
   useEffect(() => {
     setActiveShop("upgrades");
     calcUpgradesPrice();
-    updateActiveItems();
+    // updateActiveItems();
     calcUpgradesLevel();
   }, []);
   useEffect(() => {
@@ -48,11 +52,12 @@ function Shop() {
   useEffect(() => {
     calcBonuses();
     calcUpgradesPrice();
-    calcUpgradesLevel();
-  }, [upgradesStatus, items, quests]);
+    newSkin();
+  }, [upgradesStatus, itemsStatus, quests]);
   useEffect(() => {
+    // updateActiveItems();
     calcUpgradesLevel();
-  }, [items]);
+  }, [itemsStatus]);
 
   return (
     <div className={classes.shop}>
@@ -61,7 +66,11 @@ function Shop() {
       <div className={classes.shop_main}>
         {activeShop === "upgrades" &&
           upgradesData.map((el) => {
-            if (el.id <= page * 4 && el.id > (page - 1) * 4) {
+            if (
+              el.id <= page * 4 &&
+              el.id > (page - 1) * 4 &&
+              el.upgradeId !== "mainCat"
+            ) {
               const thisUpgradeStatus = upgradesStatus[el.upgradeId];
               return (
                 <ShopItem
@@ -72,23 +81,31 @@ function Shop() {
                   content={el.description}
                   price={thisUpgradeStatus.price}
                   btnContent={thisUpgradeStatus.amount}
-                  buyFun={buyUpgrade}
+                  buyFun={() => buyUpgrade(el.upgradeId)}
                 />
               );
             }
           })}
         {activeShop === "items" &&
-          Object.entries(activeItems).map(([key, el]) => {
-            if (!el) return;
-            if (el.id <= page * 4 && el.id > (page - 1) * 4) {
+          Object.entries(itemsData).map(([key, el], i) => {
+            let thisIndex = i - inactiveItemsCounter.current;
+            if (thisIndex < page * 4 && thisIndex >= (page - 1) * 4) {
+              const itemsToBuy = el.filter((el) => !itemsStatus[key][el.id])[0];
+              if (!itemsToBuy) {
+                inactiveItemsCounter.current += 1;
+                return;
+              }
               return (
                 <ShopItem
                   key={key}
-                  type={el.type}
-                  title={el.title}
-                  content={el.description}
-                  price={el.price}
+                  upgradeId={itemsToBuy.id}
+                  itemId={itemsToBuy.id}
+                  type={itemsToBuy.type}
+                  title={itemsToBuy.title}
+                  content={itemsToBuy.description}
+                  price={itemsToBuy.price}
                   btnContent="Buy"
+                  buyFun={() => buyItem(key, itemsToBuy.id)}
                 />
               );
             }

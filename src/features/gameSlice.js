@@ -13,35 +13,36 @@ const initialState = {
   page: 1,
   maxPages: 1,
   upgrades: {
-    1: {
+    mainCat: { level: 0 },
+    driver: {
       level: 0,
+      price: 10000,
       amount: 0,
-      price: null,
     },
-    2: {
+    farmer: {
       level: 0,
+      price: 2500,
       amount: 0,
-      price: null,
     },
-    3: {
+    builder: {
       level: 0,
+      price: 100,
       amount: 0,
-      price: null,
     },
-    4: {
+    warrior: {
       level: 0,
+      price: 50000,
       amount: 0,
-      price: null,
     },
-    5: {
+    catHouse: {
       level: 0,
+      price: 500,
       amount: 0,
-      price: null,
     },
-    6: {
+    fisherCat: {
       level: 0,
+      price: 20,
       amount: 0,
-      price: null,
     },
   },
   skins: {
@@ -50,6 +51,45 @@ const initialState = {
     3: false,
     4: false,
   },
+
+  items: {
+    driver: {
+      1: false,
+      2: false,
+      3: false,
+    },
+    farmer: {
+      1: false,
+      2: false,
+      3: false,
+    },
+    builder: {
+      1: false,
+      2: false,
+      3: false,
+    },
+    mainCat: {
+      1: false,
+      2: false,
+      3: false,
+    },
+    warrior: {
+      1: false,
+      2: false,
+      3: false,
+    },
+    catHouse: {
+      1: false,
+      2: false,
+      3: false,
+    },
+    fisherCat: {
+      1: false,
+      2: false,
+      3: false,
+    },
+  },
+
   quests: [
     {
       id: "1",
@@ -121,13 +161,18 @@ export const gameSlice = createSlice({
     },
     setUpgradeLevel: (state, action) => {
       const { upgradeId, newLevel } = action.payload;
-      console.log(upgradeId, newLevel);
       state.upgrades[upgradeId].level = newLevel;
     },
     setActiveSkin: (state, action) => {
       state.activeSkin = action.payload;
     },
-
+    setItemPurchased: (state, action) => {
+      const { upgradeId, itemId } = action.payload;
+      state.items[upgradeId][itemId] = true;
+    },
+    activeSkin: (state, action) => {
+      state.skins[action.payload] = true;
+    },
     // TO DELETE, just for tests
     addMoney: (state) => {
       state.money += 999999;
@@ -150,5 +195,7 @@ export const {
   setUpgradePrice,
   addUpgradeAmount,
   setUpgradeLevel,
+  setItemPurchased,
+  activeSkin,
 } = gameSlice.actions;
 export default gameSlice.reducer;
