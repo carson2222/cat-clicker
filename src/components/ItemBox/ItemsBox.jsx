@@ -1,20 +1,15 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import classes from "./_item-box.module.scss";
 
 import { useSelector } from "react-redux";
 import random from "random";
 const ItemsBox = ({ upgradeObject, top, left, width, height }) => {
-  const upgrade = useSelector(
-    (state) => state.game.upgrades[upgradeObject.upgradeId]
-  );
+  const upgrade = useSelector((state) => state.game.upgrades[upgradeObject.upgradeId]);
 
   const items = useRef([]);
 
   return (
-    <div
-      className={classes.item_box}
-      style={{ top: `${top}%`, left: `${left}%` }}
-    >
+    <div className={classes.item_box} style={{ top: `${top}%`, left: `${left}%` }}>
       {Array(upgrade.amount)
         .fill(undefined)
         .map((_, i) => {

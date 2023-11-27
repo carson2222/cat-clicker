@@ -69,7 +69,6 @@ function Clicker() {
       <ItemsBox upgradeObject={upgradesData[4]} top="25" left="75" width="auto" height="4rem" />
       <ItemsBox upgradeObject={upgradesData[5]} top="45" left="75" width="auto" height="4rem" />
       <ItemsBox upgradeObject={upgradesData[6]} top="65" left="75" width="auto" height="4rem" />
-      <BonusBox />
       <animated.div style={animation}>
         <img
           alt="Cat image"
@@ -82,6 +81,7 @@ function Clicker() {
           id="catClick"
         />
       </animated.div>
+      <BonusBox />
       <XpBar />
     </div>
   );

@@ -1,12 +1,36 @@
 @use "../../sass/abstracts" as *;
 
 .main {
-  background-color: red;
   width: 35%;
   height: 45%;
   position: absolute;
-
+  pointer-events: none;
   .item {
     position: absolute;
+    transform: translate(-50%, -50%);
+  }
+  .pouch {
+    width: calc(2vw + 2vh);
+    height: auto;
+    cursor: pointer;
+    animation: acitvePouch infinite 0.5s;
+    pointer-events: auto;
+    &:hover {
+      filter: drop-shadow(0 0 5px black);
+    }
+  }
+}
+@keyframes acitvePouch {
+  0% {
+    transform: rotate(-20deg);
+    filter: drop-shadow(0 0 5px black);
+  }
+  50% {
+    transform: rotate(20deg);
+    filter: drop-shadow(0 0 1px black);
+  }
+  100% {
+    transform: rotate(-20deg);
+    filter: drop-shadow(0 0 5px black);
   }
 }
