@@ -1,0 +1,12 @@
+@use "../../sass/abstracts" as *;
+
+.main {
+  background-color: red;
+  width: 35%;
+  height: 45%;
+  position: absolute;
+
+  .item {
+    position: absolute;
+  }
+}

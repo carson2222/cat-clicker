@@ -240,7 +240,7 @@ const itemsData = {
       type: "items",
       title: "Driver lvl 2",
       description: "Test",
-      price: 1,
+      price: 50000,
       purchased: false,
     },
     {
@@ -248,7 +248,7 @@ const itemsData = {
       type: "items",
       title: "Driver lvl 3",
       description: "Test",
-      price: 1,
+      price: 100000,
       purchased: false,
     },
     {
@@ -256,7 +256,7 @@ const itemsData = {
       type: "items",
       title: "Driver lvl 4",
       description: "Test",
-      price: 1,
+      price: 200000,
       purchased: false,
     },
   ],
@@ -266,7 +266,7 @@ const itemsData = {
       type: "items",
       title: "Warrior lvl 2",
       description: "Test",
-      price: 200000,
+      price: 175000,
       purchased: false,
     },
     {
@@ -274,7 +274,7 @@ const itemsData = {
       type: "items",
       title: "Warrior lvl 3",
       description: "Test",
-      price: 5000000,
+      price: 400000,
       purchased: false,
     },
     {
