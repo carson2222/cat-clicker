@@ -12,83 +12,6 @@ const initialState = {
   toNextLevel: 9999,
   page: 1,
   maxPages: 1,
-  upgrades: {
-    mainCat: { level: 0 },
-    driver: {
-      level: 0,
-      price: 10000,
-      amount: 0,
-    },
-    farmer: {
-      level: 0,
-      price: 2500,
-      amount: 0,
-    },
-    builder: {
-      level: 0,
-      price: 100,
-      amount: 0,
-    },
-    warrior: {
-      level: 0,
-      price: 50000,
-      amount: 0,
-    },
-    catHouse: {
-      level: 0,
-      price: 500,
-      amount: 0,
-    },
-    fisherCat: {
-      level: 0,
-      price: 20,
-      amount: 0,
-    },
-  },
-  skins: {
-    1: true,
-    2: false,
-    3: false,
-    4: false,
-  },
-
-  items: {
-    driver: {
-      1: false,
-      2: false,
-      3: false,
-    },
-    farmer: {
-      1: false,
-      2: false,
-      3: false,
-    },
-    builder: {
-      1: false,
-      2: false,
-      3: false,
-    },
-    mainCat: {
-      1: false,
-      2: false,
-      3: false,
-    },
-    warrior: {
-      1: false,
-      2: false,
-      3: false,
-    },
-    catHouse: {
-      1: false,
-      2: false,
-      3: false,
-    },
-    fisherCat: {
-      1: false,
-      2: false,
-      3: false,
-    },
-  },
 
   quests: [
     {
@@ -151,24 +74,24 @@ export const gameSlice = createSlice({
     setPage: (state, action) => {
       state.page = action.payload;
     },
-    setUpgradePrice: (state, action) => {
-      const { upgradeId, newPrice } = action.payload;
-      state.upgrades[upgradeId].price = newPrice;
+    setItemPrice: (state, action) => {
+      const { itemId, newPrice } = action.payload;
+      state.items[itemId].price = newPrice;
     },
-    addUpgradeAmount: (state, action) => {
-      const upgradeId = action.payload;
-      state.upgrades[upgradeId].amount++;
+    addItemAmount: (state, action) => {
+      const itemId = action.payload;
+      state.items[itemId].amount++;
     },
-    setUpgradeLevel: (state, action) => {
-      const { upgradeId, newLevel } = action.payload;
-      state.upgrades[upgradeId].level = newLevel;
+    setItemLevel: (state, action) => {
+      const { itemId, newLevel } = action.payload;
+      state.items[itemId].level = newLevel;
     },
     setActiveSkin: (state, action) => {
       state.activeSkin = action.payload;
     },
-    setItemPurchased: (state, action) => {
-      const { upgradeId, itemId } = action.payload;
-      state.items[upgradeId][itemId] = true;
+    setUpgradePurchased: (state, action) => {
+      const { itemId, itemId } = action.payload;
+      state.items[itemId][itemId] = true;
     },
     activeSkin: (state, action) => {
       state.skins[action.payload] = true;
@@ -192,10 +115,10 @@ export const {
   setPage,
   updateMoney,
   updateXp,
-  setUpgradePrice,
-  addUpgradeAmount,
-  setUpgradeLevel,
-  setItemPurchased,
+  setItemPrice,
+  addItemAmount
+  setItemLevel,
+  setUpgradePurchased,
   activeSkin,
 } = gameSlice.actions;
 export default gameSlice.reducer;

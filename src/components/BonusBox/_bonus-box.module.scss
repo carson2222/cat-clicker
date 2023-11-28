@@ -1,26 +1,57 @@
 @use "../../sass/abstracts" as *;
 
 .main {
-  width: 35%;
+  width: 40%;
   height: 45%;
   position: absolute;
   pointer-events: none;
   .item {
     position: absolute;
     transform: translate(-50%, -50%);
+    cursor: pointer;
+    pointer-events: auto;
   }
   .pouch {
     width: calc(2vw + 2vh);
     height: auto;
-    cursor: pointer;
-    animation: acitvePouch infinite 0.5s;
-    pointer-events: auto;
+    animation: shakeAndGlow infinite 0.5s;
+    &:hover {
+      filter: drop-shadow(0 0 5px black);
+    }
+  }
+  .item {
+    animation: shakeAndGlow infinite reverse 0.5s;
     &:hover {
       filter: drop-shadow(0 0 5px black);
     }
   }
 }
-@keyframes acitvePouch {
+.popup {
+  background-color: rgba($color: black, $alpha: 0.2);
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 20%;
+    height: 30%;
+    background-color: white;
+    border: $medium-border-black;
+    & > * {
+      margin: 1rem;
+    }
+  }
+}
+@keyframes shakeAndGlow {
   0% {
     transform: rotate(-20deg);
     filter: drop-shadow(0 0 5px black);

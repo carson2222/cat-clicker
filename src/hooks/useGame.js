@@ -148,7 +148,7 @@ function useGame() {
     }
   }
   function calcToNextLevel() {
-    const newToNextLevel = game.level * (game.level * 0.7) * 20;
+    const newToNextLevel = game.level * (game.level * 0.4) * 20;
     dispatch(setToNextLevel(newToNextLevel));
   }
 

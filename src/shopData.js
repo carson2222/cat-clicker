@@ -5,11 +5,11 @@ import catFarmer from "./images/cat_farmer.png";
 import catWarrior from "./images/cat_warrior.png";
 import catDriver from "./images/cat_driver.png";
 
-const upgradesData = [
+const itemsData = [
   {
     id: "0",
-    type: "upgrades",
-    upgradeId: "mainCat",
+    type: "items",
+    itemId: "mainCat",
     level: 0,
     amount: 1,
     cm: [0, 1, 2, 3],
@@ -18,10 +18,10 @@ const upgradesData = [
   },
   {
     id: "1",
-    type: "upgrades",
-    upgradeId: "fisherCat",
+    type: "items",
+    itemId: "fisherCat",
     title: "Fishercat",
-    description: "Each upgrade gives you + 0.05x CPS",
+    description: "Each item gives you + 0.05x CPS",
     initPrice: 20,
     price: null,
     level: 0,
@@ -32,10 +32,10 @@ const upgradesData = [
   },
   {
     id: "2",
-    type: "upgrades",
-    upgradeId: "builder",
+    type: "items",
+    itemId: "builder",
     title: "Builders",
-    description: "Each upgrade gives you + 0.1x CPS ",
+    description: "Each item gives you + 0.1x CPS ",
     initPrice: 100,
     price: null,
     level: 0,
@@ -46,10 +46,10 @@ const upgradesData = [
   },
   {
     id: "3",
-    type: "upgrades",
-    upgradeId: "catHouse",
+    type: "items",
+    itemId: "catHouse",
     title: "Cat house",
-    description: "Each upgrade gives you + 0.25x CPS ",
+    description: "Each item gives you + 0.25x CPS ",
     initPrice: 500,
     price: null,
     level: 0,
@@ -60,10 +60,10 @@ const upgradesData = [
   },
   {
     id: "4",
-    type: "upgrades",
-    upgradeId: "farmer",
+    type: "items",
+    itemId: "farmer",
     title: "Farmer",
-    description: "Each upgrade gives you + 0.5x CPS ",
+    description: "Each item gives you + 0.5x CPS ",
     initPrice: 2500,
     price: null,
     level: 0,
@@ -74,10 +74,10 @@ const upgradesData = [
   },
   {
     id: "5",
-    type: "upgrades",
-    upgradeId: "driver",
+    type: "items",
+    itemId: "driver",
     title: "Driver",
-    description: "Each upgrade gives you + 1x CPS ",
+    description: "Each item gives you + 1x CPS ",
     initPrice: 10000,
     price: null,
     level: 0,
@@ -88,10 +88,10 @@ const upgradesData = [
   },
   {
     id: "6",
-    type: "upgrades",
-    upgradeId: "warrior",
+    type: "items",
+    itemId: "warrior",
     title: "Warrior",
-    description: "Each upgrade gives you + 2.5x CPS ",
+    description: "Each item gives you + 2.5x CPS ",
     initPrice: 50000,
     price: null,
     level: 0,
@@ -102,11 +102,11 @@ const upgradesData = [
   },
 ];
 
-const itemsData = {
+const upgradesData = {
   mainCat: [
     {
       id: "1",
-      type: "items",
+      type: "upgrades",
       title: "Black skin",
       description: "Upgrade into black cat",
       price: 500,
@@ -114,7 +114,7 @@ const itemsData = {
     },
     {
       id: "2",
-      type: "items",
+      type: "upgrades",
       title: "Ginger skin",
       description: "Upgrade into ginger cat",
       price: 2000,
@@ -122,7 +122,7 @@ const itemsData = {
     },
     {
       id: "3",
-      type: "items",
+      type: "upgrades",
       title: "Brown skin",
       description: "Upgrade into brown cat",
       price: 5000,
@@ -132,7 +132,7 @@ const itemsData = {
   fisherCat: [
     {
       id: "1",
-      type: "items",
+      type: "upgrades",
       title: "Fisher Cat lvl 2",
       description: "Test",
       price: 150,
@@ -140,7 +140,7 @@ const itemsData = {
     },
     {
       id: "2",
-      type: "items",
+      type: "upgrades",
       title: "Fisher Cat lvl 3",
       description: "Test",
       price: 400,
@@ -148,7 +148,7 @@ const itemsData = {
     },
     {
       id: "3",
-      type: "items",
+      type: "upgrades",
       title: "Fisher Cat lvl 5",
       description: "Test",
       price: 1000,
@@ -158,7 +158,7 @@ const itemsData = {
   builder: [
     {
       id: "1",
-      type: "items",
+      type: "upgrades",
       title: "Builder lvl 2",
       description: "Test",
       price: 1000,
@@ -166,7 +166,7 @@ const itemsData = {
     },
     {
       id: "2",
-      type: "items",
+      type: "upgrades",
       title: "Builder lvl 3",
       description: "Test",
       price: 3000,
@@ -174,7 +174,7 @@ const itemsData = {
     },
     {
       id: "3",
-      type: "items",
+      type: "upgrades",
       title: "Builder lvl 4",
       description: "Test",
       price: 7000,
@@ -184,7 +184,7 @@ const itemsData = {
   catHouse: [
     {
       id: "1",
-      type: "items",
+      type: "upgrades",
       title: "Cat House lvl 2",
       description: "Test",
       price: 5000,
@@ -192,7 +192,7 @@ const itemsData = {
     },
     {
       id: "2",
-      type: "items",
+      type: "upgrades",
       title: "Cat House lvl 3",
       description: "Test",
       price: 10000,
@@ -200,7 +200,7 @@ const itemsData = {
     },
     {
       id: "3",
-      type: "items",
+      type: "upgrades",
       title: "Cat House lvl 4",
       description: "Test",
       price: 20000,
@@ -210,7 +210,7 @@ const itemsData = {
   farmer: [
     {
       id: "1",
-      type: "items",
+      type: "upgrades",
       title: "Farmer lvl 2",
       description: "Test",
       price: 15000,
@@ -218,7 +218,7 @@ const itemsData = {
     },
     {
       id: "2",
-      type: "items",
+      type: "upgrades",
       title: "Farmer lvl 3",
       description: "Test",
       price: 25000,
@@ -226,7 +226,7 @@ const itemsData = {
     },
     {
       id: "3",
-      type: "items",
+      type: "upgrades",
       title: "Farmer lvl 4",
       description: "Test",
       price: 60000,
@@ -237,7 +237,7 @@ const itemsData = {
   driver: [
     {
       id: "1",
-      type: "items",
+      type: "upgrades",
       title: "Driver lvl 2",
       description: "Test",
       price: 50000,
@@ -245,7 +245,7 @@ const itemsData = {
     },
     {
       id: "2",
-      type: "items",
+      type: "upgrades",
       title: "Driver lvl 3",
       description: "Test",
       price: 100000,
@@ -253,7 +253,7 @@ const itemsData = {
     },
     {
       id: "3",
-      type: "items",
+      type: "upgrades",
       title: "Driver lvl 4",
       description: "Test",
       price: 200000,
@@ -263,7 +263,7 @@ const itemsData = {
   warrior: [
     {
       id: "1",
-      type: "items",
+      type: "upgrades",
       title: "Warrior lvl 2",
       description: "Test",
       price: 175000,
@@ -271,7 +271,7 @@ const itemsData = {
     },
     {
       id: "2",
-      type: "items",
+      type: "upgrades",
       title: "Warrior lvl 3",
       description: "Test",
       price: 400000,
@@ -279,7 +279,7 @@ const itemsData = {
     },
     {
       id: "3",
-      type: "items",
+      type: "upgrades",
       title: "Warrior lvl 4",
       description: "Test",
       price: 100000000,
@@ -288,4 +288,4 @@ const itemsData = {
   ],
 };
 
-export { upgradesData, itemsData };
+export { itemsData, upgradesData };

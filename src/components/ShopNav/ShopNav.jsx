@@ -6,14 +6,14 @@ function ShopNav({ activeShop, setActiveShop }) {
       <ColoredBox
         color="orange"
         type="btn"
-        textContent="Upgrades"
+        textContent="Items"
         activeShop={activeShop}
         setActiveShop={setActiveShop}
       />
       <ColoredBox
         color="yellow"
         type="btn"
-        textContent="Items"
+        textContent="Upgrades"
         activeShop={activeShop}
         setActiveShop={setActiveShop}
       />

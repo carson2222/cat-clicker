@@ -17,6 +17,9 @@ html {
     font-size: 70%;
   }
 }
+body {
+  position: relative;
+}
 #root {
   background-color: $main-beige;
   width: 100vw;
