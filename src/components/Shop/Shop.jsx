@@ -64,8 +64,10 @@ function Shop() {
                   key={el.id}
                   itemId={el.itemId}
                   type={el.type}
-                  title={el.title}
-                  content={el.description}
+                  title={`${el.title} - ${thisItemStatus.level + 1}`}
+                  content={`${el.description}  +${
+                    el.cps[thisItemStatus.level]
+                  } CPS`}
                   price={thisItemStatus.price}
                   btnContent={thisItemStatus.amount}
                   buyFun={() => buyItem(el.itemId)}
@@ -99,6 +101,7 @@ function Shop() {
               );
             }
           })}
+        {activeShop === "quests" && <h1>Soon...</h1>}
       </div>
       <Pagination />
     </div>
