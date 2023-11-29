@@ -93,7 +93,7 @@ export const gameSlice = createSlice({
       const { upgradeId, itemId } = action.payload;
       state.upgrades[itemId][upgradeId] = true;
     },
-    activeSkin: (state, action) => {
+    activateSkin: (state, action) => {
       state.skins[action.payload] = true;
     },
     // TO DELETE, just for tests
@@ -119,6 +119,6 @@ export const {
   addItemAmount,
   setItemLevel,
   setUpgradePurchased,
-  activeSkin,
+  activateSkin,
 } = gameSlice.actions;
 export default gameSlice.reducer;

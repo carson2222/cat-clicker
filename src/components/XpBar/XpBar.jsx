@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
 import classes from "./_xp-bar.module.scss";
-import { useDispatch, useSelector } from "react-redux";
-import useGame from "../../hooks/useGame";
+import { useSelector } from "react-redux";
+import useClicker from "../../hooks/useClicker";
 
 const XpBar = () => {
-  const { xp, level, toNextLevel } = useSelector((state) => state.game);
-  const dispatch = useDispatch();
-  const { levelUp, calcToNextLevel, calcBonuses } = useGame();
+  const xp = useSelector((state) => state.game.xp);
+  const level = useSelector((state) => state.game.level);
+  const toNextLevel = useSelector((state) => state.game.toNextLevel);
+
+  const { levelUp, calcToNextLevel, calcBonuses } = useClicker();
 
   useEffect(() => {
     levelUp();

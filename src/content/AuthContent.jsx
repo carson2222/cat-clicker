@@ -3,12 +3,12 @@ import classes from "./_auth-content.module.scss";
 import { GiFishbone } from "react-icons/gi";
 import { notify } from "../toastify";
 import { useState } from "react";
-import useGame from "../hooks/useGame";
+import useAuth from "../hooks/useAuth";
 
 const AuthContent = () => {
   const [email, setEmail] = useState("fdhgdfhd@hfdh.ggg");
   const [password, setPassword] = useState("fsafa32523!!");
-  const { logIn, singUp } = useGame();
+  const { logIn, singUp } = useAuth();
 
   function clearInputs(e) {
     e.preventDefault();

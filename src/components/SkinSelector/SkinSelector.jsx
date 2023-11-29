@@ -2,11 +2,11 @@ import React from "react";
 import classes from "./_skin-selector.module.scss";
 import { useSelector } from "react-redux";
 import skinsData from "../../skinsData";
-import useGame from "../../hooks/useGame";
+import useSkinSelector from "../../hooks/useSkinSelector";
 
 const SkinSelector = () => {
   const skinsStatus = useSelector((state) => state.game.skins);
-  const { changeSkin } = useGame();
+  const { changeSkin } = useSkinSelector();
   return (
     <div className={classes.skinSelector}>
       <h1>Skins</h1>

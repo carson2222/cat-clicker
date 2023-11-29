@@ -5,7 +5,9 @@ import ShopNav from "../ShopNav/ShopNav";
 import { useSelector, shallowEqual } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 import { itemsData, upgradesData } from "../../shopData";
-import useGame from "../../hooks/useGame";
+import useSkinSelector from "../../hooks/useSkinSelector";
+import useShop from "../../hooks/useShop";
+import useClicker from "../../hooks/useClicker";
 
 function Shop() {
   const itemsStatus = useSelector((state) => state.game.items, shallowEqual);
@@ -19,16 +21,10 @@ function Shop() {
   const [activeShop, setActiveShop] = useState("items");
   const inactiveUpgradesCounter = useRef(0);
 
-  const {
-    calcBonuses,
-    calcItemsPrice,
-    resetPages,
-    buyItem,
-    buyUpgrade,
-    calcItemsLevel,
-    newSkin,
-  } = useGame();
-
+  const { calcItemsPrice, resetPages, buyItem, buyUpgrade, calcItemsLevel } =
+    useShop();
+  const { calcBonuses } = useClicker();
+  const { newSkin } = useSkinSelector();
   useEffect(() => {
     setActiveShop("items");
     calcItemsPrice();

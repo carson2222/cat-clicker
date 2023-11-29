@@ -1,9 +1,9 @@
 import React from "react";
 import classes from "../_colored-box.module.scss";
-import useGame from "../../hooks/useGame";
+import useSave from "../../hooks/useSave";
 
 const SaveButton = () => {
-  const { saveGame } = useGame();
+  const { saveGame } = useSave();
   return (
     <button
       onClick={saveGame}

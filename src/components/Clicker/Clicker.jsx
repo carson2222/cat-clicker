@@ -6,13 +6,16 @@ import XpBar from "../XpBar/XpBar";
 import Statistics from "../Statistics/Statistics";
 import ItemsBox from "../ItemBox/ItemsBox";
 import { useSpring, animated } from "react-spring";
-import useGame from "../../hooks/useGame";
 import { itemsData } from "../../shopData";
 import BonusBox from "../BonusBox/BonusBox";
+import useSkinSelector from "../../hooks/useSkinSelector";
+import useClicker from "../../hooks/useClicker";
 function Clicker() {
   const autoClickPerSec = useSelector((state) => state.game.autoClickPerSec);
   const activeSkin = useSelector((state) => state.game.activeSkin);
-  const { catClick, changeSkin } = useGame();
+  const { changeSkin } = useSkinSelector();
+  const { catClick } = useClicker();
+
   const catImage = useRef(null);
   const timerId = useRef();
   useEffect(() => {

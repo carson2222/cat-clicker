@@ -1,12 +1,12 @@
 import React from "react";
 import classes from "./_pagination.module.scss";
-import { useDispatch, useSelector } from "react-redux";
-import useGame from "../../hooks/useGame";
+import { useSelector } from "react-redux";
+import useShop from "../../hooks/useShop";
 export function Pagination({ left, right }) {
   const page = useSelector((state) => state.game.page);
   const maxPages = useSelector((state) => state.game.maxPages);
 
-  const { changePage } = useGame();
+  const { changePage } = useShop();
   if (maxPages === 1 && page === 1) {
     left = "inactive";
     right = "inactive";
