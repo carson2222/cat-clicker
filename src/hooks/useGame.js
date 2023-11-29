@@ -22,12 +22,16 @@ import { upgradesData, itemsData } from "../shopData";
 import supabase from "../supabaseClient";
 import { useNavigate } from "react-router-dom";
 import skinsData from "../skinsData";
+import { useEffect } from "react";
 
 function useGame() {
   const game = useSelector((state) => state.game);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    changeSkin("white");
+  });
   // Auth
   async function singUp(e, email, password) {
     try {

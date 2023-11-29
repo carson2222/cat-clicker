@@ -6,8 +6,8 @@ import { useState } from "react";
 import useGame from "../hooks/useGame";
 
 const AuthContent = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("fdhgdfhd@hfdh.ggg");
+  const [password, setPassword] = useState("fsafa32523!!");
   const { logIn, singUp } = useGame();
 
   function clearInputs(e) {
