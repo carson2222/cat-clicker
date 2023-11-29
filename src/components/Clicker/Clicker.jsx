@@ -12,7 +12,7 @@ import BonusBox from "../BonusBox/BonusBox";
 function Clicker() {
   const autoClickPerSec = useSelector((state) => state.game.autoClickPerSec);
   const activeSkin = useSelector((state) => state.game.activeSkin);
-  const { catClick } = useGame();
+  const { catClick, changeSkin } = useGame();
   const catImage = useRef(null);
   const timerId = useRef();
   useEffect(() => {
@@ -59,6 +59,9 @@ function Clicker() {
       };
     }
   }, [autoClickPerSec]);
+  useEffect(() => {
+    changeSkin("white");
+  }, []);
   return (
     <div className={classes.clicker}>
       <Statistics />

@@ -29,9 +29,6 @@ function useGame() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    changeSkin("white");
-  });
   // Auth
   async function singUp(e, email, password) {
     try {
