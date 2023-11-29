@@ -1,7 +1,7 @@
-import catWhite from "./images/cat_white.png";
-import catBlack from "./images/cat_black.png";
-import catGinger from "./images/cat_ginger.png";
-import catBrown from "./images/cat_brown.png";
+import catWhite from "./images/cat_White.png";
+import catBlack from "./images/cat_Black.png";
+import catGinger from "./images/cat_Ginger.png";
+import catBrown from "./images/cat_Brown.png";
 
 const skinsData = [
   {
