@@ -24,25 +24,26 @@ function Shop() {
     calcItemsPrice,
     resetPages,
     buyItem,
-    calcItemsLevel,
     buyUpgrade,
+    calcItemsLevel,
     newSkin,
   } = useGame();
+
   useEffect(() => {
     setActiveShop("items");
-    calcUpgradesPrice();
-    calcUpgradesLevel();
+    calcItemsPrice();
+    calcItemsLevel();
   }, []);
   useEffect(() => {
     resetPages(activeShop);
   }, [activeShop]);
   useEffect(() => {
     calcBonuses();
-    calcUpgradesPrice();
+    calcItemsPrice();
     newSkin();
   }, [upgradesStatus, itemsStatus, quests]);
   useEffect(() => {
-    calcUpgradesLevel();
+    calcItemsLevel();
   }, [upgradesStatus]);
 
   return (
@@ -65,8 +66,8 @@ function Shop() {
                   type={el.type}
                   title={el.title}
                   content={el.description}
-                  price={thisitemStatus.price}
-                  btnContent={thisitemStatus.amount}
+                  price={thisItemStatus.price}
+                  btnContent={thisItemStatus.amount}
                   buyFun={() => buyItem(el.itemId)}
                 />
               );
@@ -74,13 +75,13 @@ function Shop() {
           })}
         {activeShop === "upgrades" &&
           Object.entries(upgradesData).map(([key, el], i) => {
-            let thisIndex = i - inactiveItemsCounter.current;
+            let thisIndex = i - inactiveUpgradesCounter.current;
             if (thisIndex < page * 4 && thisIndex >= (page - 1) * 4) {
               const upgradesToBuy = el.filter(
                 (el) => !upgradesStatus[key][el.id]
               )[0];
               if (!upgradesToBuy) {
-                inactiveItemsCounter.current += 1;
+                inactiveUpgradesCounter.current += 1;
                 return;
               }
               return (
@@ -93,7 +94,7 @@ function Shop() {
                   content={upgradesToBuy.description}
                   price={upgradesToBuy.price}
                   btnContent="Buy"
-                  buyFun={() => buyItem(key, upgradesToBuy.id)}
+                  buyFun={() => buyUpgrade(key, upgradesToBuy.id)}
                 />
               );
             }

@@ -3,7 +3,11 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { notify } from "../toastify";
 import { updateMoney, updateXp } from "../features/gameSlice";
-const DROP_CHANCES = 60;
+const BONNUS_DROP_CHANCES = 100;
+const FISH_CHANCES = 10;
+const XP_CHANCES = 10;
+const POUCH_CHANCES = 1;
+
 function useBonuses() {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [activeBonuses, setActiveBonuses] = useState([]);
@@ -11,19 +15,18 @@ function useBonuses() {
   const timerId = useRef();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    console.log(activeBonuses);
-  }, [activeBonuses]);
   // Random loot generator
   useEffect(() => {
     timerId.current = window.setInterval(() => {
-      const bonusRandom = random.int(0, DROP_CHANCES);
+      const bonusRandom = random.int(0, BONNUS_DROP_CHANCES);
 
       if (bonusRandom === 0) {
-        console.log("bonus");
-        const bonusRandom = random.int(0, 8);
+        const bonusRandom = random.int(
+          0,
+          FISH_CHANCES + XP_CHANCES + POUCH_CHANCES - 1
+        );
         let newBonus;
-        if (bonusRandom >= 0 && bonusRandom <= 3) {
+        if (bonusRandom >= 0 && bonusRandom < FISH_CHANCES) {
           // Fish
           newBonus = {
             type: "fish",
@@ -35,7 +38,10 @@ function useBonuses() {
               Math.floor(Math.pow(Math.random(), 2) * 20 * level) + 1 + level,
           };
         }
-        if (bonusRandom >= 4 && bonusRandom <= 7) {
+        if (
+          bonusRandom >= FISH_CHANCES &&
+          bonusRandom < FISH_CHANCES + XP_CHANCES
+        ) {
           // XP
           newBonus = {
             type: "xp",
@@ -47,7 +53,10 @@ function useBonuses() {
               Math.floor(Math.pow(Math.random(), 2) * 30 * level) + 1 + level,
           };
         }
-        if (bonusRandom === 8) {
+        if (
+          bonusRandom >= FISH_CHANCES + XP_CHANCES &&
+          bonusRandom < FISH_CHANCES + XP_CHANCES + POUCH_CHANCES
+        ) {
           // Item
           newBonus = {
             type: "pouch",
@@ -75,7 +84,6 @@ function useBonuses() {
   }
   function bonusClick(id) {
     const [thisBonus] = activeBonuses.filter((el) => el.id === id);
-    console.log(thisBonus);
     if (thisBonus.type === "xp") {
       deleteBonus(id);
       notify("info", `Successfully received ${thisBonus.amount} xp`, 100);

@@ -37,7 +37,8 @@
       // );
     }
     &:after {
-      animation: frame-enter 1s forwards ease-in-out reverse, gradient-animation 4s ease-in-out infinite;
+      animation: frame-enter 1s forwards ease-in-out reverse,
+        gradient-animation 4s ease-in-out infinite;
     }
   }
 
@@ -95,10 +96,10 @@
     @include button-click;
   }
 
-  &_upgrades &_buyBtn {
+  &_items &_buyBtn {
     background-color: $pastel-orange;
   }
-  &_items &_buyBtn {
+  &_upgrades &_buyBtn {
     background-color: $pastel-yellow;
   }
   &_quests &_buyBtn {

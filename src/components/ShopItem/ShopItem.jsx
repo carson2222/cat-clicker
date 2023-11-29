@@ -2,7 +2,6 @@ import classes from "./_shop-item.module.scss";
 import { GiFishbone } from "react-icons/gi";
 
 function ShopItem({
-  upgradeId,
   type,
   title,
   content,

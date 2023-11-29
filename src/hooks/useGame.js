@@ -5,16 +5,16 @@ import {
   resetXp,
   setActiveSkin,
   setBonuses,
-  setUpgradePrice,
+  setItemPrice,
   setMaxPages,
   setPage,
   setToNextLevel,
   updateEmail,
   updateMoney,
-  addUpgradeAmount,
+  addItemAmount,
   updateXp,
-  setUpgradeLevel,
-  setItemPurchased,
+  setItemLevel,
+  setUpgradePurchased,
   activeSkin,
 } from "../features/gameSlice";
 import { notify } from "../toastify";
@@ -94,9 +94,9 @@ function useGame() {
           moneyMultiplier: game.moneyMultiplier,
           xpMultiplier: game.xpMultiplier,
           activeSkin: game.activeSkin,
+          items: game.items,
           upgrades: game.upgrades,
           skins: game.skins,
-          items: game.items,
         })
         .eq("email", game.email);
 
@@ -119,7 +119,7 @@ function useGame() {
       dispatch(setActiveSkin(newActiveSkin.path));
   }
   function newSkin() {
-    const newSkinId = +game.upgrades.mainCat.level + 1;
+    const newSkinId = +game.items.mainCat.level + 1;
     dispatch(activeSkin(newSkinId));
   }
   function calcBonuses() {
@@ -130,13 +130,11 @@ function useGame() {
     newMoneyMultiplier += (game.level - 1) * 0.05;
     newXpMultiplier += (game.level - 1) * 0.05;
 
-    upgradesData.forEach((element) => {
-      const upgradeStatus = game.upgrades[element.upgradeId];
-      newMoneyMultiplier +=
-        element.cm[upgradeStatus.level] * upgradeStatus.amount;
-      newXpMultiplier +=
-        element.xpm[upgradeStatus.level] * upgradeStatus.amount;
-      newCps += element.cps[upgradeStatus.level] * upgradeStatus.amount;
+    itemsData.forEach((element) => {
+      const itemStatus = game.items[element.itemId];
+      newMoneyMultiplier += element.cm[itemStatus.level] * itemStatus.amount;
+      newXpMultiplier += element.xpm[itemStatus.level] * itemStatus.amount;
+      newCps += element.cps[itemStatus.level] * itemStatus.amount;
     });
     dispatch(setBonuses({ newMoneyMultiplier, newXpMultiplier, newCps }));
   }
@@ -153,38 +151,38 @@ function useGame() {
   }
 
   // Shop
-  function calcUpgradesLevel() {
-    for (const [upgradeId, itemsStatus] of Object.entries(game.items)) {
+  function calcItemsLevel() {
+    for (const [itemId, upgradesStatus] of Object.entries(game.upgrades)) {
       let newLevel = 0;
       // TODO: Add a mainCat upgrade counter
-      for (const [_, purchaseStatus] of Object.entries(itemsStatus)) {
+      for (const [_, purchaseStatus] of Object.entries(upgradesStatus)) {
         if (purchaseStatus) newLevel++;
       }
 
-      if (newLevel !== game.upgrades[upgradeId].level) {
-        dispatch(setUpgradeLevel({ upgradeId, newLevel }));
+      if (newLevel !== game.items[itemId].level) {
+        dispatch(setItemLevel({ itemId, newLevel }));
       }
     }
   }
-  function calcUpgradesPrice() {
-    upgradesData.forEach((el) => {
+  function calcItemsPrice() {
+    itemsData.forEach((el) => {
       let newPrice = el.initPrice;
-      const upgradeStatus = game.upgrades[el.upgradeId];
-      if (upgradeStatus.amount > 0) {
-        newPrice = (
-          el.initPrice * Math.pow(1.25, upgradeStatus.amount)
-        ).toFixed(0);
+      const itemStatus = game.items[el.itemId];
+      if (itemStatus.amount > 0) {
+        newPrice = (el.initPrice * Math.pow(1.25, itemStatus.amount)).toFixed(
+          0
+        );
       }
-      if (upgradeStatus.price === newPrice) return;
-      dispatch(setUpgradePrice({ upgradeId: el.upgradeId, newPrice }));
+      if (itemStatus.price === newPrice) return;
+      dispatch(setItemPrice({ itemId: el.itemId, newPrice }));
     });
   }
 
   function resetPages(type) {
     let newMaxPages;
-    if (type === "upgrades") newMaxPages = Math.ceil(upgradesData.length / 4);
-    if (type === "items")
-      newMaxPages = Math.ceil(Object.keys(itemsData).length / 4);
+    if (type === "items") newMaxPages = Math.ceil(itemsData.length / 4);
+    if (type === "upgrades")
+      newMaxPages = Math.ceil(Object.keys(upgradesData).length / 4);
 
     dispatch(setMaxPages(newMaxPages));
     dispatch(setPage(1));
@@ -196,24 +194,24 @@ function useGame() {
     }
   }
 
-  function buyUpgrade(upgradeId) {
-    const thisUpgradeStatus = game.upgrades[upgradeId];
-    if (game.money < thisUpgradeStatus.price) {
+  function buyItem(itemId) {
+    const thisItemStatus = game.items[itemId];
+    if (game.money < thisItemStatus.price) {
       notify("error", "You can't afford it 😢", 100);
     } else {
-      dispatch(updateMoney(-thisUpgradeStatus.price));
-      dispatch(addUpgradeAmount(upgradeId));
+      dispatch(updateMoney(-thisItemStatus.price));
+      dispatch(addItemAmount(itemId));
       notify("success", "Item successfully purchased 😎", 100);
     }
   }
-  function buyItem(upgradeId, itemId) {
-    const thisItemData = itemsData[upgradeId][+itemId - 1];
-    if (game.money < thisItemData.price) {
+  function buyUpgrade(itemId, upgradeId) {
+    const thisUpgradeData = upgradesData[itemId][+upgradeId - 1];
+    if (game.money < thisUpgradeData.price) {
       notify("error", "You can't afford it 😢", 100);
     } else {
-      dispatch(updateMoney(-thisItemData.price));
-      dispatch(setItemPurchased({ upgradeId, itemId }));
-      notify("success", "Item successfully purchased 😎", 100);
+      dispatch(updateMoney(-thisUpgradeData.price));
+      dispatch(setUpgradePurchased({ upgradeId, itemId }));
+      notify("success", "Upgrade successfully purchased 😎", 100);
     }
   }
 
@@ -225,14 +223,14 @@ function useGame() {
     singUp,
     logIn,
     changeSkin,
-    calcUpgradesPrice,
+    calcItemsPrice,
     resetPages,
     changePage,
-    buyUpgrade,
     catClick,
-    calcUpgradesLevel,
-    buyItem,
+    calcItemsLevel,
     newSkin,
+    buyItem,
+    buyUpgrade,
   };
 }
 export default useGame;
