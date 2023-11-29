@@ -1,4 +1,8 @@
+import supabase from "../supabaseClient";
+import notify from "../toastify";
+import { useSelector } from "react-redux";
 function useSave() {
+  const game = useSelector((state) => state.game);
   async function saveGame() {
     try {
       const { error } = await supabase

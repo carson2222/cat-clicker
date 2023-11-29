@@ -1,7 +1,7 @@
 import random from "random";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { notify } from "../toastify";
+import notify from "../toastify";
 import { updateMoney, updateXp } from "../features/gameSlice";
 const BONNUS_DROP_CHANCES = 100;
 const FISH_CHANCES = 10;

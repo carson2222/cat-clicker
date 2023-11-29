@@ -1,6 +1,6 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { loadNewData, updateEmail } from "../features/gameSlice";
-import { notify } from "../toastify";
+import notify from "../toastify";
 import supabase from "../supabaseClient";
 import { useNavigate } from "react-router-dom";
 function useAuth() {
@@ -19,10 +19,7 @@ function useAuth() {
         notify("success", "Account created");
         dispatch(updateEmail(email));
 
-        const { data, error } = await supabase
-          .from("profiles")
-          .insert([{ email }])
-          .select();
+        const { data, error } = await supabase.from("profiles").insert([{ email }]).select();
         if (error) throw new Error(error);
         dispatch(loadNewData(data[0]));
         navigate("/game");
@@ -46,10 +43,7 @@ function useAuth() {
       else {
         notify("success", "Logged in");
         dispatch(updateEmail(email));
-        const { data, error } = await supabase
-          .from("profiles")
-          .select()
-          .eq("email", email);
+        const { data, error } = await supabase.from("profiles").select().eq("email", email);
 
         if (error) throw new Error(error);
         dispatch(loadNewData(data[0]));

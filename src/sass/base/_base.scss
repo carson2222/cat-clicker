@@ -31,7 +31,18 @@ body {
   height: 100%;
   width: 100%;
 }
-
+h1,
+h2,
+h3,
+h4,
+p,
+span,
+a,
+img {
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
 .content {
   height: auto;
   flex: 1;

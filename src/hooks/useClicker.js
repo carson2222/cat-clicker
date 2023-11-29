@@ -1,22 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addLevel,
-  resetXp,
-  setBonuses,
-  setToNextLevel,
-  updateMoney,
-  updateXp,
-} from "../features/gameSlice";
+import { setBonuses, updateMoney, updateXp } from "../features/gameSlice";
 import { itemsData } from "../shopData";
-import { notify } from "../toastify";
 function useClicker() {
   const dispatch = useDispatch();
   const moneyMultiplier = useSelector((state) => state.game.moneyMultiplier);
   const xpMultiplier = useSelector((state) => state.game.xpMultiplier);
   const level = useSelector((state) => state.game.level);
   const items = useSelector((state) => state.game.items);
-  const xp = useSelector((state) => state.game.xp);
-  const toNextLevel = useSelector((state) => state.game.toNextLevel);
 
   function catClick() {
     dispatch(updateMoney(1 * moneyMultiplier));
@@ -39,22 +29,10 @@ function useClicker() {
     });
     dispatch(setBonuses({ newMoneyMultiplier, newXpMultiplier, newCps }));
   }
-  function levelUp() {
-    if (+xp >= +toNextLevel) {
-      dispatch(addLevel());
-      dispatch(resetXp());
-      notify("default", "Level UP! 😺");
-    }
-  }
-  function calcToNextLevel() {
-    const newToNextLevel = level * (level * 0.4) * 20;
-    dispatch(setToNextLevel(newToNextLevel));
-  }
+
   return {
     catClick,
     calcBonuses,
-    levelUp,
-    calcToNextLevel,
   };
 }
 

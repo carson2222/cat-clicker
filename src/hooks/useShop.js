@@ -9,19 +9,20 @@ import {
   updateMoney,
 } from "../features/gameSlice";
 import { itemsData, upgradesData } from "../shopData";
-import { notify } from "../toastify";
+import notify from "../toastify";
 
 function useShop() {
   const upgrades = useSelector((state) => state.game.upgrades);
   const items = useSelector((state) => state.game.items);
   const page = useSelector((state) => state.game.page);
+  const quests = useSelector((state) => state.game.quests);
   const maxPages = useSelector((state) => state.game.maxPages);
   const money = useSelector((state) => state.game.money);
   const dispatch = useDispatch();
   function calcItemsLevel() {
     for (const [itemId, upgradesStatus] of Object.entries(upgrades)) {
       let newLevel = 0;
-      // TODO: Add a mainCat upgrade counter
+
       for (const [_, purchaseStatus] of Object.entries(upgradesStatus)) {
         if (purchaseStatus) newLevel++;
       }
@@ -36,9 +37,7 @@ function useShop() {
       let newPrice = el.initPrice;
       const itemStatus = items[el.itemId];
       if (itemStatus.amount > 0) {
-        newPrice = (el.initPrice * Math.pow(1.25, itemStatus.amount)).toFixed(
-          0
-        );
+        newPrice = (el.initPrice * Math.pow(1.25, itemStatus.amount)).toFixed(0);
       }
       if (itemStatus.price === newPrice) return;
       dispatch(setItemPrice({ itemId: el.itemId, newPrice }));
@@ -48,8 +47,7 @@ function useShop() {
   function resetPages(type) {
     let newMaxPages;
     if (type === "items") newMaxPages = Math.ceil(itemsData.length / 4);
-    if (type === "upgrades")
-      newMaxPages = Math.ceil(Object.keys(upgradesData).length / 4);
+    if (type === "upgrades") newMaxPages = Math.ceil(Object.keys(upgradesData).length / 4);
 
     dispatch(setMaxPages(newMaxPages));
     dispatch(setPage(1));
@@ -88,6 +86,9 @@ function useShop() {
     resetPages,
     calcItemsPrice,
     calcItemsLevel,
+    items,
+    upgrades,
+    page,
   };
 }
 

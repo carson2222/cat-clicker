@@ -2,13 +2,15 @@ import React, { useEffect } from "react";
 import classes from "./_xp-bar.module.scss";
 import { useSelector } from "react-redux";
 import useClicker from "../../hooks/useClicker";
+import useXpBar from "../../hooks/useXpBar";
 
 const XpBar = () => {
   const xp = useSelector((state) => state.game.xp);
   const level = useSelector((state) => state.game.level);
   const toNextLevel = useSelector((state) => state.game.toNextLevel);
 
-  const { levelUp, calcToNextLevel, calcBonuses } = useClicker();
+  const { calcBonuses } = useClicker();
+  const { levelUp, calcToNextLevel } = useXpBar();
 
   useEffect(() => {
     levelUp();
@@ -22,9 +24,7 @@ const XpBar = () => {
     <div className={classes.lvl}>
       <h2 className={classes.lvl_current}>{level}</h2>
       <div className={classes.lvl_bar}>
-        <i className={classes.percentage}>
-          {Math.floor((xp * 100) / toNextLevel)}%
-        </i>
+        <i className={classes.percentage}>{Math.floor((xp * 100) / toNextLevel)}%</i>
         <div
           className={classes.fill}
           style={{

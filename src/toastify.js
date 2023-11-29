@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 
-export function notify(type, text = "😻 Wow so easy!", autoClose = 2500) {
+function notify(type, text = "😻 Wow so easy!", autoClose = 2500) {
   if (!type || type === "default") {
     toast(text, {
       position: "bottom-right",
@@ -26,3 +26,4 @@ export function notify(type, text = "😻 Wow so easy!", autoClose = 2500) {
     theme: "colored",
   });
 }
+export default notify;

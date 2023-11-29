@@ -1,12 +1,12 @@
 import React from "react";
 import classes from "./_auth-content.module.scss";
 import { GiFishbone } from "react-icons/gi";
-import { notify } from "../toastify";
+import notify from "../toastify";
 import { useState } from "react";
 import useAuth from "../hooks/useAuth";
 
 const AuthContent = () => {
-  const [email, setEmail] = useState("fdhgdfhd@hfdh.ggg");
+  const [email, setEmail] = useState("fdhgdfhd@hffffdh.ggg");
   const [password, setPassword] = useState("fsafa32523!!");
   const { logIn, singUp } = useAuth();
 
@@ -48,16 +48,10 @@ const AuthContent = () => {
           </label>
         </div>
         <div className={classes.button_group}>
-          <button
-            className={classes.green}
-            onClick={(e) => logIn(e, email, password)}
-          >
+          <button className={classes.green} onClick={(e) => logIn(e, email, password)}>
             Log in
           </button>
-          <button
-            className={classes.yellow}
-            onClick={(e) => singUp(e, email, password)}
-          >
+          <button className={classes.yellow} onClick={(e) => singUp(e, email, password)}>
             Sing up
           </button>
           <button className={classes.orange} onClick={clearInputs}>
