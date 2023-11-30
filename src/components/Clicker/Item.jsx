@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
 import { itemsData } from "../../shopData";
 import { useDrag } from "react-dnd";
-import { getEmptyImage } from "react-dnd-html5-backend/dist";
 const ItemTypes = {
   ITEM1: "item1",
 };
 function Item({ id, top, left, height, width }) {
-  const [{ isDragging }, drag, dragPreview] = useDrag(
+  const [{ isDragging }, drag, preview] = useDrag(
     () => ({
       type: ItemTypes.ITEM1,
       item: { id, left, top, height, width },
@@ -17,8 +16,9 @@ function Item({ id, top, left, height, width }) {
     [id, left, top]
   );
   useEffect(() => {
-    dragPreview(getEmptyImage(), { captureDraggingState: true });
+    preview(itemsData[1].img, { captureDraggingState: true });
   }, []);
+
   if (isDragging) {
     return <div ref={drag} />;
   }

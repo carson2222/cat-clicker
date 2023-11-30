@@ -17,7 +17,6 @@ const ItemTypes = {
   ITEM1: "item1",
 };
 import update from "immutability-helper";
-import DragItem from "./DragItem";
 function Clicker() {
   const autoClickPerSec = useSelector((state) => state.game.autoClickPerSec);
   const activeSkin = useSelector((state) => state.game.activeSkin);
@@ -28,7 +27,50 @@ function Clicker() {
 
   ///////////////// //////////////////
   const [items, setItems] = useState({
-    0: { top: 20, left: 80, width: "50px", height: "50px" },
+    0: { itemId: 'fisherCat', level: 0, top: 20, left: 80, width: "auto", height: "50px" },
+  });
+  const itemsStatus = useSelector((state) => state.game.items);
+  useEffect(() => {
+    //TODO: FIX IT!
+    {
+      for (const [key, thisItemStatus] of Object.entries(itemsStatus)) {
+        if (key === "mainCat") return;
+        Array(thisItemStatus.amount)
+        .fill(undefined)
+        .map((_, i) => {
+
+            }
+      }
+      Array(item.amount)
+        .fill(undefined)
+        .map((_, i) => {
+          if (i < 40) {
+            if (items.current.length < i + 1) {
+              const top = Math.floor(random.int(-30, 60) / 15) * 15;
+              const left = Math.floor(random.int(-15, 90) / 15) * 15;
+              items.current[i] = {
+                top,
+                left,
+              };
+            }
+            return (
+              <img
+                draggable="true"
+                ref={thisItem}
+                key={i}
+                src={itemObject.img}
+                alt={`Item ${itemObject.itemId}`}
+                style={{
+                  top: `${items.current[i].top}%`,
+                  left: `${items.current[i].left}%`,
+                  width: `${width}`,
+                  height: `${height}`,
+                }}
+              />
+            );
+          }
+        });
+    }
   });
   const moveItem = useCallback(
     (id, left, top) => {
