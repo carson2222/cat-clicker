@@ -78,6 +78,10 @@ export const gameSlice = createSlice({
       const { itemId, newPrice } = action.payload;
       state.items[itemId].price = newPrice;
     },
+    addItemPosition: (state, action) => {
+      const { newTop, newLeft, itemId } = action.payload;
+      state.items[itemId].positions.push({ top: newTop, left: newLeft });
+    },
     addItemAmount: (state, action) => {
       const itemId = action.payload;
       state.items[itemId].amount++;
@@ -96,6 +100,7 @@ export const gameSlice = createSlice({
     activateSkin: (state, action) => {
       state.skins[action.payload] = true;
     },
+
     // TO DELETE, just for tests
     addMoney: (state) => {
       state.money += 999999;
@@ -120,5 +125,6 @@ export const {
   setItemLevel,
   setUpgradePurchased,
   activateSkin,
+  addItemPosition,
 } = gameSlice.actions;
 export default gameSlice.reducer;

@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
   addItemAmount,
+  addItemPosition,
   setItemLevel,
   setItemPrice,
   setMaxPages,
@@ -10,12 +11,13 @@ import {
 } from "../features/gameSlice";
 import { itemsData, upgradesData } from "../shopData";
 import notify from "../toastify";
+import random from "random";
 
 function useShop() {
   const upgrades = useSelector((state) => state.game.upgrades);
   const items = useSelector((state) => state.game.items);
   const page = useSelector((state) => state.game.page);
-  const quests = useSelector((state) => state.game.quests);
+  // const quests = useSelector((state) => state.game.quests);
   const maxPages = useSelector((state) => state.game.maxPages);
   const money = useSelector((state) => state.game.money);
   const dispatch = useDispatch();
@@ -61,11 +63,16 @@ function useShop() {
 
   function buyItem(itemId) {
     const thisItemStatus = items[itemId];
+    const thisItemData = itemsData[itemId];
+
     if (money < thisItemStatus.price) {
       notify("error", "You can't afford it 😢", 100);
     } else {
       dispatch(updateMoney(-thisItemStatus.price));
       dispatch(addItemAmount(itemId));
+      const thisTop = thisItemData.baseTop + random.int(0, 6);
+      const thisLeft = thisItemData.baseLeft + random.int(0, 6);
+      dispatch(addItemPosition({ newTop: thisTop, newLeft: thisLeft }));
       notify("success", "Item successfully purchased 😎", 100);
     }
   }

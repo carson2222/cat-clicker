@@ -29,6 +29,10 @@ const itemsData = [
     xpm: [0, 0, 0, 0],
     cps: [0.05, 0.065, 0.08, 0.095],
     img: catFishingRod,
+    width: "auto",
+    height: "50px",
+    baseTop: 10,
+    baseLeft: 10,
   },
   {
     id: "2",
@@ -43,6 +47,10 @@ const itemsData = [
     xpm: [0, 0, 0, 0],
     cps: [0.1, 0.115, 0.13, 0.145],
     img: catBuilder,
+    width: "auto",
+    height: "50px",
+    baseTop: 20,
+    baseLeft: 20,
   },
   {
     id: "3",
@@ -57,6 +65,10 @@ const itemsData = [
     xpm: [0, 0, 0, 0],
     cps: [0.25, 0.375, 0.5, 0.625],
     img: catHouse,
+    width: "auto",
+    height: "50px",
+    baseTop: 30,
+    baseLeft: 30,
   },
   {
     id: "4",
@@ -71,6 +83,10 @@ const itemsData = [
     xpm: [0, 0, 0, 0],
     cps: [0.5, 0.75, 1, 1.25],
     img: catFarmer,
+    width: "auto",
+    height: "50px",
+    baseTop: 40,
+    baseLeft: 40,
   },
   {
     id: "5",
@@ -85,6 +101,10 @@ const itemsData = [
     xpm: [0, 0, 0, 0],
     cps: [1, 1.5, 2, 2.5],
     img: catWarrior,
+    width: "auto",
+    height: "50px",
+    baseTop: 50,
+    baseLeft: 50,
   },
   {
     id: "6",
@@ -99,6 +119,10 @@ const itemsData = [
     xpm: [0, 0, 0, 0],
     cps: [2.5, 3.5, 4.5, 5.5],
     img: catDriver,
+    width: "auto",
+    height: "50px",
+    baseTop: 60,
+    baseLeft: 60,
   },
 ];
 

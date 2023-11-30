@@ -21,68 +21,20 @@ function Clicker() {
   const autoClickPerSec = useSelector((state) => state.game.autoClickPerSec);
   const activeSkin = useSelector((state) => state.game.activeSkin);
   const { changeSkin } = useSkinSelector();
-  const { catClick } = useClicker();
+  const { catClick, displayItemsData, updateDisplayItemsPosition, generateDisplayItems, itemsStatus } =
+    useClicker();
   const catImage = useRef(null);
   const timerId = useRef();
 
   ///////////////// //////////////////
-  const [items, setItems] = useState({
-    0: { itemId: 'fisherCat', level: 0, top: 20, left: 80, width: "auto", height: "50px" },
-  });
-  const itemsStatus = useSelector((state) => state.game.items);
   useEffect(() => {
-    //TODO: FIX IT!
-    {
-      for (const [key, thisItemStatus] of Object.entries(itemsStatus)) {
-        if (key === "mainCat") return;
-        Array(thisItemStatus.amount)
-        .fill(undefined)
-        .map((_, i) => {
-
-            }
-      }
-      Array(item.amount)
-        .fill(undefined)
-        .map((_, i) => {
-          if (i < 40) {
-            if (items.current.length < i + 1) {
-              const top = Math.floor(random.int(-30, 60) / 15) * 15;
-              const left = Math.floor(random.int(-15, 90) / 15) * 15;
-              items.current[i] = {
-                top,
-                left,
-              };
-            }
-            return (
-              <img
-                draggable="true"
-                ref={thisItem}
-                key={i}
-                src={itemObject.img}
-                alt={`Item ${itemObject.itemId}`}
-                style={{
-                  top: `${items.current[i].top}%`,
-                  left: `${items.current[i].left}%`,
-                  width: `${width}`,
-                  height: `${height}`,
-                }}
-              />
-            );
-          }
-        });
-    }
-  });
+    generateDisplayItems();
+  }, [itemsStatus]);
   const moveItem = useCallback(
     (id, left, top) => {
-      setItems(
-        update(items, {
-          [id]: {
-            $merge: { left, top },
-          },
-        })
-      );
+      updateDisplayItemsPosition(id, left, top);
     },
-    [items, setItems]
+    [displayItemsData]
   );
 
   const [, drop] = useDrop(
@@ -104,12 +56,10 @@ function Clicker() {
     catImage.current.src = activeSkin;
     opacityFadeIn();
   }, [activeSkin]);
-
   const [animation, api] = useSpring(() => ({
     from: { opacity: 0, scale: "1" },
     to: { opacity: 1 },
   }));
-
   function opacityFadeIn() {
     api.start({
       from: { opacity: 0 },
@@ -150,48 +100,12 @@ function Clicker() {
   return (
     <div className={classes.clicker} ref={drop}>
       <Statistics />
-      <ItemsBox
-        itemObject={itemsData[1]}
-        top="25"
-        left="5"
-        width="5rem"
-        height="auto"
-      />
-      <ItemsBox
-        itemObject={itemsData[2]}
-        top="45"
-        left="5"
-        width="auto"
-        height="4rem"
-      />
-      <ItemsBox
-        itemObject={itemsData[3]}
-        top="65"
-        left="5"
-        width="auto"
-        height="4rem"
-      />
-      <ItemsBox
-        itemObject={itemsData[4]}
-        top="25"
-        left="75"
-        width="auto"
-        height="4rem"
-      />
-      <ItemsBox
-        itemObject={itemsData[5]}
-        top="45"
-        left="75"
-        width="auto"
-        height="4rem"
-      />
-      <ItemsBox
-        itemObject={itemsData[6]}
-        top="65"
-        left="75"
-        width="auto"
-        height="4rem"
-      />
+      {/* <ItemsBox itemObject={itemsData[1]} top="25" left="5" width="5rem" height="auto" />
+      <ItemsBox itemObject={itemsData[2]} top="45" left="5" width="auto" height="4rem" />
+      <ItemsBox itemObject={itemsData[3]} top="65" left="5" width="auto" height="4rem" />
+      <ItemsBox itemObject={itemsData[4]} top="25" left="75" width="auto" height="4rem" />
+      <ItemsBox itemObject={itemsData[5]} top="45" left="75" width="auto" height="4rem" />
+      <ItemsBox itemObject={itemsData[6]} top="65" left="75" width="auto" height="4rem" /> */}
       <animated.div style={animation}>
         <img
           alt="Cat image"
@@ -207,18 +121,12 @@ function Clicker() {
       </animated.div>
       <BonusBox />
       <XpBar />
+      {updateDisplayItemsPosition.map((el) => {
+        return <Item data={el}></Item>;
+      })}
       {Object.keys(items).map((key) => {
         const { left, top, width, height } = items[key];
-        return (
-          <Item
-            key={key}
-            id={key}
-            left={left}
-            top={top}
-            width={width}
-            height={height}
-          ></Item>
-        );
+        return <Item key={key} id={key} left={left} top={top} width={width} height={height}></Item>;
       })}
     </div>
   );

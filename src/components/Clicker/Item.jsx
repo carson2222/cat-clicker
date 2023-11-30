@@ -4,7 +4,7 @@ import { useDrag } from "react-dnd";
 const ItemTypes = {
   ITEM1: "item1",
 };
-function Item({ id, top, left, height, width }) {
+function Item(data) {
   const [{ isDragging }, drag, preview] = useDrag(
     () => ({
       type: ItemTypes.ITEM1,
@@ -16,7 +16,7 @@ function Item({ id, top, left, height, width }) {
     [id, left, top]
   );
   useEffect(() => {
-    preview(itemsData[1].img, { captureDraggingState: true });
+    preview(data.img, { captureDraggingState: true });
   }, []);
 
   if (isDragging) {
@@ -24,6 +24,20 @@ function Item({ id, top, left, height, width }) {
   }
   return (
     <img
+            draggable="false"
+            ref={drag}
+            id={data.id}
+            key={data.id}
+            src={data.img}
+            alt={data.alt}
+            style={{
+              top: data.top,
+              left: data.left,
+              width: data.width,
+              height: data.height,
+            }}
+          />
+    {/* <img
       draggable="false"
       ref={drag}
       key={id}
@@ -38,7 +52,7 @@ function Item({ id, top, left, height, width }) {
         cursor: "move",
         opacity: isDragging ? 0 : 1,
       }}
-    />
+    /> */}
   );
 }
 
