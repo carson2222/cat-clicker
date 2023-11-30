@@ -3,24 +3,17 @@ import classes from "./_item-box.module.scss";
 
 import { useSelector } from "react-redux";
 import random from "random";
+
 const ItemsBox = ({ itemObject, top, left, width, height }) => {
   const item = useSelector((state) => state.game.items[itemObject.itemId]);
   const items = useRef([]);
   const thisItem = useRef();
-  function itemDown(e) {
-    thisItem.current.style.transform = "scale(1.5)";
-    // var x = e.clientX;
-    // var y = e.clientY;
-    // thisItem.current.style.position = "absolute";
-    // thisItem.current.style.left = `${x}px`;
-    // thisItem.current.style.top = `${y}px`;
-  }
-  function itemUp(e) {
-    thisItem.current.style.transform = "scale(1)";
-  }
 
   return (
-    <div className={classes.item_box} style={{ top: `${top}%`, left: `${left}%` }}>
+    <div
+      className={classes.item_box}
+      style={{ top: `${top}%`, left: `${left}%` }}
+    >
       {Array(item.amount)
         .fill(undefined)
         .map((_, i) => {
@@ -35,9 +28,7 @@ const ItemsBox = ({ itemObject, top, left, width, height }) => {
             }
             return (
               <img
-                draggable="false"
-                onMouseUp={itemUp}
-                onMouseDown={itemDown}
+                draggable="true"
                 ref={thisItem}
                 key={i}
                 src={itemObject.img}
