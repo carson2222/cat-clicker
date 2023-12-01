@@ -21,15 +21,20 @@ function Clicker() {
   const autoClickPerSec = useSelector((state) => state.game.autoClickPerSec);
   const activeSkin = useSelector((state) => state.game.activeSkin);
   const { changeSkin } = useSkinSelector();
-  const { catClick, displayItemsData, updateDisplayItemsPosition, generateDisplayItems, itemsStatus } =
-    useClicker();
+  const {
+    catClick,
+    displayItemsData,
+    updateDisplayItemsPosition,
+    generateDisplayItems,
+    itemsStatus,
+  } = useClicker();
   const catImage = useRef(null);
   const timerId = useRef();
-
   ///////////////// //////////////////
   useEffect(() => {
     generateDisplayItems();
   }, [itemsStatus]);
+  console.log(displayItemsData);
   const moveItem = useCallback(
     (id, left, top) => {
       updateDisplayItemsPosition(id, left, top);
@@ -121,13 +126,22 @@ function Clicker() {
       </animated.div>
       <BonusBox />
       <XpBar />
-      {updateDisplayItemsPosition.map((el) => {
-        return <Item data={el}></Item>;
+      {displayItemsData.map((el) => {
+        return <Item key={el.id} data={el}></Item>;
       })}
-      {Object.keys(items).map((key) => {
+      {/**  {Object.keys(items).map((key) => {
         const { left, top, width, height } = items[key];
-        return <Item key={key} id={key} left={left} top={top} width={width} height={height}></Item>;
-      })}
+        return (
+          <Item
+            key={key}
+            id={key}
+            left={left}
+            top={top}
+            width={width}
+            height={height}
+          ></Item>
+        );
+      })} */}
     </div>
   );
 }

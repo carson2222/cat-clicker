@@ -39,7 +39,9 @@ function useShop() {
       let newPrice = el.initPrice;
       const itemStatus = items[el.itemId];
       if (itemStatus.amount > 0) {
-        newPrice = (el.initPrice * Math.pow(1.25, itemStatus.amount)).toFixed(0);
+        newPrice = (el.initPrice * Math.pow(1.25, itemStatus.amount)).toFixed(
+          0
+        );
       }
       if (itemStatus.price === newPrice) return;
       dispatch(setItemPrice({ itemId: el.itemId, newPrice }));
@@ -49,7 +51,8 @@ function useShop() {
   function resetPages(type) {
     let newMaxPages;
     if (type === "items") newMaxPages = Math.ceil(itemsData.length / 4);
-    if (type === "upgrades") newMaxPages = Math.ceil(Object.keys(upgradesData).length / 4);
+    if (type === "upgrades")
+      newMaxPages = Math.ceil(Object.keys(upgradesData).length / 4);
 
     dispatch(setMaxPages(newMaxPages));
     dispatch(setPage(1));
@@ -63,7 +66,7 @@ function useShop() {
 
   function buyItem(itemId) {
     const thisItemStatus = items[itemId];
-    const thisItemData = itemsData[itemId];
+    const thisItemData = itemsData.find((el) => el.itemId === itemId);
 
     if (money < thisItemStatus.price) {
       notify("error", "You can't afford it 😢", 100);
@@ -72,7 +75,7 @@ function useShop() {
       dispatch(addItemAmount(itemId));
       const thisTop = thisItemData.baseTop + random.int(0, 6);
       const thisLeft = thisItemData.baseLeft + random.int(0, 6);
-      dispatch(addItemPosition({ newTop: thisTop, newLeft: thisLeft }));
+      dispatch(addItemPosition({ newTop: thisTop, newLeft: thisLeft, itemId }));
       notify("success", "Item successfully purchased 😎", 100);
     }
   }

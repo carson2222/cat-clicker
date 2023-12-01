@@ -25,8 +25,10 @@ function useClicker() {
 
     itemsData.forEach((element) => {
       const thisItemStatus = itemsStatus[element.itemId];
-      newMoneyMultiplier += element.cm[thisItemStatus.level] * thisItemStatus.amount;
-      newXpMultiplier += element.xpm[thisItemStatus.level] * thisItemStatus.amount;
+      newMoneyMultiplier +=
+        element.cm[thisItemStatus.level] * thisItemStatus.amount;
+      newXpMultiplier +=
+        element.xpm[thisItemStatus.level] * thisItemStatus.amount;
       newCps += element.cps[thisItemStatus.level] * thisItemStatus.amount;
     });
     dispatch(setBonuses({ newMoneyMultiplier, newXpMultiplier, newCps }));
@@ -43,28 +45,29 @@ function useClicker() {
   }
   function generateDisplayItems() {
     for (const [key, thisItemStatus] of Object.entries(itemsStatus)) {
-      if (key === "mainCat") return;
-      const thisItemData = itemsData.filter((el) => el.itemId === thisItemData.itemId);
+      if (key !== "mainCat") {
+        const thisItemData = itemsData.filter((el) => el.itemId === key)[0];
 
-      Array(thisItemStatus.amount)
-        .fill(undefined)
-        .map((_, i) => {
-          itemsCounter.counter += 1;
-          if (displayItemsData.current.length < itemsCounter) {
-            const newItemDisplay = {
-              id: itemsCounter.counter,
-              img: thisItemData.img,
-              alt: `Item ${thisItemData.itemId}`,
-              top: thisItemStatus[i].top,
-              left: thisItemStatus[i].left,
-              width: thisItemData.width,
-              height: thisItemData.height,
-            };
-            setDisplayItemsData([...displayItemsData, newItemDisplay]);
-          }
-        });
-      itemsCounter.counter = 0;
+        Array(thisItemStatus.amount)
+          .fill(undefined)
+          .map((_, i) => {
+            itemsCounter.current += 1;
+            if (displayItemsData.length < itemsCounter.current) {
+              const newItemDisplay = {
+                id: itemsCounter.current,
+                img: thisItemData.img,
+                alt: `Item ${thisItemData.itemId}`,
+                top: thisItemStatus.positions[i].top,
+                left: thisItemStatus.positions[i].left,
+                width: thisItemData.width,
+                height: thisItemData.height,
+              };
+              setDisplayItemsData([...displayItemsData, newItemDisplay]);
+            }
+          });
+      }
     }
+    itemsCounter.current = 0;
   }
   return {
     catClick,
