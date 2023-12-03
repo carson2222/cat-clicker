@@ -43,6 +43,7 @@ function Shop() {
           itemsData.map((el) => {
             if (el.id <= page * 4 && el.id > (page - 1) * 4 && el.itemId !== "mainCat") {
               const thisItemStatus = items[el.itemId];
+
               return (
                 <ShopItem
                   key={el.id}
@@ -59,6 +60,7 @@ function Shop() {
           })}
         {activeShop === "upgrades" &&
           Object.entries(upgradesData).map(([key, el], i) => {
+            if (i === 1) inactiveUpgradesCounter.current = 0;
             let thisIndex = i - inactiveUpgradesCounter.current;
             if (thisIndex < page * 4 && thisIndex >= (page - 1) * 4) {
               const upgradesToBuy = el.filter((el) => !upgrades[key][el.id])[0];

@@ -11,7 +11,7 @@ function useXpBar() {
     if (+xp >= +toNextLevel) {
       dispatch(addLevel());
       dispatch(resetXp());
-      notify("default", "Level UP! 😺");
+      notify("default", "Level UP! 😺", 300);
     }
   }
   function calcToNextLevel() {

@@ -1,23 +1,19 @@
 import classes from "./_clicker.module.scss";
-import { useSelector } from "react-redux";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import XpBar from "../XpBar/XpBar";
 import Statistics from "../Statistics/Statistics";
-import { useSpring, animated } from "react-spring";
+import { animated } from "react-spring";
 import BonusBox from "../BonusBox/BonusBox";
 import useSkinSelector from "../../hooks/useSkinSelector";
 import useClicker from "../../hooks/useClicker";
-
 import { useDrop } from "react-dnd";
 import Item from "./Item";
-import { itemsData } from "../../shopData";
+import useAnimations from "./animations";
 const ItemTypes = {
   ITEM1: "item1",
 };
 function Clicker() {
-  const autoClickPerSec = useSelector((state) => state.game.autoClickPerSec);
-  const activeSkin = useSelector((state) => state.game.activeSkin);
-  const { changeSkin } = useSkinSelector();
+  const { changeSkin, activeSkin } = useSkinSelector();
   const {
     catClick,
     itemsStatus,
@@ -25,21 +21,20 @@ function Clicker() {
     updateDisplayItemsPosition,
     itemsToDisplay,
     generateItemsToDisplay,
+    autoClickPerSec,
   } = useClicker();
-  console.log(itemsToDisplay);
+  const { opacityFadeIn, clickAnimation, mainCatAnimation } = useAnimations();
   const catImage = useRef(null);
   const timerId = useRef();
-  ///////////////// //////////////////
-  useEffect(() => {
-    generateItemsToDisplay();
-  }, [itemsStatus]);
 
+  ///////////////// D&D //////////////////
   const moveItem = useCallback(
     (id, left, top, itemId) => {
       updateDisplayItemsPosition(id, left, top, itemId);
     },
     [itemsStatus]
   );
+
   const [, drop] = useDrop(
     () => ({
       accept: ItemTypes.ITEM1,
@@ -54,42 +49,25 @@ function Clicker() {
     [moveItem]
   );
   ///////////////////////////////////
+  useEffect(() => {
+    changeSkin("white");
+  }, []);
+
+  useEffect(() => {
+    generateItemsToDisplay();
+  }, [itemsStatus]);
 
   useEffect(() => {
     catImage.current.src = activeSkin;
     opacityFadeIn();
   }, [activeSkin]);
-  const [animation, api] = useSpring(() => ({
-    from: { opacity: 0, scale: "1" },
-    to: { opacity: 1 },
-  }));
-  function opacityFadeIn() {
-    api.start({
-      from: { opacity: 0 },
-      to: { opacity: 1 },
-      config: { duration: 600 },
-    });
-  }
-  function clickAnimation() {
-    api.start({
-      from: { scale: "1" },
-      to: { scale: "1.05" },
-      config: { duration: 100 },
-    });
-  }
-  function autoClickAnimation() {
-    api.start({
-      from: { scale: "1" },
-      to: { scale: "1.02" },
-      config: { duration: 30 },
-    });
-  }
+
   useEffect(() => {
     // Global timer
     if (autoClickPerSec) {
       timerId.current = window.setInterval(async () => {
         catClick();
-        autoClickAnimation();
+        // autoClickAnimation();
       }, 1000 / autoClickPerSec);
 
       return () => {
@@ -97,15 +75,12 @@ function Clicker() {
       };
     }
   }, [autoClickPerSec]);
-  useEffect(() => {
-    changeSkin("white");
-  }, []);
-  // console.log(itemsToDisplay);
+
   return (
-    <div className={classes.clickerDummy} ref={clickerDummy}>
+    <div className={classes.clickerDummy} ref={clickerDummy} draggable={false}>
       <div className={classes.clicker} ref={drop}>
         <Statistics />
-        <animated.div style={animation}>
+        <animated.div style={mainCatAnimation}>
           <img
             alt="Cat image"
             ref={catImage}
@@ -121,7 +96,9 @@ function Clicker() {
         <BonusBox />
         <XpBar />
         {itemsToDisplay.map((el) => {
-          return <Item key={el.key} data={el}></Item>;
+          return (
+              <Item key={el.key} data={el}></Item>
+          );
         })}
       </div>
     </div>

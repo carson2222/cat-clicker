@@ -16,7 +16,7 @@ function useAuth() {
 
       if (error) throw new Error(error);
       else {
-        notify("success", "Account created");
+        notify("success", "Account created", 500);
         dispatch(updateEmail(email));
 
         const { data, error } = await supabase.from("profiles").insert([{ email }]).select();
@@ -41,7 +41,7 @@ function useAuth() {
 
       if (error) throw new Error(error);
       else {
-        notify("success", "Logged in");
+        notify("success", "Logged in", 500);
         dispatch(updateEmail(email));
         const { data, error } = await supabase.from("profiles").select().eq("email", email);
 

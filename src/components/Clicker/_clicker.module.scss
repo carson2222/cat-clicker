@@ -3,6 +3,9 @@
 .clickerDummy {
   height: 90%;
   width: 55%;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
   .clicker {
     background-color: $main-white;
     width: 100%;

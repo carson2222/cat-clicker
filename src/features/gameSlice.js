@@ -84,7 +84,6 @@ export const gameSlice = createSlice({
     },
     updateItemPosition: (state, action) => {
       const { newTop, newLeft, itemId, positionId } = action.payload;
-      console.log(state.items[itemId]);
       state.items[itemId].positions[positionId] = { top: newTop, left: newLeft };
     },
     addItemAmount: (state, action) => {

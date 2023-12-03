@@ -8,7 +8,9 @@ function useClicker() {
   const xpMultiplier = useSelector((state) => state.game.xpMultiplier);
   const level = useSelector((state) => state.game.level);
   const itemsStatus = useSelector((state) => state.game.items);
+  const autoClickPerSec = useSelector((state) => state.game.autoClickPerSec);
   const [itemsToDisplay, setItemsToDisplay] = useState([]);
+
   const itemsCounter = useRef();
   const clickerDummy = useRef();
 
@@ -35,46 +37,48 @@ function useClicker() {
   }
 
   function updateDisplayItemsPosition(id, left, top, itemId) {
-    console.log(id, left, top, itemId);
     const dummyWidth = clickerDummy?.current?.offsetWidth;
     const dummyHeight = clickerDummy?.current?.offsetHeight;
     const newTop = (top * 100) / dummyHeight;
     const newLeft = (left * 100) / dummyWidth;
     dispatch(updateItemPosition({ newLeft, newTop, itemId, positionId: id }));
-    // const newDisplayItemsData = [];
-    // displayItemsData.forEach((el) => {
-    //   if (el.id === id) {
-    //     newDisplayItemsData.push({ ...el, left, top });
-    //   } else {
-    //     newDisplayItemsData.push({ ...el });
-    //   }
-    // });
-    // setDisplayItemsData([...newDisplayItemsData]);
   }
   function generateItemsToDisplay() {
     itemsCounter.current = 0;
-    const newItemsToDisplay = [];
+    const newItemsToDisplay = [...itemsToDisplay];
     for (const [itemId, thisItemStatus] of Object.entries(itemsStatus)) {
       if (itemId !== "mainCat" && thisItemStatus.amount > 0) {
         const thisItemData = itemsData.filter((el) => el.itemId === itemId)[0];
         for (let i = 0; i < thisItemStatus.amount; i++) {
           itemsCounter.current += 1;
-
           const dummyWidth = clickerDummy?.current?.offsetWidth;
           const dummyHeight = clickerDummy?.current?.offsetHeight;
-          console.log(thisItemStatus);
-          const newItem = {
-            key: itemsCounter.current,
-            id: i,
-            itemId: itemId,
-            img: thisItemData.img,
-            alt: `Item ${thisItemData.itemId}`,
-            top: (dummyHeight * thisItemStatus.positions[i].top) / 100,
-            left: (dummyWidth * thisItemStatus.positions[i].left) / 100,
-            width: thisItemData.width,
-            height: thisItemData.height,
-          };
-          newItemsToDisplay.push(newItem);
+          const newTop = (dummyHeight * thisItemStatus.positions[i].top) / 100;
+          const newLeft = (dummyWidth * thisItemStatus.positions[i].left) / 100;
+          const thisDisplayedItemIndex = newItemsToDisplay.findIndex((el) => el.itemId === itemId && el.id === i);
+          // Generate if the item doesn't exist yet
+          if (thisDisplayedItemIndex === -1) {
+            const newItem = {
+              key: itemsCounter.current,
+              id: i,
+              itemId: itemId,
+              img: thisItemData.img,
+              alt: `Item ${thisItemData.itemId}`,
+              top: newTop,
+              left: newLeft,
+              width: thisItemData.width,
+              height: thisItemData.height,
+            };
+            newItemsToDisplay.push(newItem);
+          }
+          // Change top/left if the item exist and have changed values
+          else if (
+            newItemsToDisplay[thisDisplayedItemIndex].top !== newTop ||
+            newItemsToDisplay[thisDisplayedItemIndex].left !== newLeft
+          ) {
+            newItemsToDisplay[thisDisplayedItemIndex].top = newTop;
+            newItemsToDisplay[thisDisplayedItemIndex].left = newLeft;
+          }
         }
       }
     }
@@ -89,6 +93,7 @@ function useClicker() {
     clickerDummy,
     generateItemsToDisplay,
     itemsToDisplay,
+    autoClickPerSec,
   };
 }
 

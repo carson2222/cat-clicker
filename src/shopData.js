@@ -173,7 +173,7 @@ const upgradesData = {
     {
       id: "3",
       type: "upgrades",
-      title: "Fisher Cat lvl 5",
+      title: "Fisher Cat lvl 4",
       description: "Test",
       price: 1000,
       purchased: false,

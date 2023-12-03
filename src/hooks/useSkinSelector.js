@@ -10,15 +10,14 @@ function useSkinSelector() {
 
   function changeSkin(type) {
     const newActiveSkin = skinsData.find((el) => el.name === type);
-    if (skins[newActiveSkin.id] && newActiveSkin.path !== activeSkin)
-      dispatch(setActiveSkin(newActiveSkin.path));
+    if (skins[newActiveSkin.id] && newActiveSkin.path !== activeSkin) dispatch(setActiveSkin(newActiveSkin.path));
   }
   function newSkin() {
     const newSkinId = +items.mainCat.level + 1;
     dispatch(activateSkin(newSkinId));
   }
 
-  return { changeSkin, newSkin };
+  return { changeSkin, newSkin, activeSkin };
 }
 
 export default useSkinSelector;
