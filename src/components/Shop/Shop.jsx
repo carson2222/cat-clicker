@@ -59,6 +59,7 @@ function Shop() {
             }
           })}
         {activeShop === "upgrades" &&
+          // BUG: upgrades wildly disaper after maxxing one
           Object.entries(upgradesData).map(([key, el], i) => {
             if (i === 1) inactiveUpgradesCounter.current = 0;
             let thisIndex = i - inactiveUpgradesCounter.current;
