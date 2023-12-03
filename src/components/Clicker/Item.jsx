@@ -6,24 +6,22 @@ const ItemTypes = {
   ITEM1: "item1",
 };
 function Item({ data }) {
-  const { id, left, top, height, width, img, alt } = data;
+  const { id, left, top, height, width, img, alt, itemId } = data;
   const [{ isDragging }, drag, preview] = useDrag(
     () => ({
       type: ItemTypes.ITEM1,
-      item: { id, left, top, height, width },
+      item: { id, left, top, height, width, itemId },
       collect: (monitor) => ({
         isDragging: monitor.isDragging(),
       }),
     }),
-    [id, left, top, height, width]
+    [id, left, top, height, width, itemId]
   );
 
   return (
     <img
       draggable="false"
       ref={isDragging ? preview : drag}
-      id={id}
-      key={id}
       src={img}
       alt={alt}
       className={classes.item}

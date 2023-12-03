@@ -82,6 +82,11 @@ export const gameSlice = createSlice({
       const { newTop, newLeft, itemId } = action.payload;
       state.items[itemId].positions.push({ top: newTop, left: newLeft });
     },
+    updateItemPosition: (state, action) => {
+      const { newTop, newLeft, itemId, positionId } = action.payload;
+      console.log(state.items[itemId]);
+      state.items[itemId].positions[positionId] = { top: newTop, left: newLeft };
+    },
     addItemAmount: (state, action) => {
       const itemId = action.payload;
       state.items[itemId].amount++;
@@ -126,5 +131,6 @@ export const {
   setUpgradePurchased,
   activateSkin,
   addItemPosition,
+  updateItemPosition,
 } = gameSlice.actions;
 export default gameSlice.reducer;

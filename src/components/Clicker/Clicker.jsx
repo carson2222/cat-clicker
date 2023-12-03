@@ -10,6 +10,7 @@ import useClicker from "../../hooks/useClicker";
 
 import { useDrop } from "react-dnd";
 import Item from "./Item";
+import { itemsData } from "../../shopData";
 const ItemTypes = {
   ITEM1: "item1",
 };
@@ -19,24 +20,25 @@ function Clicker() {
   const { changeSkin } = useSkinSelector();
   const {
     catClick,
-    displayItemsData,
-    updateDisplayItemsPosition,
-    generateDisplayItems,
     itemsStatus,
     clickerDummy,
+    updateDisplayItemsPosition,
+    itemsToDisplay,
+    generateItemsToDisplay,
   } = useClicker();
+  console.log(itemsToDisplay);
   const catImage = useRef(null);
   const timerId = useRef();
   ///////////////// //////////////////
   useEffect(() => {
-    generateDisplayItems();
+    generateItemsToDisplay();
   }, [itemsStatus]);
 
   const moveItem = useCallback(
-    (id, left, top) => {
-      updateDisplayItemsPosition(id, left, top);
+    (id, left, top, itemId) => {
+      updateDisplayItemsPosition(id, left, top, itemId);
     },
-    [displayItemsData]
+    [itemsStatus]
   );
   const [, drop] = useDrop(
     () => ({
@@ -45,7 +47,7 @@ function Clicker() {
         const delta = monitor.getDifferenceFromInitialOffset();
         const left = Math.round(item.left + delta.x);
         const top = Math.round(item.top + delta.y);
-        moveItem(item.id, left, top);
+        moveItem(item.id, left, top, item.itemId);
         return undefined;
       },
     }),
@@ -98,6 +100,7 @@ function Clicker() {
   useEffect(() => {
     changeSkin("white");
   }, []);
+  // console.log(itemsToDisplay);
   return (
     <div className={classes.clickerDummy} ref={clickerDummy}>
       <div className={classes.clicker} ref={drop}>
@@ -117,41 +120,9 @@ function Clicker() {
         </animated.div>
         <BonusBox />
         <XpBar />
-        {itemsStatus.map((el) => {
-          Object.entries(itemsStatus).map(([key, thisItemStatus]) => {
-            if (key !== "mainCat" && thisItemStatus.amount > 0) {
-              const thisItemData = itemsData.filter((el) => el.itemId === key)[0];
-              console.log(thisItemData);
-              Array(thisItemStatus.amount)
-                .fill(undefined)
-                .map((_, i) => {
-                  itemsCounter.current += 1;
-                  if (displayItemsData.length < itemsCounter.current) {
-                    const dummyWidth = clickerDummy?.current?.offsetWidth;
-                    const dummyHeight = clickerDummy?.current?.offsetHeight;
-                    const newItemDisplay = {
-                      id: itemsCounter.current,
-                      img: thisItemData.img,
-                      alt: `Item ${thisItemData.itemId}`,
-                      top: (dummyHeight * thisItemStatus.positions[i].top) / 100,
-                      left: (dummyWidth * thisItemStatus.positions[i].left) / 100,
-                      width: thisItemData.width,
-                      height: thisItemData.height,
-                    };
-                    setDisplayItemsData([...displayItemsData, newItemDisplay]);
-                  }
-                });
-            }
-          });
+        {itemsToDisplay.map((el) => {
+          return <Item key={el.key} data={el}></Item>;
         })}
-        {/* return <Item key={el.id} data={el}></Item>; */}
-        // const [displayItemsData, setDisplayItemsData] = useState([]); // const itemsCounter = useRef(0); //
-        function generateDisplayItems(){" "}
-        {
-          //
-          //   itemsCounter.current = 0;
-          // }
-        }
       </div>
     </div>
   );
