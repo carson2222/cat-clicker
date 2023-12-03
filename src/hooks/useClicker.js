@@ -8,8 +8,8 @@ function useClicker() {
   const xpMultiplier = useSelector((state) => state.game.xpMultiplier);
   const level = useSelector((state) => state.game.level);
   const itemsStatus = useSelector((state) => state.game.items);
-  const itemsCounter = useRef(0);
-  const [displayItemsData, setDisplayItemsData] = useState([]);
+
+  const clickerDummy = useRef();
   function catClick() {
     dispatch(updateMoney(1 * moneyMultiplier));
     dispatch(updateXp(1 * xpMultiplier));
@@ -25,57 +25,34 @@ function useClicker() {
 
     itemsData.forEach((element) => {
       const thisItemStatus = itemsStatus[element.itemId];
-      newMoneyMultiplier +=
-        element.cm[thisItemStatus.level] * thisItemStatus.amount;
-      newXpMultiplier +=
-        element.xpm[thisItemStatus.level] * thisItemStatus.amount;
+      newMoneyMultiplier += element.cm[thisItemStatus.level] * thisItemStatus.amount;
+      newXpMultiplier += element.xpm[thisItemStatus.level] * thisItemStatus.amount;
       newCps += element.cps[thisItemStatus.level] * thisItemStatus.amount;
     });
     dispatch(setBonuses({ newMoneyMultiplier, newXpMultiplier, newCps }));
   }
 
   function updateDisplayItemsPosition(id, left, top) {
-    const newDisplayItemsData = displayItemsData.map((el) => {
+    const newDisplayItemsData = [];
+    displayItemsData.forEach((el) => {
       if (el.id === id) {
-        el.left = left;
-        el.top = top;
+        newDisplayItemsData.push({ ...el, left, top });
+      } else {
+        newDisplayItemsData.push({ ...el });
       }
     });
     setDisplayItemsData([...newDisplayItemsData]);
   }
-  function generateDisplayItems() {
-    for (const [key, thisItemStatus] of Object.entries(itemsStatus)) {
-      if (key !== "mainCat") {
-        const thisItemData = itemsData.filter((el) => el.itemId === key)[0];
 
-        Array(thisItemStatus.amount)
-          .fill(undefined)
-          .map((_, i) => {
-            itemsCounter.current += 1;
-            if (displayItemsData.length < itemsCounter.current) {
-              const newItemDisplay = {
-                id: itemsCounter.current,
-                img: thisItemData.img,
-                alt: `Item ${thisItemData.itemId}`,
-                top: thisItemStatus.positions[i].top,
-                left: thisItemStatus.positions[i].left,
-                width: thisItemData.width,
-                height: thisItemData.height,
-              };
-              setDisplayItemsData([...displayItemsData, newItemDisplay]);
-            }
-          });
-      }
-    }
-    itemsCounter.current = 0;
-  }
   return {
     catClick,
     calcBonuses,
-    displayItemsData,
     updateDisplayItemsPosition,
+    itemsStatus,
+    displayItemsData,
     generateDisplayItems,
     itemsStatus,
+    clickerDummy,
   };
 }
 

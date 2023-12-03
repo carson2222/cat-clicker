@@ -36,14 +36,12 @@ function useShop() {
   }
   function calcItemsPrice() {
     itemsData.forEach((el) => {
-      let newPrice = el.initPrice;
+      let newPrice = +el.initPrice;
       const itemStatus = items[el.itemId];
       if (itemStatus.amount > 0) {
-        newPrice = (el.initPrice * Math.pow(1.25, itemStatus.amount)).toFixed(
-          0
-        );
+        newPrice = +(el.initPrice * Math.pow(1.25, itemStatus.amount)).toFixed(0);
       }
-      if (itemStatus.price === newPrice) return;
+      if (+itemStatus.price === +newPrice) return;
       dispatch(setItemPrice({ itemId: el.itemId, newPrice }));
     });
   }
@@ -51,8 +49,7 @@ function useShop() {
   function resetPages(type) {
     let newMaxPages;
     if (type === "items") newMaxPages = Math.ceil(itemsData.length / 4);
-    if (type === "upgrades")
-      newMaxPages = Math.ceil(Object.keys(upgradesData).length / 4);
+    if (type === "upgrades") newMaxPages = Math.ceil(Object.keys(upgradesData).length / 4);
 
     dispatch(setMaxPages(newMaxPages));
     dispatch(setPage(1));
@@ -79,6 +76,7 @@ function useShop() {
       notify("success", "Item successfully purchased 😎", 100);
     }
   }
+
   function buyUpgrade(itemId, upgradeId) {
     const thisUpgradeData = upgradesData[itemId][+upgradeId - 1];
     if (money < thisUpgradeData.price) {

@@ -1,12 +1,9 @@
 import classes from "./_clicker.module.scss";
-
 import { useSelector } from "react-redux";
 import { useCallback, useEffect, useRef, useState } from "react";
 import XpBar from "../XpBar/XpBar";
 import Statistics from "../Statistics/Statistics";
-import ItemsBox from "../ItemBox/ItemsBox";
 import { useSpring, animated } from "react-spring";
-import { itemsData } from "../../shopData";
 import BonusBox from "../BonusBox/BonusBox";
 import useSkinSelector from "../../hooks/useSkinSelector";
 import useClicker from "../../hooks/useClicker";
@@ -16,7 +13,6 @@ import Item from "./Item";
 const ItemTypes = {
   ITEM1: "item1",
 };
-import update from "immutability-helper";
 function Clicker() {
   const autoClickPerSec = useSelector((state) => state.game.autoClickPerSec);
   const activeSkin = useSelector((state) => state.game.activeSkin);
@@ -27,6 +23,7 @@ function Clicker() {
     updateDisplayItemsPosition,
     generateDisplayItems,
     itemsStatus,
+    clickerDummy,
   } = useClicker();
   const catImage = useRef(null);
   const timerId = useRef();
@@ -34,14 +31,13 @@ function Clicker() {
   useEffect(() => {
     generateDisplayItems();
   }, [itemsStatus]);
-  console.log(displayItemsData);
+
   const moveItem = useCallback(
     (id, left, top) => {
       updateDisplayItemsPosition(id, left, top);
     },
     [displayItemsData]
   );
-
   const [, drop] = useDrop(
     () => ({
       accept: ItemTypes.ITEM1,
@@ -103,45 +99,60 @@ function Clicker() {
     changeSkin("white");
   }, []);
   return (
-    <div className={classes.clicker} ref={drop}>
-      <Statistics />
-      {/* <ItemsBox itemObject={itemsData[1]} top="25" left="5" width="5rem" height="auto" />
-      <ItemsBox itemObject={itemsData[2]} top="45" left="5" width="auto" height="4rem" />
-      <ItemsBox itemObject={itemsData[3]} top="65" left="5" width="auto" height="4rem" />
-      <ItemsBox itemObject={itemsData[4]} top="25" left="75" width="auto" height="4rem" />
-      <ItemsBox itemObject={itemsData[5]} top="45" left="75" width="auto" height="4rem" />
-      <ItemsBox itemObject={itemsData[6]} top="65" left="75" width="auto" height="4rem" /> */}
-      <animated.div style={animation}>
-        <img
-          alt="Cat image"
-          ref={catImage}
-          className={`${classes.clicker_catImg}`}
-          onClick={() => {
-            clickAnimation();
-            catClick();
-          }}
-          id="catClick"
-          draggable="false"
-        />
-      </animated.div>
-      <BonusBox />
-      <XpBar />
-      {displayItemsData.map((el) => {
-        return <Item key={el.id} data={el}></Item>;
-      })}
-      {/**  {Object.keys(items).map((key) => {
-        const { left, top, width, height } = items[key];
-        return (
-          <Item
-            key={key}
-            id={key}
-            left={left}
-            top={top}
-            width={width}
-            height={height}
-          ></Item>
-        );
-      })} */}
+    <div className={classes.clickerDummy} ref={clickerDummy}>
+      <div className={classes.clicker} ref={drop}>
+        <Statistics />
+        <animated.div style={animation}>
+          <img
+            alt="Cat image"
+            ref={catImage}
+            className={`${classes.clicker_catImg}`}
+            onClick={() => {
+              clickAnimation();
+              catClick();
+            }}
+            id="catClick"
+            draggable="false"
+          />
+        </animated.div>
+        <BonusBox />
+        <XpBar />
+        {itemsStatus.map((el) => {
+          Object.entries(itemsStatus).map(([key, thisItemStatus]) => {
+            if (key !== "mainCat" && thisItemStatus.amount > 0) {
+              const thisItemData = itemsData.filter((el) => el.itemId === key)[0];
+              console.log(thisItemData);
+              Array(thisItemStatus.amount)
+                .fill(undefined)
+                .map((_, i) => {
+                  itemsCounter.current += 1;
+                  if (displayItemsData.length < itemsCounter.current) {
+                    const dummyWidth = clickerDummy?.current?.offsetWidth;
+                    const dummyHeight = clickerDummy?.current?.offsetHeight;
+                    const newItemDisplay = {
+                      id: itemsCounter.current,
+                      img: thisItemData.img,
+                      alt: `Item ${thisItemData.itemId}`,
+                      top: (dummyHeight * thisItemStatus.positions[i].top) / 100,
+                      left: (dummyWidth * thisItemStatus.positions[i].left) / 100,
+                      width: thisItemData.width,
+                      height: thisItemData.height,
+                    };
+                    setDisplayItemsData([...displayItemsData, newItemDisplay]);
+                  }
+                });
+            }
+          });
+        })}
+        {/* return <Item key={el.id} data={el}></Item>; */}
+        // const [displayItemsData, setDisplayItemsData] = useState([]); // const itemsCounter = useRef(0); //
+        function generateDisplayItems(){" "}
+        {
+          //
+          //   itemsCounter.current = 0;
+          // }
+        }
+      </div>
     </div>
   );
 }

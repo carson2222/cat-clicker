@@ -1,0 +1,14 @@
+@use "../../sass/abstracts" as *;
+
+.item {
+  background-color: transparent;
+  position: absolute;
+  transform: translate(0, 0);
+  transition: all 0.4s, filter 0.1s;
+  cursor: move;
+  &:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 5px black);
+    z-index: 10;
+  }
+}

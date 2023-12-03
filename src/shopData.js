@@ -31,8 +31,8 @@ const itemsData = [
     img: catFishingRod,
     width: "auto",
     height: "50px",
-    baseTop: 10,
-    baseLeft: 10,
+    baseTop: 25,
+    baseLeft: 5,
   },
   {
     id: "2",
@@ -49,8 +49,8 @@ const itemsData = [
     img: catBuilder,
     width: "auto",
     height: "50px",
-    baseTop: 20,
-    baseLeft: 20,
+    baseTop: 45,
+    baseLeft: 5,
   },
   {
     id: "3",
@@ -67,8 +67,8 @@ const itemsData = [
     img: catHouse,
     width: "auto",
     height: "50px",
-    baseTop: 30,
-    baseLeft: 30,
+    baseTop: 65,
+    baseLeft: 5,
   },
   {
     id: "4",
@@ -85,8 +85,8 @@ const itemsData = [
     img: catFarmer,
     width: "auto",
     height: "50px",
-    baseTop: 40,
-    baseLeft: 40,
+    baseTop: 25,
+    baseLeft: 75,
   },
   {
     id: "5",
@@ -103,8 +103,8 @@ const itemsData = [
     img: catWarrior,
     width: "auto",
     height: "50px",
-    baseTop: 50,
-    baseLeft: 50,
+    baseTop: 45,
+    baseLeft: 75,
   },
   {
     id: "6",
@@ -121,8 +121,8 @@ const itemsData = [
     img: catDriver,
     width: "auto",
     height: "50px",
-    baseTop: 60,
-    baseLeft: 60,
+    baseTop: 65,
+    baseLeft: 75,
   },
 ];
 

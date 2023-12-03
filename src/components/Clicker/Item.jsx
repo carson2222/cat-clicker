@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { itemsData } from "../../shopData";
 import { useDrag } from "react-dnd";
+import classes from "./_item.module.scss";
 const ItemTypes = {
   ITEM1: "item1",
 };
@@ -16,27 +17,22 @@ function Item({ data }) {
     }),
     [id, left, top, height, width]
   );
-  useEffect(() => {
-    preview(img, { captureDraggingState: true });
-  }, []);
 
-  if (isDragging) {
-    return <div ref={drag} />;
-  }
   return (
     <img
       draggable="false"
-      ref={drag}
+      ref={isDragging ? preview : drag}
       id={id}
       key={id}
       src={img}
       alt={alt}
+      className={classes.item}
       style={{
         top: top,
         left: left,
         width: width,
         height: height,
-        position: "absolute",
+        opacity: isDragging ? 0.2 : 1,
       }}
     />
   );
