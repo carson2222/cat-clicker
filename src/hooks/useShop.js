@@ -7,7 +7,7 @@ import {
   setMaxPages,
   setPage,
   setUpgradePurchased,
-  updateMoney,
+  updateMoneyAndXp,
 } from "../features/gameSlice";
 import { itemsData, upgradesData } from "../shopData";
 import notify from "../toastify";
@@ -78,7 +78,7 @@ function useShop() {
     if (money < thisItemStatus.price) {
       notify("error", "You can't afford it 😢", 100);
     } else {
-      dispatch(updateMoney(-thisItemStatus.price));
+      dispatch(updateMoneyAndXp({ money: -thisItemStatus.price }));
       dispatch(addItemAmount(itemId));
       const thisTop = thisItemData.baseTop + random.int(0, 6);
       const thisLeft = thisItemData.baseLeft + random.int(0, 6);
@@ -92,7 +92,7 @@ function useShop() {
     if (money < thisUpgradeData.price) {
       notify("error", "You can't afford it 😢", 100);
     } else {
-      dispatch(updateMoney(-thisUpgradeData.price));
+      dispatch(updateMoneyAndXp({ money: -thisUpgradeData.price }));
       dispatch(setUpgradePurchased({ upgradeId, itemId }));
       notify("success", "Upgrade successfully purchased 😎", 100);
     }

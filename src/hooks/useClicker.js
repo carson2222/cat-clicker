@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setBonuses, updateItemPosition, updateMoney, updateXp } from "../features/gameSlice";
+import { setBonuses, updateItemPosition, updateMoneyAndXp } from "../features/gameSlice";
 import { itemsData } from "../shopData";
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 function useClicker() {
   const dispatch = useDispatch();
   const moneyMultiplier = useSelector((state) => state.game.moneyMultiplier);
@@ -11,14 +11,23 @@ function useClicker() {
   const autoClickPerSec = useSelector((state) => state.game.autoClickPerSec);
   const maxStreak = useSelector((state) => state.game.maxStreak);
   const [itemsToDisplay, setItemsToDisplay] = useState([]);
-  const [clickStreak, setClickStreak] = useState(0);
+  const [clickStreak, setClickStreak] = useState(0.9);
   const noclickSecondsCounter = useRef(0);
   const itemsCounter = useRef();
   const clickerDummy = useRef();
 
+  const itemsDataMap = useMemo(() => {
+    const map = {};
+    itemsData.forEach((item) => {
+      map[item.itemId] = item;
+    });
+    return map;
+  }, []);
+
   function catClick() {
-    dispatch(updateMoney(1 * clickStreak > 1 ? moneyMultiplier * clickStreak : moneyMultiplier));
-    dispatch(updateXp(1 * clickStreak > 1 ? xpMultiplier * clickStreak : xpMultiplier));
+    const money = 1 * clickStreak > 1 ? moneyMultiplier * clickStreak : moneyMultiplier;
+    const xp = 1 * clickStreak > 1 ? xpMultiplier * clickStreak : xpMultiplier;
+    dispatch(updateMoneyAndXp({ money, xp }));
   }
 
   function calcBonuses() {
@@ -41,69 +50,79 @@ function useClicker() {
   function updateDisplayItemsPosition(id, left, top, itemId) {
     const dummyWidth = clickerDummy?.current?.offsetWidth;
     const dummyHeight = clickerDummy?.current?.offsetHeight;
-    const newTop = (top * 100) / dummyHeight;
-    const newLeft = (left * 100) / dummyWidth;
-    dispatch(updateItemPosition({ newLeft, newTop, itemId, positionId: id }));
+    if (dummyWidth && dummyHeight) {
+      const newTop = (top * 100) / dummyHeight;
+      const newLeft = (left * 100) / dummyWidth;
+      dispatch(updateItemPosition({ newLeft, newTop, itemId, positionId: id }));
+    }
   }
+
   function generateItemsToDisplay() {
     itemsCounter.current = 0;
-    const newItemsToDisplay = [...itemsToDisplay];
-    for (const [itemId, thisItemStatus] of Object.entries(itemsStatus)) {
-      if (itemId !== "mainCat" && thisItemStatus.amount > 0) {
-        const thisItemData = itemsData.filter((el) => el.itemId === itemId)[0];
-        for (let i = 0; i < thisItemStatus.amount; i++) {
-          itemsCounter.current += 1;
-          const dummyWidth = clickerDummy?.current?.offsetWidth;
-          const dummyHeight = clickerDummy?.current?.offsetHeight;
-          const newTop = (dummyHeight * thisItemStatus.positions[i].top) / 100;
-          const newLeft = (dummyWidth * thisItemStatus.positions[i].left) / 100;
-          const thisDisplayedItemIndex = newItemsToDisplay.findIndex((el) => el.itemId === itemId && el.id === i);
-          // Generate if the item doesn't exist yet
-          if (thisDisplayedItemIndex === -1) {
-            const newItem = {
-              key: itemsCounter.current,
-              id: i,
-              itemId: itemId,
-              img: thisItemData.img,
-              alt: `Item ${thisItemData.itemId}`,
-              top: newTop,
-              left: newLeft,
-              width: thisItemData.width,
-              height: thisItemData.height,
-            };
-            newItemsToDisplay.push(newItem);
-          }
-          // Change top/left if the item exist and have changed values
-          else if (
-            newItemsToDisplay[thisDisplayedItemIndex].top !== newTop ||
-            newItemsToDisplay[thisDisplayedItemIndex].left !== newLeft
-          ) {
-            newItemsToDisplay[thisDisplayedItemIndex].top = newTop;
-            newItemsToDisplay[thisDisplayedItemIndex].left = newLeft;
+    setItemsToDisplay((prevItemsToDisplay) => {
+      const newItemsToDisplay = [...prevItemsToDisplay];
+      for (const [itemId, thisItemStatus] of Object.entries(itemsStatus)) {
+        if (itemId !== "mainCat" && thisItemStatus.amount > 0) {
+          const thisItemData = itemsDataMap[itemId];
+          for (let i = 0; i < thisItemStatus.amount; i++) {
+            itemsCounter.current += 1;
+            const dummyWidth = clickerDummy?.current?.offsetWidth;
+            const dummyHeight = clickerDummy?.current?.offsetHeight;
+            const newTop = (dummyHeight * thisItemStatus.positions[i].top) / 100;
+            const newLeft = (dummyWidth * thisItemStatus.positions[i].left) / 100;
+            const thisDisplayedItemIndex = newItemsToDisplay.findIndex(
+              (el) => el.itemId === itemId && el.id === i
+            );
+            // Generate if the item doesn't exist yet
+            if (thisDisplayedItemIndex === -1) {
+              const newItem = {
+                key: itemsCounter.current,
+                id: i,
+                itemId: itemId,
+                img: thisItemData.img,
+                alt: `Item ${thisItemData.itemId}`,
+                top: newTop,
+                left: newLeft,
+                width: thisItemData.width,
+                height: thisItemData.height,
+              };
+              newItemsToDisplay.push(newItem);
+            }
+            // Change top/left if the item exist and have changed values
+            else if (
+              newItemsToDisplay[thisDisplayedItemIndex].top !== newTop ||
+              newItemsToDisplay[thisDisplayedItemIndex].left !== newLeft
+            ) {
+              newItemsToDisplay[thisDisplayedItemIndex].top = newTop;
+              newItemsToDisplay[thisDisplayedItemIndex].left = newLeft;
+            }
           }
         }
       }
-    }
-    setItemsToDisplay([...newItemsToDisplay]);
+      return newItemsToDisplay;
+    });
   }
-  // -----------
-  // click Booster
 
   function addNoclickSecond() {
+    console.log("addNoclickSecond");
     noclickSecondsCounter.current += 1;
   }
+
   function checkIfBoostDisapear() {
+    console.log("checkIfBoostDisapear");
     if (noclickSecondsCounter.current >= 10) {
+      console.log("reset");
       setClickStreak(0);
       noclickSecondsCounter.current = 0;
     }
   }
-  function boostStreak(boostVal = 0.1) {
+
+  function boostStreak(boostVal = 0.01) {
     setClickStreak((current) => {
-      if (+current.toFixed(2) + +boostVal.toFixed(2) < +maxStreak.toFixed(2)) {
-        return +current.toFixed(2) + +boostVal.toFixed(2);
+      if (current + boostVal < maxStreak) {
+        return current + boostVal;
       }
-      return +current.toFixed(2);
+      return maxStreak;
     });
     noclickSecondsCounter.current = 0;
   }
@@ -121,6 +140,7 @@ function useClicker() {
     boostStreak,
     checkIfBoostDisapear,
     addNoclickSecond,
+    maxStreak,
   };
 }
 

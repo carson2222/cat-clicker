@@ -2,7 +2,6 @@ import random from "random";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import notify from "../toastify";
-import { updateMoney, updateXp } from "../features/gameSlice";
 const BONNUS_DROP_CHANCES = 100;
 const FISH_CHANCES = 10;
 const XP_CHANCES = 10;
@@ -21,10 +20,7 @@ function useBonuses() {
       const bonusRandom = random.int(0, BONNUS_DROP_CHANCES);
 
       if (bonusRandom === 0) {
-        const bonusRandom = random.int(
-          0,
-          FISH_CHANCES + XP_CHANCES + POUCH_CHANCES - 1
-        );
+        const bonusRandom = random.int(0, FISH_CHANCES + XP_CHANCES + POUCH_CHANCES - 1);
         let newBonus;
         if (bonusRandom >= 0 && bonusRandom < FISH_CHANCES) {
           // Fish
@@ -34,14 +30,10 @@ function useBonuses() {
             top: random.int(0, 100),
             left: random.int(0, 100),
             size: random.int(40, 75),
-            amount:
-              Math.floor(Math.pow(Math.random(), 2) * 20 * level) + 1 + level,
+            amount: Math.floor(Math.pow(Math.random(), 2) * 20 * level) + 1 + level,
           };
         }
-        if (
-          bonusRandom >= FISH_CHANCES &&
-          bonusRandom < FISH_CHANCES + XP_CHANCES
-        ) {
+        if (bonusRandom >= FISH_CHANCES && bonusRandom < FISH_CHANCES + XP_CHANCES) {
           // XP
           newBonus = {
             type: "xp",
@@ -49,14 +41,10 @@ function useBonuses() {
             top: random.int(0, 100),
             left: random.int(0, 100),
             size: random.int(40, 75),
-            amount:
-              Math.floor(Math.pow(Math.random(), 2) * 30 * level) + 1 + level,
+            amount: Math.floor(Math.pow(Math.random(), 2) * 30 * level) + 1 + level,
           };
         }
-        if (
-          bonusRandom >= FISH_CHANCES + XP_CHANCES &&
-          bonusRandom < FISH_CHANCES + XP_CHANCES + POUCH_CHANCES
-        ) {
+        if (bonusRandom >= FISH_CHANCES + XP_CHANCES && bonusRandom < FISH_CHANCES + XP_CHANCES + POUCH_CHANCES) {
           // Item
           newBonus = {
             type: "pouch",
@@ -87,11 +75,11 @@ function useBonuses() {
     if (thisBonus.type === "xp") {
       deleteBonus(id);
       notify("info", `Successfully received ${thisBonus.amount} xp`, 100);
-      dispatch(updateXp(+thisBonus.amount));
+      dispatch(updateMoneyAndXp({ xp: +thisBonus.amount }));
     } else if (thisBonus.type === "fish") {
       deleteBonus(id);
       notify("info", `Successfully received ${thisBonus.amount} Fish`, 100);
-      dispatch(updateMoney(+thisBonus.amount));
+      dispatch(updateMoneyAndXp({ money: +thisBonus.amount }));
     } else if (thisBonus.type === "pouch") {
       deleteBonus(id);
       notify("info", `Successfully received POUCH`, 100);

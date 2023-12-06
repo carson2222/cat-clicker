@@ -53,12 +53,12 @@ export const gameSlice = createSlice({
       state.xpMultiplier = action.payload.newXpMultiplier;
       state.autoClickPerSec = action.payload.newCps;
     },
-    updateMoney: (state, action) => {
-      state.money += action.payload;
+    updateMoneyAndXp: (state, action) => {
+      const { money, xp } = action.payload;
+      if (money) state.money += money;
+      if (xp) state.xp += xp;
     },
-    updateXp: (state, action) => {
-      state.xp += action.payload;
-    },
+
     resetXp: (state) => {
       state.xp = 0;
     },
@@ -113,6 +113,7 @@ export const gameSlice = createSlice({
   },
 });
 export const {
+  updateMoneyAndXp,
   updateEmail,
   addMoney,
   loadNewData,
@@ -123,8 +124,6 @@ export const {
   setBonuses,
   setMaxPages,
   setPage,
-  updateMoney,
-  updateXp,
   setItemPrice,
   addItemAmount,
   setItemLevel,

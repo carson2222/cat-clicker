@@ -23,6 +23,10 @@ function Clicker() {
     generateItemsToDisplay,
     autoClickPerSec,
     boostStreak,
+    clickStreak,
+    maxStreak,
+    addNoclickSecond,
+    checkIfBoostDisapear,
   } = useClicker();
   const { opacityFadeIn, clickAnimation, mainCatAnimation } = useAnimations();
   const catImage = useRef(null);
@@ -79,7 +83,12 @@ function Clicker() {
   return (
     <div className={classes.clickerDummy} ref={clickerDummy} draggable={false}>
       <div className={classes.clicker} ref={drop}>
-        <Streak />
+        <Streak
+          clickStreak={clickStreak}
+          maxStreak={maxStreak}
+          addNoclickSecond={addNoclickSecond}
+          checkIfBoostDisapear={checkIfBoostDisapear}
+        />
         <Statistics />
         <animated.div style={mainCatAnimation}>
           <img
