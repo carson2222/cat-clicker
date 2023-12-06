@@ -1,3 +1,4 @@
+import Streak from "../Streak/Streak";
 import classes from "./_clicker.module.scss";
 import { useCallback, useEffect, useRef } from "react";
 import XpBar from "../XpBar/XpBar";
@@ -21,14 +22,11 @@ function Clicker() {
     itemsToDisplay,
     generateItemsToDisplay,
     autoClickPerSec,
-    clickStreak,
-    reduceStreak,
     boostStreak,
   } = useClicker();
   const { opacityFadeIn, clickAnimation, mainCatAnimation } = useAnimations();
   const catImage = useRef(null);
   const autoClickTimerId = useRef();
-  const streakTimerId = useRef();
 
   ///////////////// D&D //////////////////
   const moveItem = useCallback(
@@ -78,20 +76,10 @@ function Clicker() {
     }
   }, [autoClickPerSec]);
 
-  useEffect(() => {
-    streakTimerId.current = window.setInterval(async () => {
-      reduceStreak();
-    }, 1000);
-    return () => {
-      clearInterval(streakTimerId.current);
-    };
-  }, []);
-
-  useEffect(() => {}, [clickStreak]);
   return (
     <div className={classes.clickerDummy} ref={clickerDummy} draggable={false}>
       <div className={classes.clicker} ref={drop}>
-        <h1>{clickStreak.toFixed(2)}x</h1>
+        <Streak />
         <Statistics />
         <animated.div style={mainCatAnimation}>
           <img
@@ -109,6 +97,7 @@ function Clicker() {
         </animated.div>
         <BonusBox />
         <XpBar />
+
         {itemsToDisplay.map((el) => {
           return <Item key={el.key} data={el}></Item>;
         })}

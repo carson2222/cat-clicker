@@ -1,0 +1,10 @@
+@use "../../sass/abstracts" as *;
+.streak {
+  position: absolute;
+  font-family: "Gasoek One", sans-serif;
+  font-size: 3rem;
+  color: orangered;
+  filter: drop-shadow(3px 3px 4px black);
+  top: 20%;
+  left: 60%;
+}

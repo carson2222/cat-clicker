@@ -43,6 +43,7 @@ export const gameSlice = createSlice({
       state.moneyMultiplier = newData.moneyMultiplier;
       state.xpMultiplier = newData.xpMultiplier;
       state.activeSkin = newData.activeSkin;
+      state.maxStreak = newData.maxStreak;
       state.upgrades = newData.upgrades;
       state.skins = newData.skins;
       state.items = newData.items;

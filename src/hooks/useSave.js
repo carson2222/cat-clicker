@@ -15,6 +15,7 @@ function useSave() {
           moneyMultiplier: game.moneyMultiplier,
           xpMultiplier: game.xpMultiplier,
           activeSkin: game.activeSkin,
+          maxStreak: game.maxStreak,
           items: game.items,
           upgrades: game.upgrades,
           skins: game.skins,

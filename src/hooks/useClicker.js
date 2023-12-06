@@ -9,14 +9,16 @@ function useClicker() {
   const level = useSelector((state) => state.game.level);
   const itemsStatus = useSelector((state) => state.game.items);
   const autoClickPerSec = useSelector((state) => state.game.autoClickPerSec);
+  const maxStreak = useSelector((state) => state.game.maxStreak);
   const [itemsToDisplay, setItemsToDisplay] = useState([]);
   const [clickStreak, setClickStreak] = useState(0);
+  const noclickSecondsCounter = useRef(0);
   const itemsCounter = useRef();
   const clickerDummy = useRef();
 
   function catClick() {
-    dispatch(updateMoney(1 * moneyMultiplier));
-    dispatch(updateXp(1 * xpMultiplier));
+    dispatch(updateMoney(1 * clickStreak > 1 ? moneyMultiplier * clickStreak : moneyMultiplier));
+    dispatch(updateXp(1 * clickStreak > 1 ? xpMultiplier * clickStreak : xpMultiplier));
   }
 
   function calcBonuses() {
@@ -87,18 +89,27 @@ function useClicker() {
   // -----------
   // click Booster
 
-  function reduceStreak(reduceVal = 0.01) {
-    console.log("reduceStreak", clickStreak);
-    if (clickStreak > 0) {
-      setClickStreak((current) => +current - +reduceVal);
+  function addNoclickSecond() {
+    noclickSecondsCounter.current += 1;
+  }
+  function checkIfBoostDisapear() {
+    if (noclickSecondsCounter.current >= 10) {
+      setClickStreak(0);
+      noclickSecondsCounter.current = 0;
     }
   }
-  function boostStreak(boostVal = 0.01) {
-    console.log("boostStreak", clickStreak);
-    setClickStreak((current) => +current + +boostVal);
+  function boostStreak(boostVal = 0.1) {
+    setClickStreak((current) => {
+      if (+current.toFixed(2) + +boostVal.toFixed(2) < +maxStreak.toFixed(2)) {
+        return +current.toFixed(2) + +boostVal.toFixed(2);
+      }
+      return +current.toFixed(2);
+    });
+    noclickSecondsCounter.current = 0;
   }
 
   return {
+    clickStreak,
     catClick,
     calcBonuses,
     updateDisplayItemsPosition,
@@ -107,9 +118,9 @@ function useClicker() {
     clickerDummy,
     itemsToDisplay,
     autoClickPerSec,
-    clickStreak,
-    reduceStreak,
     boostStreak,
+    checkIfBoostDisapear,
+    addNoclickSecond,
   };
 }
 
