@@ -12,8 +12,18 @@ function Shop() {
   const [activeShop, setActiveShop] = useState("items");
   const inactiveUpgradesCounter = useRef(0);
 
-  const { calcItemsPrice, resetPages, buyItem, buyUpgrade, calcItemsLevel, items, upgrades, page, quests } =
-    useShop();
+  const {
+    calcItemsPrice,
+    resetPages,
+    buyItem,
+    buyUpgrade,
+    calcItemsLevel,
+    calcMaxPages,
+    items,
+    upgrades,
+    page,
+    quests,
+  } = useShop();
   const { calcBonuses } = useClicker();
   const { newSkin } = useSkinSelector();
 
@@ -23,12 +33,14 @@ function Shop() {
     calcItemsLevel();
   }, []);
   useEffect(() => {
-    resetPages(activeShop);
+    resetPages();
+    calcMaxPages(activeShop);
   }, [activeShop]);
   useEffect(() => {
     calcBonuses();
     calcItemsPrice();
     newSkin();
+    calcMaxPages(activeShop);
   }, [upgrades, items, quests]);
   useEffect(() => {
     calcItemsLevel();
@@ -61,17 +73,17 @@ function Shop() {
         {activeShop === "upgrades" &&
           // BUG: upgrades wildly disaper after maxxing one
           Object.entries(upgradesData).map(([key, el], i) => {
-            if (i === 1) inactiveUpgradesCounter.current = 0;
+            if (i === 0) inactiveUpgradesCounter.current = 0;
             let thisIndex = i - inactiveUpgradesCounter.current;
+            const upgradesToBuy = el.filter((el) => !upgrades[key][el.id])[0];
+            if (!upgradesToBuy) {
+              inactiveUpgradesCounter.current += 1;
+              return;
+            }
             if (thisIndex < page * 4 && thisIndex >= (page - 1) * 4) {
-              const upgradesToBuy = el.filter((el) => !upgrades[key][el.id])[0];
-              if (!upgradesToBuy) {
-                inactiveUpgradesCounter.current += 1;
-                return;
-              }
               return (
                 <ShopItem
-                  key={key}
+                  key={thisIndex}
                   upgradeId={upgradesToBuy.id}
                   itemId={upgradesToBuy.id}
                   type={upgradesToBuy.type}

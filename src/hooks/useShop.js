@@ -46,13 +46,23 @@ function useShop() {
     });
   }
 
-  function resetPages(type) {
+  function resetPages() {
+    dispatch(setPage(1));
+  }
+  function calcMaxPages(type) {
     let newMaxPages;
     if (type === "items") newMaxPages = Math.ceil(itemsData.length / 4);
-    if (type === "upgrades") newMaxPages = Math.ceil(Object.keys(upgradesData).length / 4);
 
+    if (type === "upgrades") {
+      let availableUpgrades = 0;
+      for (const [key, value] of Object.entries(upgrades)) {
+        if (Object.values(value).some((el) => !el)) {
+          availableUpgrades += 1;
+        }
+      }
+      newMaxPages = Math.ceil(availableUpgrades / 4);
+    }
     dispatch(setMaxPages(newMaxPages));
-    dispatch(setPage(1));
   }
   function changePage(amount) {
     let newPage = +page + amount;
@@ -97,6 +107,7 @@ function useShop() {
     items,
     upgrades,
     page,
+    calcMaxPages,
   };
 }
 

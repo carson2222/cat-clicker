@@ -2,9 +2,7 @@ import React, { useEffect } from "react";
 import { itemsData } from "../../shopData";
 import { useDrag } from "react-dnd";
 import classes from "./_item.module.scss";
-const ItemTypes = {
-  ITEM1: "item1",
-};
+import ItemTypes from "../../ItemType";
 function Item({ data }) {
   const { id, left, top, height, width, img, alt, itemId } = data;
   const [{ isDragging }, drag, preview] = useDrag(

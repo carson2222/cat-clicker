@@ -18,8 +18,8 @@ function useAuth() {
       else {
         notify("success", "Account created", 500);
         dispatch(updateEmail(email));
-
         const { data, error } = await supabase.from("profiles").insert([{ email }]).select();
+
         if (error) throw new Error(error);
         dispatch(loadNewData(data[0]));
         navigate("/game");
@@ -34,21 +34,32 @@ function useAuth() {
       e.preventDefault();
       if (!email || !password) throw new Error("Data is missing");
 
-      const { error } = await supabase.auth.signInWithPassword({
+      const { error: errorSingIn } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
-      if (error) throw new Error(error);
-      else {
-        notify("success", "Logged in", 500);
-        dispatch(updateEmail(email));
-        const { data, error } = await supabase.from("profiles").select().eq("email", email);
+      let thisUserData;
 
-        if (error) throw new Error(error);
-        dispatch(loadNewData(data[0]));
-        navigate("/game");
+      if (errorSingIn) throw new Error(errorSingIn);
+      const { data: dataFetchData, error: errorFetchData } = await supabase
+        .from("profiles")
+        .select()
+        .eq("email", email);
+      if (errorFetchData) throw new Error(errorFetchData);
+      thisUserData = dataFetchData[0];
+      if (!dataFetchData[0]) {
+        const { data: dataCreateProfile, error: errorCreateProfile } = await supabase
+          .from("profiles")
+          .insert([{ email }])
+          .select();
+        if (errorCreateProfile) throw new Error(errorCreateProfile);
+        thisUserData = dataCreateProfile[0];
       }
+      dispatch(updateEmail(email));
+      notify("success", "Logged in", 500);
+      dispatch(loadNewData(thisUserData));
+      navigate("/game");
     } catch (error) {
       notify("error", error.message + "💥");
       console.error(error.message + "💥");

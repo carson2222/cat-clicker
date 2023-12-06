@@ -8,10 +8,9 @@ import useSkinSelector from "../../hooks/useSkinSelector";
 import useClicker from "../../hooks/useClicker";
 import { useDrop } from "react-dnd";
 import Item from "./Item";
-import useAnimations from "./animations";
-const ItemTypes = {
-  ITEM1: "item1",
-};
+import useAnimations from "../../animations";
+import ItemTypes from "../../ItemType";
+
 function Clicker() {
   const { changeSkin, activeSkin } = useSkinSelector();
   const {
@@ -22,10 +21,14 @@ function Clicker() {
     itemsToDisplay,
     generateItemsToDisplay,
     autoClickPerSec,
+    clickStreak,
+    reduceStreak,
+    boostStreak,
   } = useClicker();
   const { opacityFadeIn, clickAnimation, mainCatAnimation } = useAnimations();
   const catImage = useRef(null);
-  const timerId = useRef();
+  const autoClickTimerId = useRef();
+  const streakTimerId = useRef();
 
   ///////////////// D&D //////////////////
   const moveItem = useCallback(
@@ -63,22 +66,32 @@ function Clicker() {
   }, [activeSkin]);
 
   useEffect(() => {
-    // Global timer
+    // autoClickTimer
     if (autoClickPerSec) {
-      timerId.current = window.setInterval(async () => {
+      autoClickTimerId.current = window.setInterval(async () => {
         catClick();
         // autoClickAnimation();
       }, 1000 / autoClickPerSec);
-
       return () => {
-        clearInterval(timerId.current);
+        clearInterval(autoClickTimerId.current);
       };
     }
   }, [autoClickPerSec]);
 
+  useEffect(() => {
+    streakTimerId.current = window.setInterval(async () => {
+      reduceStreak();
+    }, 1000);
+    return () => {
+      clearInterval(streakTimerId.current);
+    };
+  }, []);
+
+  useEffect(() => {}, [clickStreak]);
   return (
     <div className={classes.clickerDummy} ref={clickerDummy} draggable={false}>
       <div className={classes.clicker} ref={drop}>
+        <h1>{clickStreak.toFixed(2)}x</h1>
         <Statistics />
         <animated.div style={mainCatAnimation}>
           <img
@@ -88,6 +101,7 @@ function Clicker() {
             onClick={() => {
               clickAnimation();
               catClick();
+              boostStreak();
             }}
             id="catClick"
             draggable="false"
@@ -96,9 +110,7 @@ function Clicker() {
         <BonusBox />
         <XpBar />
         {itemsToDisplay.map((el) => {
-          return (
-              <Item key={el.key} data={el}></Item>
-          );
+          return <Item key={el.key} data={el}></Item>;
         })}
       </div>
     </div>

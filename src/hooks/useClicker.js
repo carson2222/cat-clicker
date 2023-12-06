@@ -10,7 +10,7 @@ function useClicker() {
   const itemsStatus = useSelector((state) => state.game.items);
   const autoClickPerSec = useSelector((state) => state.game.autoClickPerSec);
   const [itemsToDisplay, setItemsToDisplay] = useState([]);
-
+  const [clickStreak, setClickStreak] = useState(0);
   const itemsCounter = useRef();
   const clickerDummy = useRef();
 
@@ -84,16 +84,32 @@ function useClicker() {
     }
     setItemsToDisplay([...newItemsToDisplay]);
   }
+  // -----------
+  // click Booster
+
+  function reduceStreak(reduceVal = 0.01) {
+    console.log("reduceStreak", clickStreak);
+    if (clickStreak > 0) {
+      setClickStreak((current) => +current - +reduceVal);
+    }
+  }
+  function boostStreak(boostVal = 0.01) {
+    console.log("boostStreak", clickStreak);
+    setClickStreak((current) => +current + +boostVal);
+  }
 
   return {
     catClick,
     calcBonuses,
     updateDisplayItemsPosition,
+    generateItemsToDisplay,
     itemsStatus,
     clickerDummy,
-    generateItemsToDisplay,
     itemsToDisplay,
     autoClickPerSec,
+    clickStreak,
+    reduceStreak,
+    boostStreak,
   };
 }
 
