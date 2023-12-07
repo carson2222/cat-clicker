@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import catWhiteBg from "../images/cat_white-bg.png";
-import ColoredBox from "../components/ColoredBox";
-import { Btn2d } from "../components/Btn2d";
+import ColoredBox from "../components/ColoredBox/ColoredBox";
+import { Btn2d } from "../components/Btn2d/Btn2d";
 import homeClass from "./_home-content.module.scss";
-import showcaseClass from "../components/_showcase.module.scss";
+import showcaseClass from "./_showcase.module.scss";
 import { Link } from "react-router-dom";
 
 export function HomeContent() {
