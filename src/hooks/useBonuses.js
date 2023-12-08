@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import random from "random";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,9 +15,8 @@ function useBonuses() {
   const timerId = useRef();
   const dispatch = useDispatch();
 
-  // Random loot generator
   useEffect(() => {
-    timerId.current = window.setInterval(() => {
+    timerId.current = setInterval(() => {
       const bonusRandom = random.int(0, BONNUS_DROP_CHANCES);
 
       if (bonusRandom === 0) {
@@ -26,7 +26,7 @@ function useBonuses() {
           // Fish
           newBonus = {
             type: "fish",
-            id: Date.now(),
+            id: uuidv4(),
             top: random.int(0, 100),
             left: random.int(0, 100),
             size: random.int(40, 75),
@@ -37,7 +37,7 @@ function useBonuses() {
           // XP
           newBonus = {
             type: "xp",
-            id: Date.now(),
+            id: uuidv4(),
             top: random.int(0, 100),
             left: random.int(0, 100),
             size: random.int(40, 75),
@@ -48,7 +48,7 @@ function useBonuses() {
           // Item
           newBonus = {
             type: "pouch",
-            id: Date.now(),
+            id: uuidv4(),
             top: random.int(0, 100),
             left: random.int(0, 100),
             bonus: "",
@@ -59,35 +59,45 @@ function useBonuses() {
     }, 1000);
 
     return () => clearInterval(timerId.current);
-  }, []);
+  }, [level]);
+
   function hidePopup() {
     setIsPopupVisible(false);
   }
+
   function displayPopup() {
     setIsPopupVisible(true);
   }
 
   function deleteBonus(id) {
-    setActiveBonuses((curr) => curr.filter((el) => el.id !== id));
+    const newActiveBonuses = (curr) => curr.filter((el) => el.id !== id);
+    setActiveBonuses(newActiveBonuses);
   }
+
   function bonusClick(id) {
     const [thisBonus] = activeBonuses.filter((el) => el.id === id);
-    if (thisBonus.type === "xp") {
-      deleteBonus(id);
-      notify("info", `Successfully received ${thisBonus.amount} xp`, 100);
-      dispatch(updateMoneyAndXp({ xp: +thisBonus.amount }));
-    } else if (thisBonus.type === "fish") {
-      deleteBonus(id);
-      notify("info", `Successfully received ${thisBonus.amount} Fish`, 100);
-      dispatch(updateMoneyAndXp({ money: +thisBonus.amount }));
-    } else if (thisBonus.type === "pouch") {
-      deleteBonus(id);
-      notify("info", `Successfully received POUCH`, 100);
-    } else {
-      notify("error", `Unable to get the bonus`, 100);
+    switch (thisBonus.type) {
+      case "xp":
+        deleteBonus(id);
+        notify("info", `Successfully received ${thisBonus.amount} xp`, 100);
+        dispatch(updateMoneyAndXp({ xp: +thisBonus.amount }));
+        break;
+      case "fish":
+        deleteBonus(id);
+        notify("info", `Successfully received ${thisBonus.amount} Fish`, 100);
+        dispatch(updateMoneyAndXp({ money: +thisBonus.amount }));
+        break;
+      case "pouch":
+        deleteBonus(id);
+        notify("info", `Successfully received POUCH`, 100);
+        break;
+      default:
+        notify("error", `Unable to get the bonus`, 100);
+        break;
     }
   }
 
   return { isPopupVisible, hidePopup, displayPopup, activeBonuses, bonusClick };
 }
+
 export default useBonuses;

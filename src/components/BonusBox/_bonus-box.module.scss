@@ -10,17 +10,15 @@
     transform: translate(-50%, -50%);
     cursor: pointer;
     pointer-events: auto;
+    animation: shakeAndGlow infinite reverse 0.5s;
+    &:hover {
+      filter: drop-shadow(0 0 5px black);
+    }
   }
   .pouch {
     width: calc(2vw + 2vh);
     height: auto;
     animation: shakeAndGlow infinite 0.5s;
-    &:hover {
-      filter: drop-shadow(0 0 5px black);
-    }
-  }
-  .item {
-    animation: shakeAndGlow infinite reverse 0.5s;
     &:hover {
       filter: drop-shadow(0 0 5px black);
     }
