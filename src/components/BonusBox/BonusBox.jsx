@@ -1,5 +1,5 @@
 import classes from "./_bonus-box.module.scss";
-import buttonClasses from "../_colored-box.module.scss";
+import buttonClasses from "../ColoredBox/_colored-box.module.scss";
 import pouch from "../../images/pouch.png";
 import { GiFishbone } from "react-icons/gi";
 import { BsStars } from "react-icons/bs";

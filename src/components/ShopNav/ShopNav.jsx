@@ -1,4 +1,4 @@
-import ColoredBox from "../ColoredBox";
+import ColoredBox from "../ColoredBox/ColoredBox";
 import classes from "./_shop-nav.module.scss";
 function ShopNav({ activeShop, setActiveShop }) {
   return (

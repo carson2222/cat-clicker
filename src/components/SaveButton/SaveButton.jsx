@@ -1,5 +1,5 @@
 import React from "react";
-import classes from "../_colored-box.module.scss";
+import classes from "../ColoredBox/_colored-box.module.scss";
 import useSave from "../../hooks/useSave";
 
 const SaveButton = () => {

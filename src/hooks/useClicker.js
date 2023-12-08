@@ -110,9 +110,9 @@ function useClicker() {
 
   function checkIfBoostDisapear() {
     console.log("checkIfBoostDisapear");
-    if (noclickSecondsCounter.current >= 10) {
+    if (noclickSecondsCounter.current >= 5) {
       console.log("reset");
-      setClickStreak(0);
+      setClickStreak(0.9);
       noclickSecondsCounter.current = 0;
     }
   }
