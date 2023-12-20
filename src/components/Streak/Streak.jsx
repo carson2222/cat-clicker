@@ -19,12 +19,12 @@ function Streak({ clickStreak, maxStreak, addNoclickSecond, checkIfBoostDisapear
     if (clickStreak > 1) {
       // filter: drop-shadow(3px 3px 4px black);
       const currentValue = +(((clickStreak - 1) * 100) / (maxStreak - 1) / 100).toFixed(2);
-      const newColor = `rgb(255, ${255 - Math.round(currentValue * 255)}, 0)`;
+      const newColor = `rgb(255, ${255 - Math.round(currentValue * 250)}, 0)`;
       const newFontSize = `clamp(1rem, ${0.9 + currentValue}vh + ${0.9 + currentValue}vw, 4rem)`;
-      // const newDropShadow = `drop-shadow(3px 3px 4px ${rgba(0, 0, 0, currentValue)})`;
+      const newDropShadow = `drop-shadow(2px 2px ${currentValue * 2}px rgba(0, 0, 0, ${currentValue}))`;
       ref.current.style.color = newColor;
       ref.current.style.fontSize = newFontSize;
-      // ref.current.style.filter = newDropShadow;
+      ref.current.style.filter = newDropShadow;
     }
   }, [maxStreak, clickStreak]);
   return (

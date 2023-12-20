@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setBonuses, updateItemPosition, updateMoneyAndXp } from "../features/gameSlice";
 import { itemsData } from "../shopData";
 import { useMemo, useRef, useState } from "react";
+import random from "random";
 function useClicker() {
   const dispatch = useDispatch();
   const moneyMultiplier = useSelector((state) => state.game.moneyMultiplier);
@@ -9,12 +10,14 @@ function useClicker() {
   const level = useSelector((state) => state.game.level);
   const itemsStatus = useSelector((state) => state.game.items);
   const autoClickPerSec = useSelector((state) => state.game.autoClickPerSec);
-  const maxStreak = useSelector((state) => state.game.maxStreak);
   const [itemsToDisplay, setItemsToDisplay] = useState([]);
   const [clickStreak, setClickStreak] = useState(0.9);
   const noclickSecondsCounter = useRef(0);
   const itemsCounter = useRef();
   const clickerDummy = useRef();
+
+  const maxStreak = useSelector((state) => state.game.maxStreak);
+  const streakBoostChance = useSelector((state) => state.game.streakBoostChance);
 
   const itemsDataMap = useMemo(() => {
     const map = {};
@@ -102,16 +105,13 @@ function useClicker() {
       return newItemsToDisplay;
     });
   }
-
+  ////// Streak
   function addNoclickSecond() {
-    console.log("addNoclickSecond");
     noclickSecondsCounter.current += 1;
   }
 
   function checkIfBoostDisapear() {
-    console.log("checkIfBoostDisapear");
     if (noclickSecondsCounter.current >= 5) {
-      console.log("reset");
       setClickStreak(0.9);
       noclickSecondsCounter.current = 0;
     }
@@ -119,8 +119,13 @@ function useClicker() {
 
   function boostStreak(boostVal = 0.01) {
     setClickStreak((current) => {
-      if (current + boostVal < maxStreak) {
+      if (current < 1) {
         return current + boostVal;
+      }
+      if (current + boostVal < maxStreak) {
+        const randomizer = random.int(1, 100);
+        if (randomizer <= streakBoostChance) return current + boostVal;
+        else return current;
       }
       return maxStreak;
     });
