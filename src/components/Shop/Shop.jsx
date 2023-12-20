@@ -53,7 +53,12 @@ function Shop() {
       <div className={classes.shop_main}>
         {activeShop === "items" &&
           itemsData.map((el) => {
-            if (el.id <= page * 4 && el.id > (page - 1) * 4 && el.itemId !== "mainCat") {
+            if (
+              el.id <= page * 4 &&
+              el.id > (page - 1) * 4 &&
+              el.itemId !== "mainCat" &&
+              el.itemId !== "maxStreak"
+            ) {
               const thisItemStatus = items[el.itemId];
 
               return (

@@ -50,9 +50,11 @@ export const gameSlice = createSlice({
       state.items = newData.items;
     },
     setBonuses: (state, action) => {
-      state.moneyMultiplier = action.payload.newMoneyMultiplier;
-      state.xpMultiplier = action.payload.newXpMultiplier;
-      state.autoClickPerSec = action.payload.newCps;
+      const { newMoneyMultiplier, newXpMultiplier, newCps, newMaxStreak } = action.payload;
+      state.moneyMultiplier = newMoneyMultiplier;
+      state.xpMultiplier = newXpMultiplier;
+      state.autoClickPerSec = newCps;
+      state.maxStreak = newMaxStreak;
     },
     updateMoneyAndXp: (state, action) => {
       const { money, xp } = action.payload;

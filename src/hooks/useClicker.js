@@ -28,8 +28,8 @@ function useClicker() {
   }, []);
 
   function catClick() {
-    const money = 1 * clickStreak > 1 ? moneyMultiplier * clickStreak : moneyMultiplier;
-    const xp = 1 * clickStreak > 1 ? xpMultiplier * clickStreak : xpMultiplier;
+    const money = clickStreak > 1 ? moneyMultiplier * clickStreak : moneyMultiplier;
+    const xp = clickStreak > 1 ? xpMultiplier * clickStreak : xpMultiplier;
     dispatch(updateMoneyAndXp({ money, xp }));
   }
 
@@ -37,6 +37,7 @@ function useClicker() {
     let newMoneyMultiplier = 1;
     let newXpMultiplier = 1;
     let newCps = 0;
+    let newMaxStreak = 1;
 
     newMoneyMultiplier += (level - 1) * 0.05;
     newXpMultiplier += (level - 1) * 0.05;
@@ -46,8 +47,9 @@ function useClicker() {
       newMoneyMultiplier += element.cm[thisItemStatus.level] * thisItemStatus.amount;
       newXpMultiplier += element.xpm[thisItemStatus.level] * thisItemStatus.amount;
       newCps += element.cps[thisItemStatus.level] * thisItemStatus.amount;
+      newMaxStreak += element.ms[thisItemStatus.level];
     });
-    dispatch(setBonuses({ newMoneyMultiplier, newXpMultiplier, newCps }));
+    dispatch(setBonuses({ newMoneyMultiplier, newXpMultiplier, newCps, newMaxStreak }));
   }
 
   function updateDisplayItemsPosition(id, left, top, itemId) {
@@ -65,7 +67,7 @@ function useClicker() {
     setItemsToDisplay((prevItemsToDisplay) => {
       const newItemsToDisplay = [...prevItemsToDisplay];
       for (const [itemId, thisItemStatus] of Object.entries(itemsStatus)) {
-        if (itemId !== "mainCat" && thisItemStatus.amount > 0) {
+        if (itemId !== "mainCat" && itemId !== "maxStreak" && thisItemStatus.amount > 0) {
           const thisItemData = itemsDataMap[itemId];
           for (let i = 0; i < thisItemStatus.amount; i++) {
             itemsCounter.current += 1;
