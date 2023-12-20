@@ -40,19 +40,18 @@ function useClicker() {
     let newMaxStreak = 1;
     let newStreakChance = 15;
 
-
     newMoneyMultiplier += (level - 1) * 0.05;
     newXpMultiplier += (level - 1) * 0.05;
 
     itemsData.forEach((element) => {
       const thisItemStatus = itemsStatus[element.itemId];
-      newMoneyMultiplier += element.cm[thisItemStatus.level] * thisItemStatus.amount;
-      newXpMultiplier += element.xpm[thisItemStatus.level] * thisItemStatus.amount;
-      newCps += element.cps[thisItemStatus.level] * thisItemStatus.amount;
-      newMaxStreak += element.ms[thisItemStatus.level];
-      newStreakChance += element.sch[thisItemStatus.level];
-
+      newMoneyMultiplier += element.cm[thisItemStatus.level] * thisItemStatus.amount || 0;
+      newXpMultiplier += element.xpm[thisItemStatus.level] * thisItemStatus.amount || 0;
+      newCps += element.cps[thisItemStatus.level] * thisItemStatus.amount || 0;
+      newMaxStreak += element.ms[thisItemStatus.level] || 0;
+      newStreakChance += element.sch[thisItemStatus.level] || 0;
     });
+
     dispatch(setBonuses({ newMoneyMultiplier, newXpMultiplier, newCps, newMaxStreak, newStreakChance }));
   }
 
@@ -71,8 +70,12 @@ function useClicker() {
     setItemsToDisplay((prevItemsToDisplay) => {
       const newItemsToDisplay = [...prevItemsToDisplay];
       for (const [itemId, thisItemStatus] of Object.entries(itemsStatus)) {
-        if (itemId !== "mainCat" && itemId !== "maxStreak" &&
-        itemId !== "streakChance" && thisItemStatus.amount > 0) {
+        if (
+          itemId !== "mainCat" &&
+          itemId !== "maxStreak" &&
+          itemId !== "streakChance" &&
+          thisItemStatus.amount > 0
+        ) {
           const thisItemData = itemsDataMap[itemId];
           for (let i = 0; i < thisItemStatus.amount; i++) {
             itemsCounter.current += 1;

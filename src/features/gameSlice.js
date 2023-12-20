@@ -56,7 +56,6 @@ export const gameSlice = createSlice({
       state.autoClickPerSec = newCps;
       state.maxStreak = newMaxStreak;
       state.streakChance = newStreakChance;
-
     },
     updateMoneyAndXp: (state, action) => {
       const { money, xp } = action.payload;
@@ -110,6 +109,10 @@ export const gameSlice = createSlice({
     activateSkin: (state, action) => {
       state.skins[action.payload] = true;
     },
+    changeUpgradeAvailableStatus: (state, action) => {
+      const { upgradeId, status } = action.payload;
+      state.upgrades[upgradeId].available = status;
+    },
 
     // TO DELETE, just for tests
     addMoney: (state) => {
@@ -136,5 +139,6 @@ export const {
   activateSkin,
   addItemPosition,
   updateItemPosition,
+  changeUpgradeAvailableStatus,
 } = gameSlice.actions;
 export default gameSlice.reducer;

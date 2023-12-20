@@ -1,13 +1,13 @@
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 import random from "random";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import notify from "../toastify";
+import { updateMoneyAndXp } from "../features/gameSlice";
 const BONNUS_DROP_CHANCES = 100;
 const FISH_CHANCES = 10;
 const XP_CHANCES = 10;
 const POUCH_CHANCES = 1;
-
 function useBonuses() {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [activeBonuses, setActiveBonuses] = useState([]);

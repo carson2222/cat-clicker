@@ -11,6 +11,7 @@ import { useDrop } from "react-dnd";
 import Item from "./Item";
 import useAnimations from "../../animations";
 import ItemTypes from "../../ItemType";
+import useShop from "../../hooks/useShop";
 
 function Clicker() {
   const { changeSkin, activeSkin } = useSkinSelector();
@@ -28,6 +29,7 @@ function Clicker() {
     addNoclickSecond,
     checkIfBoostDisapear,
   } = useClicker();
+  const { upgradeUnlocker } = useShop();
   const { opacityFadeIn, clickAnimation, mainCatAnimation } = useAnimations();
   const catImage = useRef(null);
   const autoClickTimerId = useRef();
@@ -99,6 +101,7 @@ function Clicker() {
               clickAnimation();
               catClick();
               boostStreak();
+              upgradeUnlocker();
             }}
             id="catClick"
             draggable="false"

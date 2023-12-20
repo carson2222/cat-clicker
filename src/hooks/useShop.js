@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   addItemAmount,
   addItemPosition,
+  changeUpgradeAvailableStatus,
   setItemLevel,
   setItemPrice,
   setMaxPages,
@@ -94,8 +95,25 @@ function useShop() {
     } else {
       dispatch(updateMoneyAndXp({ money: -thisUpgradeData.price }));
       dispatch(setUpgradePurchased({ upgradeId, itemId }));
+      dispatch(changeUpgradeAvailableStatus({ upgradeId: itemId, status: false }));
+
       notify("success", "Upgrade successfully purchased 😎", 100);
     }
+  }
+
+  function upgradeUnlocker() {
+    const randomizer = random.int(1, 500);
+    // if (randomizer !== 1) return;
+
+    const upgradeUnlock = random.int(0, itemsData.length - 1);
+    console.log(upgradeUnlock);
+    const thisItemData = itemsData.find((el) => +el.id === upgradeUnlock);
+    console.log(thisItemData);
+    const thisItemStatus = items[thisItemData.itemId];
+    if (thisItemStatus.amount > 0) {
+      dispatch(changeUpgradeAvailableStatus({ upgradeId: thisItemData.itemId, status: true }));
+    }
+    console.log(upgradeUnlock);
   }
   return {
     buyItem,
@@ -108,6 +126,7 @@ function useShop() {
     upgrades,
     page,
     calcMaxPages,
+    upgradeUnlocker,
   };
 }
 

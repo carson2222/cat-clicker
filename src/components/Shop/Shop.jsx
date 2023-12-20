@@ -77,12 +77,11 @@ function Shop() {
             }
           })}
         {activeShop === "upgrades" &&
-          // BUG: upgrades wildly disaper after maxxing one
           Object.entries(upgradesData).map(([key, el], i) => {
             if (i === 0) inactiveUpgradesCounter.current = 0;
             let thisIndex = i - inactiveUpgradesCounter.current;
             const upgradesToBuy = el.filter((el) => !upgrades[key][el.id])[0];
-            if (!upgradesToBuy) {
+            if (!upgradesToBuy || !upgrades[key].available) {
               inactiveUpgradesCounter.current += 1;
               return;
             }
