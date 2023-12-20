@@ -15,7 +15,7 @@ function useSave() {
           moneyMultiplier: game.moneyMultiplier,
           xpMultiplier: game.xpMultiplier,
           maxStreak: game.maxStreak,
-          streakBoostChance: game.streakBoostChance,
+          streakChance: game.streakChance,
           activeSkin: game.activeSkin,
           items: game.items,
           upgrades: game.upgrades,

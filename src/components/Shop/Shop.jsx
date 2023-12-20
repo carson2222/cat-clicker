@@ -57,7 +57,8 @@ function Shop() {
               el.id <= page * 4 &&
               el.id > (page - 1) * 4 &&
               el.itemId !== "mainCat" &&
-              el.itemId !== "maxStreak"
+              el.itemId !== "maxStreak" &&
+              el.itemId !== "streakChance"
             ) {
               const thisItemStatus = items[el.itemId];
 

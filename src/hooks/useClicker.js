@@ -17,7 +17,7 @@ function useClicker() {
   const clickerDummy = useRef();
 
   const maxStreak = useSelector((state) => state.game.maxStreak);
-  const streakBoostChance = useSelector((state) => state.game.streakBoostChance);
+  const streakChance = useSelector((state) => state.game.streakChance);
 
   const itemsDataMap = useMemo(() => {
     const map = {};
@@ -38,6 +38,8 @@ function useClicker() {
     let newXpMultiplier = 1;
     let newCps = 0;
     let newMaxStreak = 1;
+    let newStreakChance = 15;
+
 
     newMoneyMultiplier += (level - 1) * 0.05;
     newXpMultiplier += (level - 1) * 0.05;
@@ -48,8 +50,10 @@ function useClicker() {
       newXpMultiplier += element.xpm[thisItemStatus.level] * thisItemStatus.amount;
       newCps += element.cps[thisItemStatus.level] * thisItemStatus.amount;
       newMaxStreak += element.ms[thisItemStatus.level];
+      newStreakChance += element.sch[thisItemStatus.level];
+
     });
-    dispatch(setBonuses({ newMoneyMultiplier, newXpMultiplier, newCps, newMaxStreak }));
+    dispatch(setBonuses({ newMoneyMultiplier, newXpMultiplier, newCps, newMaxStreak, newStreakChance }));
   }
 
   function updateDisplayItemsPosition(id, left, top, itemId) {
@@ -67,7 +71,8 @@ function useClicker() {
     setItemsToDisplay((prevItemsToDisplay) => {
       const newItemsToDisplay = [...prevItemsToDisplay];
       for (const [itemId, thisItemStatus] of Object.entries(itemsStatus)) {
-        if (itemId !== "mainCat" && itemId !== "maxStreak" && thisItemStatus.amount > 0) {
+        if (itemId !== "mainCat" && itemId !== "maxStreak" &&
+        itemId !== "streakChance" && thisItemStatus.amount > 0) {
           const thisItemData = itemsDataMap[itemId];
           for (let i = 0; i < thisItemStatus.amount; i++) {
             itemsCounter.current += 1;
@@ -126,7 +131,7 @@ function useClicker() {
       }
       if (current + boostVal < maxStreak) {
         const randomizer = random.int(1, 100);
-        if (randomizer <= streakBoostChance) return current + boostVal;
+        if (randomizer <= streakChance) return current + boostVal;
         else return current;
       }
       return maxStreak;

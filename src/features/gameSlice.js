@@ -43,18 +43,20 @@ export const gameSlice = createSlice({
       state.moneyMultiplier = newData.moneyMultiplier;
       state.xpMultiplier = newData.xpMultiplier;
       state.maxStreak = newData.maxStreak;
-      state.streakBoostChance = newData.streakBoostChance;
+      state.streakChance = newData.streakChance;
       state.activeSkin = newData.activeSkin;
       state.upgrades = newData.upgrades;
       state.skins = newData.skins;
       state.items = newData.items;
     },
     setBonuses: (state, action) => {
-      const { newMoneyMultiplier, newXpMultiplier, newCps, newMaxStreak } = action.payload;
+      const { newMoneyMultiplier, newXpMultiplier, newCps, newMaxStreak, newStreakChance } = action.payload;
       state.moneyMultiplier = newMoneyMultiplier;
       state.xpMultiplier = newXpMultiplier;
       state.autoClickPerSec = newCps;
       state.maxStreak = newMaxStreak;
+      state.streakChance = newStreakChance;
+
     },
     updateMoneyAndXp: (state, action) => {
       const { money, xp } = action.payload;
