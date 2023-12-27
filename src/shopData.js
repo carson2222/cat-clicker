@@ -148,9 +148,8 @@ const itemsData = [
     cm: [0, 0, 0, 0],
     xpm: [0, 0, 0, 0],
     cps: [0, 0, 0, 0],
-    ms: [0, 0.15, 0.3, 0.4, 0.5, 0.7, 1],
+    ms: [0.05, 0.15, 0.3, 0.4, 0.5, 0.7, 1],
     sch: [0, 0, 0, 0, 0, 0, 0],
-
   },
   {
     id: "8",
@@ -373,7 +372,8 @@ const upgradesData = {
       title: "Max Streak 3",
       description: "Increase your click earning by keeping Streak",
       price: 1000,
-      purchased: false,  },
+      purchased: false,
+    },
     {
       id: "4",
       type: "upgrades",

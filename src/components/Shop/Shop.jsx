@@ -23,6 +23,7 @@ function Shop() {
     upgrades,
     page,
     quests,
+    maxPages,
   } = useShop();
   const { calcBonuses } = useClicker();
   const { newSkin } = useSkinSelector();
@@ -101,6 +102,9 @@ function Shop() {
               );
             }
           })}
+        {activeShop === "upgrades" && maxPages === 0 && (
+          <h1 style={{ textAlign: "center" }}>No upgrades available</h1>
+        )}
         {activeShop === "quests" && <h1>Soon...</h1>}
       </div>
       <Pagination />

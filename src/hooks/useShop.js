@@ -57,11 +57,13 @@ function useShop() {
     if (type === "upgrades") {
       let availableUpgrades = 0;
       for (const [key, value] of Object.entries(upgrades)) {
-        if (Object.values(value).some((el) => !el)) {
+        console.log(value);
+        if (Object.values(value).available) {
           availableUpgrades += 1;
         }
       }
       newMaxPages = Math.ceil(availableUpgrades / 4);
+      console.log(newMaxPages);
     }
     dispatch(setMaxPages(newMaxPages));
   }
@@ -102,15 +104,14 @@ function useShop() {
   }
 
   function upgradeUnlocker() {
-    const randomizer = random.int(1, 500);
-    // if (randomizer !== 1) return;
+    const randomizer = random.int(1, 100);
 
+    if (randomizer !== 1) return;
     const upgradeUnlock = random.int(0, itemsData.length - 1);
-    console.log(upgradeUnlock);
     const thisItemData = itemsData.find((el) => +el.id === upgradeUnlock);
-    console.log(thisItemData);
     const thisItemStatus = items[thisItemData.itemId];
     if (thisItemStatus.amount > 0) {
+      notify("default", "📈 You've just unlocked a new upgrade!", 5000);
       dispatch(changeUpgradeAvailableStatus({ upgradeId: thisItemData.itemId, status: true }));
     }
     console.log(upgradeUnlock);
@@ -127,6 +128,7 @@ function useShop() {
     page,
     calcMaxPages,
     upgradeUnlocker,
+    maxPages,
   };
 }
 

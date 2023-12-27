@@ -122,13 +122,14 @@ function useClicker() {
 
   function checkIfBoostDisapear() {
     if (noclickSecondsCounter.current >= 5) {
-      setClickStreak(0.9);
+      setClickStreak(0);
       noclickSecondsCounter.current = 0;
     }
   }
 
   function boostStreak(boostVal = 0.01) {
     setClickStreak((current) => {
+      console.log(current);
       if (current < 1) {
         return current + boostVal;
       }
