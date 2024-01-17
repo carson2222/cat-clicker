@@ -11,15 +11,15 @@
 
 .authForm {
   background: $main-white;
-  padding: 5%;
-
   border: $medium-border-black;
   width: 40%;
-  height: 40%;
+  height: max(45%, 20rem);
+  padding: 1rem 0;
   display: flex;
   flex-direction: column;
-  gap: 5%;
+  align-items: center;
   justify-content: center;
+  gap: 5%;
   *:first-child {
     margin-top: 0;
   }
@@ -36,11 +36,19 @@
     justify-content: center;
     gap: 5%;
     margin-top: 3%;
-
+    width: 90%;
+    @media (max-width: 1000px ) {
+      flex-direction: column;
+      gap: 15%;
+      flex: 1;
+    
+      
+    }
     & .input {
       position: relative;
       //   margin-top: 5%;
       width: 100%;
+      
       &_label {
         position: absolute;
         left: 0;
@@ -83,16 +91,18 @@
 
   & .button_group {
     margin-top: 3%;
-
+    display: flex;
+    flex: 0;
     & button {
       color: currentColor;
-      padding: 0.5rem 1rem;
+      padding: 1vh 1vw;
       border: $thin-border-black;
       border-radius: 0.5rem;
       font-weight: 500;
       font-family: "Caprasimo", cursive;
       font-size: 1rem;
       margin: 1%;
+      white-space: nowrap;
       cursor: pointer;
       @include button-hover-up;
       @include button-click;
